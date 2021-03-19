@@ -16,7 +16,26 @@ class EventList extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              child: Text(""),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(50)
+                    ),
+                    child: Image.asset(
+                      "assets/profile.png",
+                      height: 60,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10.0),
+                    child: Text("mh@mobiler", style: TextStyle(color: Colors.white),),
+                  )
+
+                ],
+              ),
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
