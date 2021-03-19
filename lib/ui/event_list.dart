@@ -21,9 +21,7 @@ class EventList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(50)
-                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
                     child: Image.asset(
                       "assets/profile.png",
                       height: 60,
@@ -31,9 +29,11 @@ class EventList extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 10.0),
-                    child: Text("mh@mobiler", style: TextStyle(color: Colors.white),),
+                    child: Text(
+                      "mh@mobiler",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   )
-
                 ],
               ),
               decoration: BoxDecoration(
@@ -51,10 +51,13 @@ class EventList extends StatelessWidget {
             ListTile(
               title: Text("ログアウト"),
               onTap: () {
-                Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (context) {
-                  return Home();
-                }), (_) => false);
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, _, __) => Home(),
+                    transitionDuration: Duration(seconds: 0),
+                  ),
+                );
               },
             )
           ],
