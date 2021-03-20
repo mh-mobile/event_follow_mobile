@@ -1,5 +1,6 @@
 import 'package:event_follow/ui/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'home.dart';
 
@@ -252,13 +253,18 @@ class EventCard extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.only(right: 5.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    child: Image.asset(
-                      "assets/profile.png",
-                      height: 30,
+                  child: GestureDetector(
+                    onTap: () {
+                      launch("https://twitter.com/mh_mobiler");
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      child: Image.asset(
+                        "assets/profile.png",
+                        height: 30,
+                      ),
                     ),
-                  ),
+                  )
                 ),
                 Container(
                   margin: const EdgeInsets.only(right: 5.0),
