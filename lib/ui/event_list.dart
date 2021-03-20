@@ -235,20 +235,89 @@ class EventCard extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 5.0),
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: const Color(0xfff0f1f5),
-                    border: Border.all(
-                      color: Color(0xffc1c1c1),
-                      width: 1,
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          height: 800,
+                          color: Colors.white,
+                          child: ListView.separated(
+                            itemCount: 20,
+                            separatorBuilder: (context, index) {
+                              return Divider(
+                                color: Colors.black12,
+                                height: 1,
+                              );
+                            },
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.all(Radius.circular(50)),
+                                                child: Image.asset(
+                                                  "assets/profile.png",
+                                                  height: 30,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 8,
+                                      child: Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("mh_mobile", style: TextStyle(color: Colors.blue[800], fontSize: 12)),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text("RT: イベントを開催します", style: TextStyle(fontSize: 12),),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text("2021/03/20 12:22", style: TextStyle(color: Colors.grey),),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                          ),
+                        );
+                      }
+                    );
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 5.0),
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: const Color(0xfff0f1f5),
+                      border: Border.all(
+                        color: Color(0xffc1c1c1),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Center(
-                    child: Text("7"),
+                    child: Center(
+                      child: Text("7"),
+                    ),
                   ),
                 ),
                 Container(
