@@ -22,17 +22,20 @@ class EventList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    child: Image.asset(
-                      "assets/profile.png",
-                      height: 60,
-                    ),
-                  ),
+                  SizedBox(
+                    height: 60,
+                    child: Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          firebaseAuth.currentUser!.photoURL!,
+                          fit: BoxFit.cover,
+                        )),
+                    )),
                   Container(
                     margin: EdgeInsets.only(top: 10.0),
                     child: Text(
-                      "mh@mobiler",
+                      firebaseAuth.currentUser!.displayName!,
                       style: TextStyle(color: Colors.white),
                     ),
                   )
