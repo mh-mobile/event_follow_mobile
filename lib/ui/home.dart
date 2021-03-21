@@ -1,3 +1,4 @@
+import 'package:event_follow/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -53,6 +54,7 @@ class _HomeState extends State<Home> {
                     final sessionApiResults =
                         await requestSessionApi(request: request);
                     if (sessionApiResults.status == "OK") {
+                      storage.write(key: "jwt_token", value: idToken!);
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
                         return EventList();
