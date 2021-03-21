@@ -20,6 +20,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +31,7 @@ class _HomeState extends State<Home> {
       body: Container(
         child: Column(
           children: [
-            FlatButton(
+            !isLoading ? FlatButton(
               child: const Text("Twitterでログイン"),
               onPressed: () async {
                 final twitterLogin = TwitterLogin(
@@ -41,6 +43,9 @@ class _HomeState extends State<Home> {
                 final authResult = await twitterLogin.login();
                 switch (authResult.status) {
                   case TwitterLoginStatus.loggedIn:
+                    setState(() {
+                      isLoading = true;
+                    });
                     final credential = TwitterAuthProvider.credential(
                         accessToken: authResult.authToken,
                         secret: authResult.authTokenSecret);
@@ -69,8 +74,11 @@ class _HomeState extends State<Home> {
                   case TwitterLoginStatus.error:
                     break;
                 }
+                setState(() {
+                  isLoading = false;
+                });
               },
-            ),
+            ) : CircularProgressIndicator(),
             RichText(
                 text: TextSpan(children: [
               TextSpan(
