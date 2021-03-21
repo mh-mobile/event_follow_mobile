@@ -23,15 +23,15 @@ class EventList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 60,
-                    child: Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.network(
-                          firebaseAuth.currentUser!.photoURL!,
-                          fit: BoxFit.cover,
-                        )),
-                    )),
+                      height: 60,
+                      child: Container(
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.network(
+                              firebaseAuth.currentUser!.photoURL!,
+                              fit: BoxFit.cover,
+                            )),
+                      )),
                   Container(
                     margin: EdgeInsets.only(top: 10.0),
                     child: Text(
@@ -152,15 +152,13 @@ class EventCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text("3/20",
-                                style: TextStyle(
-                                  fontSize: 16.0
-                                ),
+                              Text(
+                                "3/20",
+                                style: TextStyle(fontSize: 16.0),
                               ),
-                              Text("開催",
-                                style: TextStyle(
-                                  fontSize: 12.0
-                                ),
+                              Text(
+                                "開催",
+                                style: TextStyle(fontSize: 12.0),
                               )
                             ],
                           ),
@@ -219,7 +217,8 @@ class EventCard extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Container(
-                                    child: Text("概要 Hirakata.rbは大阪府枚方市やその周辺の人々が集まる、朝活スタイルのRubyコミュニティです。（「マイカタ」ちゃいます、「ひらかた」です） 地域コミュニティですが、オンラインで開催するため世界のどこからでも参加できます。「初心者にとって参加ハードルが日本一低いRubyコミュニティ」を目指しています！ RubyやRails、その他周辺知識の勉強を目的としています。ホットな話題を議論したり雑談したりというよりは、質問しあったり、手を動かす場所にしたいです。 こんな人にオススメ Rub",
+                                    child: Text(
+                                      "概要 Hirakata.rbは大阪府枚方市やその周辺の人々が集まる、朝活スタイルのRubyコミュニティです。（「マイカタ」ちゃいます、「ひらかた」です） 地域コミュニティですが、オンラインで開催するため世界のどこからでも参加できます。「初心者にとって参加ハードルが日本一低いRubyコミュニティ」を目指しています！ RubyやRails、その他周辺知識の勉強を目的としています。ホットな話題を議論したり雑談したりというよりは、質問しあったり、手を動かす場所にしたいです。 こんな人にオススメ Rub",
                                       style: TextStyle(
                                         fontSize: 11,
                                       ),
@@ -245,70 +244,85 @@ class EventCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          height: 800,
-                          color: Colors.white,
-                          child: ListView.separated(
-                            itemCount: 20,
-                            separatorBuilder: (context, index) {
-                              return Divider(
-                                color: Colors.black12,
-                                height: 1,
-                              );
-                            },
-                            itemBuilder: (context, index) {
-                              return Container(
-                                margin: EdgeInsets.only(top: 5, bottom: 5, right: 10),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.all(Radius.circular(50)),
-                                                child: Image.asset(
-                                                  "assets/profile.png",
-                                                  height: 30,
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            height: 800,
+                            color: Colors.white,
+                            child: ListView.separated(
+                                itemCount: 20,
+                                separatorBuilder: (context, index) {
+                                  return Divider(
+                                    color: Colors.black12,
+                                    height: 1,
+                                  );
+                                },
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(
+                                        top: 5, bottom: 5, right: 10),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                50)),
+                                                    child: Image.asset(
+                                                      "assets/profile.png",
+                                                      height: 30,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
+                                        Expanded(
+                                          flex: 8,
+                                          child: Container(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text("mh_mobile",
+                                                    style: TextStyle(
+                                                        color: Colors.blue[800],
+                                                        fontSize: 12)),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  "RT: イベントを開催します",
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  "2021/03/20 12:22",
+                                                  style: TextStyle(
+                                                      color: Colors.grey),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    Expanded(
-                                      flex: 8,
-                                      child: Container(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text("mh_mobile", style: TextStyle(color: Colors.blue[800], fontSize: 12)),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text("RT: イベントを開催します", style: TextStyle(fontSize: 12),),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text("2021/03/20 12:22", style: TextStyle(color: Colors.grey),),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              );
-                            }
-                          ),
-                        );
-                      }
-                    );
+                                  );
+                                }),
+                          );
+                        });
                   },
                   child: Container(
                     margin: const EdgeInsets.only(right: 5.0),
@@ -328,20 +342,19 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(right: 5.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      launch("https://twitter.com/mh_mobiler");
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                      child: Image.asset(
-                        "assets/profile.png",
-                        height: 30,
+                    margin: const EdgeInsets.only(right: 5.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        launch("https://twitter.com/mh_mobiler");
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        child: Image.asset(
+                          "assets/profile.png",
+                          height: 30,
+                        ),
                       ),
-                    ),
-                  )
-                ),
+                    )),
                 Container(
                   margin: const EdgeInsets.only(right: 5.0),
                   child: ClipRRect(
