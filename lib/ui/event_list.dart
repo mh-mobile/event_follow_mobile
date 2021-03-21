@@ -2,6 +2,7 @@ import 'package:event_follow/main.dart';
 import 'package:event_follow/ui/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'home.dart';
 
@@ -53,6 +54,7 @@ class EventList extends StatelessWidget {
             ListTile(
               title: Text("ログアウト"),
               onTap: () {
+                firebaseAuth.signOut();
                 storage.delete(key: "jwt_token");
                 Navigator.pushReplacement(
                   context,

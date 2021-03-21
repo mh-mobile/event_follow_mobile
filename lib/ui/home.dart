@@ -1,5 +1,6 @@
 import 'package:event_follow/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:twitter_login/twitter_login.dart';
 import 'dart:convert';
 import 'event_list.dart';
+import 'package:event_follow/main.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,8 +44,7 @@ class _HomeState extends State<Home> {
                     final credential = TwitterAuthProvider.credential(
                         accessToken: authResult.authToken,
                         secret: authResult.authTokenSecret);
-                    final firebaseCredential = await FirebaseAuth.instance
-                        .signInWithCredential(credential);
+                    final firebaseCredential = await firebaseAuth.signInWithCredential(credential);
 
                     final idToken = await firebaseCredential.user?.getIdToken();
 
