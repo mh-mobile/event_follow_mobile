@@ -1,5 +1,6 @@
 import 'package:event_follow/main.dart';
 import 'package:event_follow/repository/event_list_repository.dart';
+import 'package:event_follow/repository/following_tweets_repository.dart';
 import 'package:event_follow/repository/friendships_repository.dart';
 import 'package:event_follow/ui/settings.dart';
 import 'package:flutter/material.dart';
@@ -133,8 +134,11 @@ class EventCard extends StatelessWidget {
   final Extra _extra;
   final String _jwtToken;
   final FriendshipsRepository _friendshipsRepository;
+  final FollowingTweetsRepository _followingTweetsRepository;
 
-  EventCard(this._event, this._extra, this._jwtToken): _friendshipsRepository = FriendshipsRepository(jwtToken: _jwtToken);
+  EventCard(this._event, this._extra, this._jwtToken):
+        _friendshipsRepository = FriendshipsRepository(jwtToken: _jwtToken),
+        _followingTweetsRepository = FollowingTweetsRepository(jwtToken: _jwtToken);
 
   @override
   Widget build(BuildContext context) {
@@ -265,78 +269,111 @@ class EventCard extends StatelessWidget {
                           return Container(
                             height: 800,
                             color: Colors.white,
-                            child: ListView.separated(
-                                itemCount: 20,
-                                separatorBuilder: (context, index) {
-                                  return Divider(
-                                    color: Colors.black12,
-                                    height: 1,
+                            child: FutureBuilder(
+                              future: _followingTweetsRepository.requestFollowingTweetsApi(request: FollowingTweetsApiRequest(eventId: this._event.id.toString())),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
                                   );
-                                },
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    margin: EdgeInsets.only(
-                                        top: 5, bottom: 5, right: 10),
-                                    child: Row(
-                                      crossAxisAlignment:
+                                }
+
+                                if (snapshot.error != null) {
+                                  return Center(
+                                    child: Text("エラーが発生しました"),
+                                  );
+                                }
+
+                                final results = snapshot.data! as FollowingTweetsApiResults;
+                                final tweets = results.tweets;
+
+                                return ListView.separated(
+                                    itemCount: tweets.length,
+                                    separatorBuilder: (context, index) {
+                                      return Divider(
+                                        color: Colors.black12,
+                                        height: 1,
+                                      );
+                                    },
+                                    itemBuilder: (context, index) {
+                                      final tweet = tweets[index];
+                                      return Container(
+                                        margin: EdgeInsets.only(
+                                            top: 5, bottom: 5, right: 10),
+                                        child: Row(
+                                          crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  child: ClipRRect(
-                                                    borderRadius:
+                                          children: [
+                                            Expanded(
+                                              flex: 2,
+                                              child: Container(
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      child: ClipRRect(
+                                                        borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
                                                                 50)),
-                                                    child: Image.asset(
-                                                      "assets/profile.png",
-                                                      height: 30,
+                                                        child: Image.network(
+                                                          tweet.user.profileImage,
+                                                          height: 30,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
+                                                  ],
                                                 ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 8,
-                                          child: Container(
-                                            child: Column(
-                                              crossAxisAlignment:
+                                            Expanded(
+                                              flex: 8,
+                                              child: Container(
+                                                child: Column(
+                                                  crossAxisAlignment:
                                                   CrossAxisAlignment.start,
-                                              children: [
-                                                Text("mh_mobile",
-                                                    style: TextStyle(
-                                                        color: Colors.blue[800],
-                                                        fontSize: 12)),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Text(
-                                                  "RT: イベントを開催します",
-                                                  style:
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Text(tweet.user.name,
+                                                            style: TextStyle(
+                                                                color: Colors.blue[800],
+                                                                fontSize: 12)),
+                                                        Text("@${tweet.user.screenName}",
+                                                            style: TextStyle(
+                                                                color: Colors.grey,
+                                                                fontSize: 12)),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                      tweet.text,
+                                                      style:
                                                       TextStyle(fontSize: 12),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                      tweet.tweetedAt.toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.grey),
+                                                    ),
+                                                  ],
                                                 ),
-                                                SizedBox(
-                                                  height: 5,
-                                                ),
-                                                Text(
-                                                  "2021/03/20 12:22",
-                                                  style: TextStyle(
-                                                      color: Colors.grey),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              }, 
+                            ),
+                            
+                            
+                            
+
                           );
                         });
                   },
