@@ -1,5 +1,6 @@
 import 'package:event_follow/main.dart';
 import 'package:event_follow/repository/event_list_repository.dart';
+import 'package:event_follow/repository/friendships_repository.dart';
 import 'package:event_follow/ui/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -109,7 +110,7 @@ class _EventListViewState extends State<EventListView> {
       _cardList.addAll(results.data.map((datum) {
         final event = datum.event;
         final extra = datum.extra;
-        return EventCard(event, extra);
+        return EventCard(event, extra, idToken!);
       }));
     });
   }
@@ -130,8 +131,10 @@ class _EventListViewState extends State<EventListView> {
 class EventCard extends StatelessWidget {
   final Event _event;
   final Extra _extra;
+  final String _jwtToken;
+  final FriendshipsRepository _friendshipsRepository;
 
-  EventCard(this._event, this._extra);
+  EventCard(this._event, this._extra, this._jwtToken): _friendshipsRepository = FriendshipsRepository(jwtToken: _jwtToken);
 
   @override
   Widget build(BuildContext context) {
@@ -354,50 +357,42 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                    margin: const EdgeInsets.only(right: 5.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        launch("https://twitter.com/mh_mobiler");
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(50)),
-                        child: Image.asset(
-                          "assets/profile.png",
-                          height: 30,
-                        ),
-                      ),
-                    )),
-                Container(
-                  margin: const EdgeInsets.only(right: 5.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    child: Image.asset(
-                      "assets/profile.png",
-                      height: 30,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 5.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    child: Image.asset(
-                      "assets/profile.png",
-                      height: 30,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 5.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    child: Image.asset(
-                      "assets/profile.png",
-                      height: 30,
-                    ),
-                  ),
-                ),
+
+                FutureBuilder(
+                  future: _friendshipsRepository.requestFriendshipsApi(request: FriendshipsApiRequest(userIds: this._extra.userIds)),
+                  builder: (context, snapshot) {
+
+                    if (!snapshot.hasData) {
+                      return SizedBox.shrink();
+                    }
+
+                    if (snapshot.data != "") {
+                      final friendshipsApiResults = snapshot.data! as FriendshipsApiResults;
+                      return Row(
+                        children: friendshipsApiResults.friends.map((friend) {
+                          return Container(
+                              margin: const EdgeInsets.only(right: 5.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  launch("https://twitter.com/${friend.screenName}");
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                                  child: Image.network(
+                                    friend.profileImage,
+                                    height: 30,
+                                  ),
+                                ),
+                              ));
+                        }).toList(),
+                      );
+                    } else {
+                      return SizedBox.shrink();
+                    }
+                  },
+                ) ,
+
+
               ],
             ),
           )
