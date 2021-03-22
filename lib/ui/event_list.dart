@@ -1,4 +1,5 @@
 import 'package:event_follow/main.dart';
+import 'package:event_follow/repository/event_list_repository.dart';
 import 'package:event_follow/ui/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -90,14 +91,27 @@ class _EventListViewState extends State<EventListView> {
 
   @override
   void initState() {
-    _cardList.add(EventCard(
-        "イベント_1イベント_1イベント_1イベント_1イベント_1", "概要1", "https://example.com"));
-    _cardList.add(EventCard("イベント_2", "概要2", "https://example.com"));
-    _cardList.add(EventCard("イベント_3", "概要3", "https://example.com"));
-    _cardList.add(EventCard("イベント_4", "概要4", "https://example.com"));
-    _cardList.add(EventCard("イベント_5", "概要5", "https://example.com"));
-    _cardList.add(EventCard("イベント_6", "概要6", "https://example.com"));
     super.initState();
+    initCardList();
+  }
+
+  void initCardList() async {
+    final idToken = await firebaseAuth.currentUser?.getIdToken();
+    final eventListRepository = EventListRepository(jwtToken: idToken);
+    final eventListApiRequest = EventListApiRequest(
+        pageId: "1",
+        sort: "friends_number_order",
+        time: "past_6_days",
+        friends: "five_or_more_friends"
+    );
+    final results = await eventListRepository.requestEventListApi(request: eventListApiRequest);
+    setState(() {
+      _cardList.addAll(results.data.map((datum) {
+        final event = datum.event;
+        final extra = datum.extra;
+        return EventCard(event, extra);
+      }));
+    });
   }
 
   @override
@@ -114,11 +128,10 @@ class _EventListViewState extends State<EventListView> {
 }
 
 class EventCard extends StatelessWidget {
-  final String _name;
-  final String _description;
-  final String _url;
+  final Event _event;
+  final Extra _extra;
 
-  EventCard(this._name, this._description, this._url);
+  EventCard(this._event, this._extra);
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +201,7 @@ class EventCard extends StatelessWidget {
                                   Expanded(
                                       flex: 8,
                                       child: Container(
-                                        child: Text(_name),
+                                        child: Text(_event.title),
                                       )),
                                   Expanded(
                                       flex: 2,
@@ -198,8 +211,8 @@ class EventCard extends StatelessWidget {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              child: Image.asset(
-                                                "assets/profile.png",
+                                              child: Image.network(
+                                                _event.banner,
                                                 height: 50,
                                               ),
                                             ),
@@ -218,7 +231,7 @@ class EventCard extends StatelessWidget {
                                 Expanded(
                                   child: Container(
                                     child: Text(
-                                      "概要 Hirakata.rbは大阪府枚方市やその周辺の人々が集まる、朝活スタイルのRubyコミュニティです。（「マイカタ」ちゃいます、「ひらかた」です） 地域コミュニティですが、オンラインで開催するため世界のどこからでも参加できます。「初心者にとって参加ハードルが日本一低いRubyコミュニティ」を目指しています！ RubyやRails、その他周辺知識の勉強を目的としています。ホットな話題を議論したり雑談したりというよりは、質問しあったり、手を動かす場所にしたいです。 こんな人にオススメ Rub",
+                                      _event.description,
                                       style: TextStyle(
                                         fontSize: 11,
                                       ),
@@ -337,7 +350,7 @@ class EventCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Center(
-                      child: Text("7"),
+                      child: Text("${_extra.friendsNumber}"),
                     ),
                   ),
                 ),
