@@ -148,327 +148,332 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            child: IntrinsicHeight(
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 5.0),
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: const Color(0xfff0f1f5),
-                              border: Border.all(
-                                color: Color(0xffc1c1c1),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  _event.startedAt.convertToEventDateFormat(),
-                                  style: TextStyle(fontSize: 16.0),
+      child: InkWell(
+        onTap: () {
+          launch(_event.url);
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              child: IntrinsicHeight(
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 5.0),
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: const Color(0xfff0f1f5),
+                                border: Border.all(
+                                  color: Color(0xffc1c1c1),
+                                  width: 1,
                                 ),
-                                Text(
-                                  "開催",
-                                  style: TextStyle(fontSize: 12.0),
-                                )
-                              ],
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    _event.startedAt.convertToEventDateFormat(),
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                  Text(
+                                    "開催",
+                                    style: TextStyle(fontSize: 12.0),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                            child: Image.asset(
-                              "assets/connpass_logo.png",
-                              height: 25,
+                            Container(
+                              child: Image.asset(
+                                "assets/connpass_logo.png",
+                                height: 25,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 8,
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      child: Column(
-                        children: [
-                          Expanded(
-                              flex: 3,
+                    Expanded(
+                      flex: 8,
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        child: Column(
+                          children: [
+                            Expanded(
+                                flex: 3,
+                                child: Container(
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                          flex: 8,
+                                          child: Container(
+                                            child: Text(_event.title, style: TextStyle(color: Colors.blue[800]),),
+                                          )),
+                                      Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  child: Image.network(
+                                                    _event.banner,
+                                                    height: 50,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ))
+                                    ],
+                                  ),
+                                )),
+                            Expanded(
+                              flex: 7,
                               child: Container(
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Expanded(
-                                        flex: 8,
-                                        child: Container(
-                                          child: Text(_event.title),
-                                        )),
-                                    Expanded(
-                                        flex: 2,
-                                        child: Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                child: Image.network(
-                                                  _event.banner,
-                                                  height: 50,
-                                                ),
-                                              ),
-                                            ],
+                                      child: Container(
+                                        child: Text(
+                                          _event.description
+                                              .removeAllHtmlTags()
+                                              .stripEventDescription(),
+                                          style: TextStyle(
+                                            fontSize: 11,
                                           ),
-                                        ))
-                                  ],
-                                ),
-                              )),
-                          Expanded(
-                            flex: 7,
-                            child: Container(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      child: Text(
-                                        _event.description
-                                            .removeAllHtmlTags()
-                                            .stripEventDescription(),
-                                        style: TextStyle(
-                                          fontSize: 11,
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return Container(
-                            constraints:
-                                BoxConstraints(minHeight: 100, maxHeight: 600),
-                            color: Colors.white,
-                            child: FutureBuilder(
-                              future: _followingTweetsRepository
-                                  .requestFollowingTweetsApi(
-                                      request: FollowingTweetsApiRequest(
-                                          eventId: this._event.id.toString())),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
+            Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                              constraints:
+                                  BoxConstraints(minHeight: 100, maxHeight: 600),
+                              color: Colors.white,
+                              child: FutureBuilder(
+                                future: _followingTweetsRepository
+                                    .requestFollowingTweetsApi(
+                                        request: FollowingTweetsApiRequest(
+                                            eventId: this._event.id.toString())),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
 
-                                if (snapshot.error != null) {
-                                  return Center(
-                                    child: Text("エラーが発生しました"),
-                                  );
-                                }
+                                  if (snapshot.error != null) {
+                                    return Center(
+                                      child: Text("エラーが発生しました"),
+                                    );
+                                  }
 
-                                final results =
-                                    snapshot.data! as FollowingTweetsApiResults;
-                                final tweets = results.tweets;
+                                  final results =
+                                      snapshot.data! as FollowingTweetsApiResults;
+                                  final tweets = results.tweets;
 
-                                return ListView.separated(
-                                    itemCount: tweets.length,
-                                    shrinkWrap: true,
-                                    separatorBuilder: (context, index) {
-                                      return Divider(
-                                        color: Colors.black12,
-                                        height: 1,
-                                      );
-                                    },
-                                    itemBuilder: (context, index) {
-                                      final tweet = tweets[index];
-                                      return Container(
-                                        margin: EdgeInsets.only(
-                                            top: 5, bottom: 5, right: 10),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: Container(
-                                                child: Column(
-                                                  children: [
-                                                    Container(
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          launch(
-                                                              "https://twitter.com/${tweet.user.screenName}");
-                                                        },
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          50)),
-                                                          child: Image.network(
-                                                            tweet.user
-                                                                .profileImage,
-                                                            height: 30,
+                                  return ListView.separated(
+                                      itemCount: tweets.length,
+                                      shrinkWrap: true,
+                                      separatorBuilder: (context, index) {
+                                        return Divider(
+                                          color: Colors.black12,
+                                          height: 1,
+                                        );
+                                      },
+                                      itemBuilder: (context, index) {
+                                        final tweet = tweets[index];
+                                        return Container(
+                                          margin: EdgeInsets.only(
+                                              top: 5, bottom: 5, right: 10),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                flex: 2,
+                                                child: Container(
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            launch(
+                                                                "https://twitter.com/${tweet.user.screenName}");
+                                                          },
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius.all(
+                                                                    Radius
+                                                                        .circular(
+                                                                            50)),
+                                                            child: Image.network(
+                                                              tweet.user
+                                                                  .profileImage,
+                                                              height: 30,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Expanded(
-                                              flex: 8,
-                                              child: Container(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Text(tweet.user.name,
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .blue[800],
-                                                                fontSize: 12)),
-                                                        Text(
-                                                            "@${tweet.user.screenName}",
-                                                            style: TextStyle(
-                                                                color:
-                                                                    Colors.grey,
-                                                                fontSize: 12)),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Linkify(
-                                                      onOpen: (link) async {
-                                                        if (await canLaunch(
-                                                            link.url)) {
-                                                          await launch(
-                                                              link.url);
-                                                        }
-                                                      },
-                                                      text: tweet.text,
-                                                      style: TextStyle(
-                                                          fontSize: 12),
-                                                      linkStyle: TextStyle(
-                                                          color:
-                                                              Colors.blue[800],
-                                                          fontSize: 12),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      tweet.tweetedAt
-                                                          .convertToTweetDateFormat(),
-                                                      style: TextStyle(
-                                                          color: Colors.grey),
-                                                    ),
-                                                  ],
+                                              Expanded(
+                                                flex: 8,
+                                                child: Container(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(tweet.user.name,
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .blue[800],
+                                                                  fontSize: 12)),
+                                                          Text(
+                                                              "@${tweet.user.screenName}",
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      Colors.grey,
+                                                                  fontSize: 12)),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Linkify(
+                                                        onOpen: (link) async {
+                                                          if (await canLaunch(
+                                                              link.url)) {
+                                                            await launch(
+                                                                link.url);
+                                                          }
+                                                        },
+                                                        text: tweet.text,
+                                                        style: TextStyle(
+                                                            fontSize: 12),
+                                                        linkStyle: TextStyle(
+                                                            color:
+                                                                Colors.blue[800],
+                                                            fontSize: 12),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 5,
+                                                      ),
+                                                      Text(
+                                                        tweet.tweetedAt
+                                                            .convertToTweetDateFormat(),
+                                                        style: TextStyle(
+                                                            color: Colors.grey),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      );
-                                    });
-                              },
-                            ),
-                          );
-                        });
-                  },
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 5.0),
-                    width: 30,
-                    height: 30,
-                    decoration: BoxDecoration(
-                      color: const Color(0xfff0f1f5),
-                      border: Border.all(
-                        color: Color(0xffc1c1c1),
-                        width: 1,
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                },
+                              ),
+                            );
+                          });
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 5.0),
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: const Color(0xfff0f1f5),
+                        border: Border.all(
+                          color: Color(0xffc1c1c1),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(
-                      child: Text("${_extra.friendsNumber}"),
+                      child: Center(
+                        child: Text("${_extra.friendsNumber}"),
+                      ),
                     ),
                   ),
-                ),
-                FutureBuilder(
-                  future: _friendshipsRepository.requestFriendshipsApi(
-                      request:
-                          FriendshipsApiRequest(userIds: this._extra.userIds)),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return SizedBox.shrink();
-                    }
+                  FutureBuilder(
+                    future: _friendshipsRepository.requestFriendshipsApi(
+                        request:
+                            FriendshipsApiRequest(userIds: this._extra.userIds)),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return SizedBox.shrink();
+                      }
 
-                    if (snapshot.data != "") {
-                      final friendshipsApiResults =
-                          snapshot.data! as FriendshipsApiResults;
-                      return Row(
-                        children: friendshipsApiResults.friends.map((friend) {
-                          return Container(
-                              margin: const EdgeInsets.only(right: 5.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  launch(
-                                      "https://twitter.com/${friend.screenName}");
-                                },
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
-                                  child: Image.network(
-                                    friend.profileImage,
-                                    height: 30,
+                      if (snapshot.data != "") {
+                        final friendshipsApiResults =
+                            snapshot.data! as FriendshipsApiResults;
+                        return Row(
+                          children: friendshipsApiResults.friends.map((friend) {
+                            return Container(
+                                margin: const EdgeInsets.only(right: 5.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    launch(
+                                        "https://twitter.com/${friend.screenName}");
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                    child: Image.network(
+                                      friend.profileImage,
+                                      height: 30,
+                                    ),
                                   ),
-                                ),
-                              ));
-                        }).toList(),
-                      );
-                    } else {
-                      return SizedBox.shrink();
-                    }
-                  },
-                ),
-              ],
-            ),
-          )
-        ],
+                                ));
+                          }).toList(),
+                        );
+                      } else {
+                        return SizedBox.shrink();
+                      }
+                    },
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
