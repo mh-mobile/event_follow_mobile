@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'home.dart';
+import '../extension/datetime_ex.dart';
 
 class EventList extends StatelessWidget {
   @override
@@ -356,7 +357,7 @@ class EventCard extends StatelessWidget {
                                                       height: 5,
                                                     ),
                                                     Text(
-                                                      tweet.tweetedAt.toString(),
+                                                      tweet.tweetedAt.convertToTweetDateFormat(),
                                                       style: TextStyle(
                                                           color: Colors.grey),
                                                     ),
