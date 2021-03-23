@@ -178,7 +178,7 @@ class EventCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  "3/20",
+                                  _event.startedAt.convertToEventDateFormat(),
                                   style: TextStyle(fontSize: 16.0),
                                 ),
                                 Text(
