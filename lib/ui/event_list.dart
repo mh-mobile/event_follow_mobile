@@ -107,9 +107,9 @@ class _EventListViewState extends State<EventListView> {
         pageId: "1",
         sort: "friends_number_order",
         time: "past_6_days",
-        friends: "five_or_more_friends"
-    );
-    final results = await eventListRepository.requestEventListApi(request: eventListApiRequest);
+        friends: "five_or_more_friends");
+    final results = await eventListRepository.requestEventListApi(
+        request: eventListApiRequest);
     setState(() {
       _cardList.addAll(results.data.map((datum) {
         final event = datum.event;
@@ -125,6 +125,7 @@ class _EventListViewState extends State<EventListView> {
       padding: EdgeInsets.all((8)),
       child: ListView.builder(
           itemCount: _cardList.length,
+          shrinkWrap: true,
           itemBuilder: (context, index) {
             return _cardList[index];
           }),
@@ -139,9 +140,10 @@ class EventCard extends StatelessWidget {
   final FriendshipsRepository _friendshipsRepository;
   final FollowingTweetsRepository _followingTweetsRepository;
 
-  EventCard(this._event, this._extra, this._jwtToken):
-        _friendshipsRepository = FriendshipsRepository(jwtToken: _jwtToken),
-        _followingTweetsRepository = FollowingTweetsRepository(jwtToken: _jwtToken);
+  EventCard(this._event, this._extra, this._jwtToken)
+      : _friendshipsRepository = FriendshipsRepository(jwtToken: _jwtToken),
+        _followingTweetsRepository =
+            FollowingTweetsRepository(jwtToken: _jwtToken);
 
   @override
   Widget build(BuildContext context) {
@@ -150,113 +152,116 @@ class EventCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            height: 250,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 5.0),
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: const Color(0xfff0f1f5),
-                            border: Border.all(
-                              color: Color(0xffc1c1c1),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "3/20",
-                                style: TextStyle(fontSize: 16.0),
+            child: IntrinsicHeight(
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 5.0),
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: const Color(0xfff0f1f5),
+                              border: Border.all(
+                                color: Color(0xffc1c1c1),
+                                width: 1,
                               ),
-                              Text(
-                                "開催",
-                                style: TextStyle(fontSize: 12.0),
-                              )
-                            ],
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "3/20",
+                                  style: TextStyle(fontSize: 16.0),
+                                ),
+                                Text(
+                                  "開催",
+                                  style: TextStyle(fontSize: 12.0),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          child: Image.asset(
-                            "assets/connpass_logo.png",
-                            height: 25,
+                          Container(
+                            child: Image.asset(
+                              "assets/connpass_logo.png",
+                              height: 25,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  flex: 8,
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    child: Column(
-                      children: [
-                        Expanded(
-                            flex: 3,
+                  Expanded(
+                    flex: 8,
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      child: Column(
+                        children: [
+                          Expanded(
+                              flex: 3,
+                              child: Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                        flex: 8,
+                                        child: Container(
+                                          child: Text(_event.title),
+                                        )),
+                                    Expanded(
+                                        flex: 2,
+                                        child: Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                child: Image.network(
+                                                  _event.banner,
+                                                  height: 50,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ))
+                                  ],
+                                ),
+                              )),
+                          Expanded(
+                            flex: 7,
                             child: Container(
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
-                                      flex: 8,
-                                      child: Container(
-                                        child: Text(_event.title),
-                                      )),
-                                  Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              child: Image.network(
-                                                _event.banner,
-                                                height: 50,
-                                              ),
-                                            ),
-                                          ],
+                                    child: Container(
+                                      child: Text(
+                                        _event.description
+                                            .removeAllHtmlTags()
+                                            .stripEventDescription(),
+                                        style: TextStyle(
+                                          fontSize: 11,
                                         ),
-                                      ))
-                                ],
-                              ),
-                            )),
-                        Expanded(
-                          flex: 7,
-                          child: Container(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    child: Text(
-                                      _event.description.removeAllHtmlTags(),
-                                      style: TextStyle(
-                                        fontSize: 11,
                                       ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Container(
@@ -270,15 +275,17 @@ class EventCard extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return Container(
-                            constraints: BoxConstraints(
-                              minHeight: 100,
-                              maxHeight: 600
-                            ),
+                            constraints:
+                                BoxConstraints(minHeight: 100, maxHeight: 600),
                             color: Colors.white,
                             child: FutureBuilder(
-                              future: _followingTweetsRepository.requestFollowingTweetsApi(request: FollowingTweetsApiRequest(eventId: this._event.id.toString())),
+                              future: _followingTweetsRepository
+                                  .requestFollowingTweetsApi(
+                                      request: FollowingTweetsApiRequest(
+                                          eventId: this._event.id.toString())),
                               builder: (context, snapshot) {
-                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
                                   return Center(
                                     child: CircularProgressIndicator(),
                                   );
@@ -290,7 +297,8 @@ class EventCard extends StatelessWidget {
                                   );
                                 }
 
-                                final results = snapshot.data! as FollowingTweetsApiResults;
+                                final results =
+                                    snapshot.data! as FollowingTweetsApiResults;
                                 final tweets = results.tweets;
 
                                 return ListView.separated(
@@ -309,7 +317,7 @@ class EventCard extends StatelessWidget {
                                             top: 5, bottom: 5, right: 10),
                                         child: Row(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Expanded(
                                               flex: 2,
@@ -319,15 +327,18 @@ class EventCard extends StatelessWidget {
                                                     Container(
                                                       child: GestureDetector(
                                                         onTap: () {
-                                                          launch("https://twitter.com/${tweet.user.screenName}");
+                                                          launch(
+                                                              "https://twitter.com/${tweet.user.screenName}");
                                                         },
                                                         child: ClipRRect(
                                                           borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  50)),
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          50)),
                                                           child: Image.network(
-                                                            tweet.user.profileImage,
+                                                            tweet.user
+                                                                .profileImage,
                                                             height: 30,
                                                           ),
                                                         ),
@@ -342,17 +353,20 @@ class EventCard extends StatelessWidget {
                                               child: Container(
                                                 child: Column(
                                                   crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     Row(
                                                       children: [
                                                         Text(tweet.user.name,
                                                             style: TextStyle(
-                                                                color: Colors.blue[800],
+                                                                color: Colors
+                                                                    .blue[800],
                                                                 fontSize: 12)),
-                                                        Text("@${tweet.user.screenName}",
+                                                        Text(
+                                                            "@${tweet.user.screenName}",
                                                             style: TextStyle(
-                                                                color: Colors.grey,
+                                                                color:
+                                                                    Colors.grey,
                                                                 fontSize: 12)),
                                                       ],
                                                     ),
@@ -361,19 +375,26 @@ class EventCard extends StatelessWidget {
                                                     ),
                                                     Linkify(
                                                       onOpen: (link) async {
-                                                        if (await canLaunch(link.url)) {
-                                                          await launch(link.url);
+                                                        if (await canLaunch(
+                                                            link.url)) {
+                                                          await launch(
+                                                              link.url);
                                                         }
                                                       },
                                                       text: tweet.text,
-                                                      style: TextStyle(fontSize: 12),
-                                                      linkStyle: TextStyle(color: Colors.blue[800], fontSize: 12),
+                                                      style: TextStyle(
+                                                          fontSize: 12),
+                                                      linkStyle: TextStyle(
+                                                          color:
+                                                              Colors.blue[800],
+                                                          fontSize: 12),
                                                     ),
                                                     SizedBox(
                                                       height: 5,
                                                     ),
                                                     Text(
-                                                      tweet.tweetedAt.convertToTweetDateFormat(),
+                                                      tweet.tweetedAt
+                                                          .convertToTweetDateFormat(),
                                                       style: TextStyle(
                                                           color: Colors.grey),
                                                     ),
@@ -407,27 +428,30 @@ class EventCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 FutureBuilder(
-                  future: _friendshipsRepository.requestFriendshipsApi(request: FriendshipsApiRequest(userIds: this._extra.userIds)),
+                  future: _friendshipsRepository.requestFriendshipsApi(
+                      request:
+                          FriendshipsApiRequest(userIds: this._extra.userIds)),
                   builder: (context, snapshot) {
-
                     if (!snapshot.hasData) {
                       return SizedBox.shrink();
                     }
 
                     if (snapshot.data != "") {
-                      final friendshipsApiResults = snapshot.data! as FriendshipsApiResults;
+                      final friendshipsApiResults =
+                          snapshot.data! as FriendshipsApiResults;
                       return Row(
                         children: friendshipsApiResults.friends.map((friend) {
                           return Container(
                               margin: const EdgeInsets.only(right: 5.0),
                               child: GestureDetector(
                                 onTap: () {
-                                  launch("https://twitter.com/${friend.screenName}");
+                                  launch(
+                                      "https://twitter.com/${friend.screenName}");
                                 },
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
                                   child: Image.network(
                                     friend.profileImage,
                                     height: 30,
@@ -440,9 +464,7 @@ class EventCard extends StatelessWidget {
                       return SizedBox.shrink();
                     }
                   },
-                ) ,
-
-
+                ),
               ],
             ),
           )

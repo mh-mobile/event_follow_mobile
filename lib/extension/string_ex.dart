@@ -9,4 +9,12 @@ extension StringExtension on String {
 
     return this.replaceAll(exp, "");
   }
+
+  String stripEventDescription({ maxLength: 200 }) {
+    if (this.length > maxLength) {
+      return this.substring(0, maxLength) + "...";
+    }
+
+    return this;
+  }
 }
