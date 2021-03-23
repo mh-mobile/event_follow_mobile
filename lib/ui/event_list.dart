@@ -311,14 +311,19 @@ class EventCard extends StatelessWidget {
                                                 child: Column(
                                                   children: [
                                                     Container(
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                50)),
-                                                        child: Image.network(
-                                                          tweet.user.profileImage,
-                                                          height: 30,
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          launch("https://twitter.com/${tweet.user.screenName}");
+                                                        },
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  50)),
+                                                          child: Image.network(
+                                                            tweet.user.profileImage,
+                                                            height: 30,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
