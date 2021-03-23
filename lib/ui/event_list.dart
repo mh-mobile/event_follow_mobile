@@ -102,7 +102,7 @@ class _EventListViewState extends State<EventListView> {
   }
 
   void initCardList() async {
-    final idToken = await firebaseAuth.currentUser?.getIdToken();
+    final idToken = await firebaseAuth.currentUser?.getIdToken(true);
     final eventListRepository = EventListRepository(jwtToken: idToken);
     final eventListApiRequest = EventListApiRequest(
         pageId: "1",
