@@ -10,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'home.dart';
 import '../extension/datetime_ex.dart';
+import '../extension/string_ex.dart';
 
 class EventList extends StatelessWidget {
   @override
@@ -240,7 +241,7 @@ class EventCard extends StatelessWidget {
                                 Expanded(
                                   child: Container(
                                     child: Text(
-                                      _event.description,
+                                      _event.description.removeAllHtmlTags(),
                                       style: TextStyle(
                                         fontSize: 11,
                                       ),
