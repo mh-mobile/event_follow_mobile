@@ -19,7 +19,7 @@ class FriendshipsRepository {
         HttpHeaders.authorizationHeader: "Bearer ${this.jwtToken}"
       },
     );
-    
+
     return FriendshipsApiResults.fromJson(json.decode(response.body));
   }
 }
