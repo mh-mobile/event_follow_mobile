@@ -196,6 +196,27 @@ class EventCard extends StatelessWidget {
                             Container(
                               child: ImageExtension.getEventLogoPath(_event.siteId),
                             ),
+                            GestureDetector(
+                              onTap: () {
+                                final text = "\"${_event.title}\"\n${_event.url}";
+                                launch("twitter://post?message=${Uri.encodeFull(text)}");
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Container(
+                                  width: 100,
+                                  height: 30,
+                                  color: Colors.blue,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset("assets/twitter_logo.png", height: 15.0),
+                                      Text("ツイート", style: TextStyle(color: Colors.white, fontSize: 10.0),)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
