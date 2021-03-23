@@ -5,6 +5,7 @@ import 'package:event_follow/repository/friendships_repository.dart';
 import 'package:event_follow/ui/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'home.dart';
@@ -353,10 +354,15 @@ class EventCard extends StatelessWidget {
                                                     SizedBox(
                                                       height: 5,
                                                     ),
-                                                    Text(
-                                                      tweet.text,
-                                                      style:
-                                                      TextStyle(fontSize: 12),
+                                                    Linkify(
+                                                      onOpen: (link) async {
+                                                        if (await canLaunch(link.url)) {
+                                                          await launch(link.url);
+                                                        }
+                                                      },
+                                                      text: tweet.text,
+                                                      style: TextStyle(fontSize: 12),
+                                                      linkStyle: TextStyle(color: Colors.blue[800], fontSize: 12),
                                                     ),
                                                     SizedBox(
                                                       height: 5,

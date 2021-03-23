@@ -118,6 +118,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.1.0+4"
+  flutter_linkify:
+    dependency: "direct main"
+    description:
+      name: flutter_linkify
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -163,6 +170,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+  linkify:
+    dependency: transitive
+    description:
+      name: linkify
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   matcher:
     dependency: transitive
     description:
