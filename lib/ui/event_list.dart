@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'home.dart';
 import '../extension/datetime_ex.dart';
 import '../extension/string_ex.dart';
+import '../extension/image_ex.dart';
 
 class EventList extends StatelessWidget {
   @override
@@ -193,10 +194,7 @@ class EventCard extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              child: Image.asset(
-                                "assets/connpass_logo.png",
-                                height: 25,
-                              ),
+                              child: ImageExtension.getEventLogoPath(_event.siteId),
                             ),
                           ],
                         ),
