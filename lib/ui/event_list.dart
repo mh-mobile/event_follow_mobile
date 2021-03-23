@@ -269,7 +269,10 @@ class EventCard extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return Container(
-                            height: 800,
+                            constraints: BoxConstraints(
+                              minHeight: 100,
+                              maxHeight: 600
+                            ),
                             color: Colors.white,
                             child: FutureBuilder(
                               future: _followingTweetsRepository.requestFollowingTweetsApi(request: FollowingTweetsApiRequest(eventId: this._event.id.toString())),
@@ -291,6 +294,7 @@ class EventCard extends StatelessWidget {
 
                                 return ListView.separated(
                                     itemCount: tweets.length,
+                                    shrinkWrap: true,
                                     separatorBuilder: (context, index) {
                                       return Divider(
                                         color: Colors.black12,
@@ -380,12 +384,8 @@ class EventCard extends StatelessWidget {
                                         ),
                                       );
                                     });
-                              }, 
+                              },
                             ),
-                            
-                            
-                            
-
                           );
                         });
                   },
