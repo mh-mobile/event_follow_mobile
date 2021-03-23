@@ -213,13 +213,14 @@ class EventCard extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
-                                          flex: 8,
+                                          flex: 7,
                                           child: Container(
                                             child: Text(_event.title, style: TextStyle(color: Colors.blue[800]),),
                                           )),
                                       Expanded(
-                                          flex: 2,
+                                          flex: 3,
                                           child: Container(
+                                            margin: EdgeInsets.only(right: 5, left: 5),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
