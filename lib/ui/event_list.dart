@@ -124,13 +124,21 @@ class _EventListViewState extends State<EventListView> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all((8)),
-      child: ListView.builder(
-          itemCount: _cardList.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return _cardList[index];
-          }),
+      child: RefreshIndicator(
+        onRefresh:_onRefresh,
+        child: ListView.builder(
+            itemCount: _cardList.length,
+            shrinkWrap: true,
+            physics: const AlwaysScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return _cardList[index];
+            }),
+      ),
     );
+  }
+
+  Future<void> _onRefresh() async {
+    initCardList();
   }
 }
 
