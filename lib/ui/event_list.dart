@@ -65,7 +65,6 @@ class EventList extends StatelessWidget {
               title: Text("ログアウト"),
               onTap: () {
                 firebaseAuth.signOut();
-                storage.delete(key: "jwt_token");
                 Navigator.pushReplacement(
                   context,
                   PageRouteBuilder(
