@@ -12,8 +12,6 @@ class FollowingTweetsRepository {
     final url = Uri.https("event-follow-front.herokuapp.com",
         "/api/following_tweets", request.toParams());
 
-    print("jwtToken: ${await getOrGenerateIdToken()}");
-
     final response = await http.get(
       url,
       headers: {
