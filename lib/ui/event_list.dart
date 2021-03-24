@@ -211,7 +211,7 @@ class EventCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5),
                                 child: Container(
                                   width: 100,
-                                  height: 30,
+                                  height: 20,
                                   color: Colors.blue,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
