@@ -102,8 +102,7 @@ class _EventListViewState extends State<EventListView> {
   }
 
   void initCardList() async {
-    final idToken = await firebaseAuth.currentUser?.getIdToken(true);
-    final eventListRepository = EventListRepository(jwtToken: idToken);
+    final eventListRepository = EventListRepository(getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
     final eventListApiRequest = EventListApiRequest(
         pageId: "1",
         sort: "friends_number_order",
@@ -115,7 +114,7 @@ class _EventListViewState extends State<EventListView> {
       _cardList.addAll(results.data.map((datum) {
         final event = datum.event;
         final extra = datum.extra;
-        return EventCard(event, extra, idToken!);
+        return EventCard(event, extra, firebaseAuth.currentUser?.getIdToken);
       }));
     });
   }
@@ -145,14 +144,14 @@ class _EventListViewState extends State<EventListView> {
 class EventCard extends StatelessWidget {
   final Event _event;
   final Extra _extra;
-  final String _jwtToken;
+  final _getOrGenerateIdToken;
   final FriendshipsRepository _friendshipsRepository;
   final FollowingTweetsRepository _followingTweetsRepository;
 
-  EventCard(this._event, this._extra, this._jwtToken)
-      : _friendshipsRepository = FriendshipsRepository(jwtToken: _jwtToken),
+  EventCard(this._event, this._extra, this._getOrGenerateIdToken)
+      : _friendshipsRepository = FriendshipsRepository(getOrGenerateIdToken: _getOrGenerateIdToken),
         _followingTweetsRepository =
-            FollowingTweetsRepository(jwtToken: _jwtToken);
+            FollowingTweetsRepository(getOrGenerateIdToken: _getOrGenerateIdToken);
 
   @override
   Widget build(BuildContext context) {
