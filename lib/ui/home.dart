@@ -51,7 +51,7 @@ class _HomeState extends State<Home> {
                         secret: authResult.authTokenSecret);
                     final firebaseCredential = await firebaseAuth.signInWithCredential(credential);
 
-                    final idToken = await firebaseCredential.user?.getIdToken(true);
+                    final idToken = await firebaseCredential.user?.getIdToken();
 
                     final request = SessionApiRequest(
                         token: idToken!,
