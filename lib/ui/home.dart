@@ -1,7 +1,6 @@
 import 'package:event_follow/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:twitter_login/twitter_login.dart';
 import 'dart:convert';
 import 'event_list.dart';
-import 'package:event_follow/main.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -61,7 +59,6 @@ class _HomeState extends State<Home> {
                     final sessionApiResults =
                         await requestSessionApi(request: request);
                     if (sessionApiResults.status == "OK") {
-                      storage.write(key: "jwt_token", value: idToken!);
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
                         return EventList();
