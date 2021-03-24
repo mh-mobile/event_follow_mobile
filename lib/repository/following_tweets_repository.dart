@@ -3,20 +3,22 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class FollowingTweetsRepository {
-  final jwtToken;
+  final getOrGenerateIdToken;
 
-  FollowingTweetsRepository({required this.jwtToken});
+  FollowingTweetsRepository({required this.getOrGenerateIdToken});
 
   Future<FollowingTweetsApiResults> requestFollowingTweetsApi(
       {required FollowingTweetsApiRequest request}) async {
     final url = Uri.https("event-follow-front.herokuapp.com",
         "/api/following_tweets", request.toParams());
 
+    print("jwtToken: ${await getOrGenerateIdToken()}");
+
     final response = await http.get(
       url,
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${this.jwtToken}"
+        HttpHeaders.authorizationHeader: "Bearer ${await this.getOrGenerateIdToken()}"
       },
     );
 

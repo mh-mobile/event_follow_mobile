@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class FriendshipsRepository {
-  final jwtToken;
+  final getOrGenerateIdToken;
 
-  FriendshipsRepository({required this.jwtToken});
+  FriendshipsRepository({required this.getOrGenerateIdToken});
 
   Future<FriendshipsApiResults> requestFriendshipsApi(
       {required FriendshipsApiRequest request}) async {
@@ -16,7 +16,7 @@ class FriendshipsRepository {
       url,
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${this.jwtToken}"
+        HttpHeaders.authorizationHeader: "Bearer ${await this.getOrGenerateIdToken()}"
       },
     );
 

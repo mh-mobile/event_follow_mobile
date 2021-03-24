@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 class EventListRepository {
-  final jwtToken;
+  final getOrGenerateIdToken;
 
-  EventListRepository({required this.jwtToken});
+  EventListRepository({required this.getOrGenerateIdToken});
 
   Future<EventListApiResults> requestEventListApi(
       {required EventListApiRequest request}) async {
@@ -16,7 +16,7 @@ class EventListRepository {
       url,
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${this.jwtToken}"
+        HttpHeaders.authorizationHeader: "Bearer ${await this.getOrGenerateIdToken()}"
       },
     );
     return EventListApiResults.fromJson(json.decode(response.body));
