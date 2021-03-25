@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 enum SortType {
   FriendsNumber,
   RecentOrder,
-  PostedOrder,
+  CreatedOrder,
   ClosenessOrder,
 }
 
