@@ -8,9 +8,20 @@ class Settings extends StatelessWidget {
       appBar: AppBar(
         title: const Text("設定"),
       ),
-      body: Center(
-        child: const Text("設定"),
-      ),
+      body: ListView.builder(
+          itemCount: 1,
+          shrinkWrap: true,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                
+              },
+              child: ListTile(
+                title: Text("退会する", style: TextStyle(color: Colors.redAccent),),
+              ),
+            );
+          }),
     );
   }
 }
