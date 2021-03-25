@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../repository/account_deletion_repository.dart';
+import '../main.dart';
+import 'home.dart';
 
 enum AccountDeletionButtons {
   OK,
@@ -40,10 +43,20 @@ class Settings extends StatelessWidget {
 
                 switch (result) {
                   case AccountDeletionButtons.OK:
-                    print("OK");
+                    final accountDeletionRepository = AccountDeletionRepository(getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
+                    final results = await accountDeletionRepository.requestAccountDeletion();
+                    if (results.status == "OK") {
+                      firebaseAuth.signOut();
+                      Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, _, __) => Home(),
+                          transitionDuration: Duration(seconds: 0),
+                        ),
+                      );
+                    }
                     break;
                   case AccountDeletionButtons.Cancel:
-                    print("Cancel");
                     break;
                 }
               },
