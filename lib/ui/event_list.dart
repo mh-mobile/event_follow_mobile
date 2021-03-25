@@ -14,8 +14,15 @@ import 'home.dart';
 import '../extension/datetime_ex.dart';
 import '../extension/string_ex.dart';
 import '../extension/image_ex.dart';
+import '../config/sort_filter_globals.dart';
 
 final sortFilterStateKey = GlobalKey<SortFilterButtonState>();
+
+var sortFilterStateStore = SortFilterStateStore(
+    sortType: SortType.FriendsNumber,
+    friendFilterType:
+    FriendsFilterType.ThreeOrMoreFriends,
+    timeFilterType: TimeFilterType.SixDays);
 
 class EventList extends StatelessWidget {
   @override
@@ -35,13 +42,10 @@ class EventList extends StatelessWidget {
                   barrierColor: Colors.black.withOpacity(0.5),
                   pageBuilder: (context, _, __) {
                     return SortFilterDialog(
-                      store: SortFilterStateStore(
-                          sortType: SortType.FriendsNumber,
-                          friendFilterType: FriendsFilterType.ThreeOrMoreFriends,
-                          timeFilterType: TimeFilterType.SixDays
-                      ),
+                      store: sortFilterStateStore,
                       onChange: (store) {
-
+                        sortFilterStateStore = store;
+                        sortFilterStateKey.currentState?.setCondition(store);
                       },
                     );
                   },
@@ -151,10 +155,8 @@ class _EventListViewState extends State<EventListView> {
         friends: "five_or_more_friends");
     final results = await eventListRepository.requestEventListApi(
         request: eventListApiRequest);
-    sortFilterStateKey.currentState?.setCondition(
-        sortType: SortType.FriendsNumber,
-        friendsFilterType: FriendsFilterType.FourOrMoreFriends,
-        timeFilterType: TimeFilterType.FiveDays);
+
+    sortFilterStateKey.currentState?.setCondition(sortFilterStateStore);
     setState(() {
       _cardList.addAll(results.data.map((datum) {
         final event = datum.event;

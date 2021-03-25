@@ -1,32 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-enum SortType {
-  FriendsNumber,
-  RecentOrder,
-  CreatedOrder,
-  ClosenessOrder,
-}
-
-enum FriendsFilterType {
-  OneOrMoreFriends,
-  TwoOrMoreFriends,
-  ThreeOrMoreFriends,
-  FourOrMoreFriends,
-  FiveOrMoreFriends,
-}
-
-enum TimeFilterType {
-  EightHours,
-  TwentyFourHour,
-  TwoDays,
-  ThreeDays,
-  FourDays,
-  FiveDays,
-  SixDays,
-  OneWeek,
-  All,
-}
+import '../config/sort_filter_globals.dart';
 
 class SortFilterButton extends StatefulWidget {
   const SortFilterButton({
@@ -42,9 +16,7 @@ class SortFilterButton extends StatefulWidget {
 
 class SortFilterButtonState extends State<SortFilterButton> {
   bool _pressing = false;
-  SortType? selectedSortType;
-  FriendsFilterType? selectedFriendsType;
-  TimeFilterType? selectedTimeType;
+  SortFilterStateStore? selectedStateStore;
 
   final sortLabels = [
     ["Friend", "数"],
@@ -93,7 +65,7 @@ class SortFilterButtonState extends State<SortFilterButton> {
         });
       },
       onTap: widget.onTap,
-      child: selectedSortType == null
+      child: selectedStateStore == null
           ? SizedBox.shrink()
           : Padding(
               padding: EdgeInsets.all(6),
@@ -101,8 +73,8 @@ class SortFilterButtonState extends State<SortFilterButton> {
                 opacity: _pressing ? 0.4 : 1,
                 duration: Duration(milliseconds: 160),
                 child: Container(
-                  width: 100,
                   height: 44,
+                  margin: EdgeInsets.only(right: 5.0),
                   decoration: BoxDecoration(
                     color: Colors.transparent,
                   ),
@@ -134,7 +106,7 @@ class SortFilterButtonState extends State<SortFilterButton> {
   }
 
   List<Text> _createSortList() {
-    final labels = sortLabels[selectedSortType!.index];
+    final labels = sortLabels[selectedStateStore!.sortType.index];
     return labels
         .map((label) => Text(label,
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
@@ -142,7 +114,7 @@ class SortFilterButtonState extends State<SortFilterButton> {
   }
 
   List<Text> _createFilterList() {
-    if (selectedSortType == SortType.FriendsNumber) {
+    if (selectedStateStore?.sortType == SortType.FriendsNumber) {
       return _createTimeFilterList();
     }
 
@@ -150,7 +122,8 @@ class SortFilterButtonState extends State<SortFilterButton> {
   }
 
   List<Text> _createFriendsFilterList() {
-    final labels = friendsFilterLabels[selectedFriendsType!.index];
+    final labels =
+        friendsFilterLabels[selectedStateStore!.friendFilterType!.index];
     return labels
         .map((label) => Text(label,
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
@@ -158,21 +131,16 @@ class SortFilterButtonState extends State<SortFilterButton> {
   }
 
   List<Text> _createTimeFilterList() {
-    final labels = timeFilterLabels[selectedTimeType!.index];
+    final labels = timeFilterLabels[selectedStateStore!.timeFilterType!.index];
     return labels
         .map((label) => Text(label,
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
         .toList();
   }
 
-  void setCondition(
-      {required SortType sortType,
-      FriendsFilterType? friendsFilterType,
-      TimeFilterType? timeFilterType}) {
+  void setCondition(SortFilterStateStore store) {
     setState(() {
-      this.selectedSortType = sortType;
-      this.selectedFriendsType = friendsFilterType;
-      this.selectedTimeType = timeFilterType;
+      this.selectedStateStore = store;
     });
   }
 }
