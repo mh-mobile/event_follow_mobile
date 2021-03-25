@@ -3,6 +3,7 @@ import 'package:event_follow/repository/event_list_repository.dart';
 import 'package:event_follow/repository/following_tweets_repository.dart';
 import 'package:event_follow/repository/friendships_repository.dart';
 import 'package:event_follow/ui/settings.dart';
+import 'package:event_follow/ui/sort_filter_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -19,6 +20,11 @@ class EventList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("イベント一覧"),
+        actions: [
+          SortFilterButton(onTap: () {
+            print("sort&filter");
+          })
+        ],
       ),
       drawer: Drawer(
         child: ListView(
