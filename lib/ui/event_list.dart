@@ -4,6 +4,7 @@ import 'package:event_follow/repository/following_tweets_repository.dart';
 import 'package:event_follow/repository/friendships_repository.dart';
 import 'package:event_follow/ui/settings.dart';
 import 'package:event_follow/ui/sort_filter_button.dart';
+import 'package:event_follow/ui/sort_filter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -26,7 +27,37 @@ class EventList extends StatelessWidget {
           SortFilterButton(
               key: sortFilterStateKey,
               onTap: () {
-                print("sort&filter");
+                showGeneralDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  transitionDuration: Duration(milliseconds: 300),
+                  barrierLabel: "sort&filter",
+                  barrierColor: Colors.black.withOpacity(0.5),
+                  pageBuilder: (context, _, __) {
+                    return SortFilterDialog(
+                      store: SortFilterStateStore(
+                          sortType: SortType.FriendsNumber,
+                          friendFilterType: FriendsFilterType.ThreeOrMoreFriends,
+                          timeFilterType: TimeFilterType.SixDays
+                      ),
+                      onChange: (store) {
+
+                      },
+                    );
+                  },
+                  transitionBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return SlideTransition(
+                      position: CurvedAnimation(
+                              parent: animation, curve: Curves.easeOut)
+                          .drive(Tween<Offset>(
+                        begin: Offset(0, -1.0),
+                        end: Offset.zero,
+                      )),
+                      child: child,
+                    );
+                  },
+                );
               })
         ],
       ),
