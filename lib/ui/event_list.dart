@@ -17,6 +17,7 @@ import '../extension/image_ex.dart';
 import '../config/sort_filter_globals.dart';
 
 final sortFilterStateKey = GlobalKey<SortFilterButtonState>();
+final eventListViewStateKey = GlobalKey<_EventListViewState>();
 
 var sortFilterStateStore = SortFilterStateStore(
     sortType: SortType.FriendsNumber,
@@ -46,6 +47,7 @@ class EventList extends StatelessWidget {
                       onChange: (store) {
                         sortFilterStateStore = store;
                         sortFilterStateKey.currentState?.setCondition(store);
+                        eventListViewStateKey.currentState?.initCardList();
                       },
                     );
                   },
@@ -123,13 +125,20 @@ class EventList extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: EventListView(),
+        child: EventListView(
+          key: eventListViewStateKey
+        ),
       ),
     );
   }
 }
 
 class EventListView extends StatefulWidget {
+
+  const EventListView({
+    Key? key,
+  }) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _EventListViewState();
@@ -150,14 +159,15 @@ class _EventListViewState extends State<EventListView> {
         getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
     final eventListApiRequest = EventListApiRequest(
         pageId: "1",
-        sort: "friends_number_order",
-        time: "past_6_days",
-        friends: "five_or_more_friends");
+        sort: sortFilterStateStore.sortType.typeName,
+        time: sortFilterStateStore.timeFilterType!.typeName,
+        friends: sortFilterStateStore.friendFilterType!.typeName);
     final results = await eventListRepository.requestEventListApi(
         request: eventListApiRequest);
 
     sortFilterStateKey.currentState?.setCondition(sortFilterStateStore);
     setState(() {
+      _cardList.clear();
       _cardList.addAll(results.data.map((datum) {
         final event = datum.event;
         final extra = datum.extra;
@@ -186,6 +196,7 @@ class _EventListViewState extends State<EventListView> {
   Future<void> _onRefresh() async {
     initCardList();
   }
+
 }
 
 class EventCard extends StatelessWidget {

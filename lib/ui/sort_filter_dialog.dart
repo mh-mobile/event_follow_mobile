@@ -2,8 +2,6 @@ import 'package:event_follow/ui/sort_filter_button.dart';
 import 'package:flutter/material.dart';
 import '../config/sort_filter_globals.dart';
 
-
-
 typedef SortFilterDialogCallback = void Function(SortFilterStateStore store);
 
 class _SortFilterListData {
