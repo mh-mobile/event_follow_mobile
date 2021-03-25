@@ -39,21 +39,21 @@ class SortFilterDialogState extends State<SortFilterDialog> {
   _SortFilterListData get _listItemData {
     if (_selectedSegmentIndex == SortFilterSegmentType.Sort.index) {
       return _SortFilterListData(
-          itemCount: sortTypeItems.length,
-          itemLabels: sortTypeItems.map((item) => item.label).toList(),
+          itemCount: SortTypeExtension.types.length,
+          itemLabels: SortTypeExtension.types.map((type) => type.labelName).toList(),
           selectedItemIndex: widget.store.sortType.index);
     }
 
     if (widget.store.sortType == SortType.FriendsNumber) {
       return _SortFilterListData(
-          itemCount: timeFilterItems.length,
-          itemLabels: timeFilterItems.map((item) => item.label).toList(),
+          itemCount: TimeFilterTypeExtension.types.length,
+          itemLabels: TimeFilterTypeExtension.types.map((type) => type.labelName).toList(),
           selectedItemIndex: widget.store.timeFilterType!.index);
     }
 
     return _SortFilterListData(
-        itemCount: friendsFilterItems.length,
-        itemLabels: friendsFilterItems.map((item) => item.label).toList(),
+        itemCount: FriendsFilterTypeExtension.types.length,
+        itemLabels: FriendsFilterTypeExtension.types.map((type) => type.labelName).toList(),
         selectedItemIndex: widget.store.friendFilterType!.index);
   }
 
