@@ -18,32 +18,8 @@ class SortFilterButtonState extends State<SortFilterButton> {
   bool _pressing = false;
   SortFilterStateStore? selectedStateStore;
 
-  final sortLabels = [
-    ["Friend", "数"],
-    ["新着", "順"],
-    ["投稿", "順"],
-    ["開催が近い", "順"],
-  ];
 
-  final friendsFilterLabels = [
-    ["Friends", "1+"],
-    ["Friends", "2+"],
-    ["Friends", "3+"],
-    ["Friends", "4+"],
-    ["Friends", "5+"],
-  ];
 
-  final timeFilterLabels = [
-    ["8", "hrs"],
-    ["24", "hrs"],
-    ["2", "days"],
-    ["3", "hrs"],
-    ["4", "hrs"],
-    ["5", "hrs"],
-    ["6", "hrs"],
-    ["1", "week"],
-    ["All"],
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +82,7 @@ class SortFilterButtonState extends State<SortFilterButton> {
   }
 
   List<Text> _createSortList() {
-    final labels = sortLabels[selectedStateStore!.sortType.index];
+    final labels = SortTypeExtension.sortFilterButtonSortLabels[selectedStateStore!.sortType.index];
     return labels
         .map((label) => Text(label,
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
@@ -123,7 +99,7 @@ class SortFilterButtonState extends State<SortFilterButton> {
 
   List<Text> _createFriendsFilterList() {
     final labels =
-        friendsFilterLabels[selectedStateStore!.friendFilterType!.index];
+        FriendsFilterTypeExtension.sortFilterButtonFriendsFilterLabels[selectedStateStore!.friendFilterType!.index];
     return labels
         .map((label) => Text(label,
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
@@ -131,7 +107,7 @@ class SortFilterButtonState extends State<SortFilterButton> {
   }
 
   List<Text> _createTimeFilterList() {
-    final labels = timeFilterLabels[selectedStateStore!.timeFilterType!.index];
+    final labels = TimeFilterTypeExtension.sortFilterButtonTimeFilterLabels[selectedStateStore!.timeFilterType!.index];
     return labels
         .map((label) => Text(label,
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
