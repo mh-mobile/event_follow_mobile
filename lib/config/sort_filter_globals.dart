@@ -5,12 +5,35 @@ enum SortType {
   ClosenessOrder,
 }
 
+extension SortTypeExtension on SortType {
+  static final typeNames = {
+    SortType.FriendsNumber: "friends_number_order",
+    SortType.RecentOrder: "recent_order",
+    SortType.CreatedOrder: "created_order",
+    SortType.ClosenessOrder: "closeness_order",
+  };
+
+  String get typeName => typeNames[this]!;
+}
+
 enum FriendsFilterType {
   OneOrMoreFriends,
   TwoOrMoreFriends,
   ThreeOrMoreFriends,
   FourOrMoreFriends,
   FiveOrMoreFriends,
+}
+
+extension FriendsFilterTypeExtension on FriendsFilterType {
+  static final typeNames = {
+    FriendsFilterType.OneOrMoreFriends: "one_or_more_friends",
+    FriendsFilterType.TwoOrMoreFriends: "two_or_more_friends",
+    FriendsFilterType.ThreeOrMoreFriends: "three_or_more_friends",
+    FriendsFilterType.FourOrMoreFriends: "four_or_more_friends",
+    FriendsFilterType.FiveOrMoreFriends: "five_or_more_friends",
+  };
+
+  String get typeName => typeNames[this]!;
 }
 
 enum TimeFilterType {
@@ -24,6 +47,23 @@ enum TimeFilterType {
   OneWeek,
   All,
 }
+
+extension TimeFilterTypeExtension on TimeFilterType {
+  static final typeNames = {
+    TimeFilterType.EightHours: "past_8_hours",
+    TimeFilterType.TwentyFourHour: "past_24_hours",
+    TimeFilterType.TwoDays: "past_2_days",
+    TimeFilterType.ThreeDays: "past_3_days",
+    TimeFilterType.FourDays: "past_4_days",
+    TimeFilterType.FiveDays: "past_5_days",
+    TimeFilterType.SixDays: "past_6_days",
+    TimeFilterType.OneWeek: "past_1_weeks",
+    TimeFilterType.All: "past_all",
+  };
+
+  String get typeName => typeNames[this]!;
+}
+
 
 final sortTypeItems = [
   SortFilterTypeItem(label: "Friend数", type: SortType.FriendsNumber),
