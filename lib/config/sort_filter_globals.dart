@@ -121,13 +121,6 @@ extension TimeFilterTypeExtension on TimeFilterType {
   String get labelName => labelNames[this]!;
 }
 
-class SortFilterTypeItem {
-  SortFilterTypeItem({required this.label, required this.type});
-
-  final String label;
-  final dynamic type;
-}
-
 class SortFilterStateStore {
   SortFilterStateStore({
     required this.sortType,
