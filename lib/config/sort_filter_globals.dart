@@ -27,6 +27,13 @@ extension SortTypeExtension on SortType {
     SortType.ClosenessOrder,
   ];
 
+  static final sortFilterButtonSortLabels = [
+    ["Friend", "数"],
+    ["新着", "順"],
+    ["投稿", "順"],
+    ["開催が近い", "順"],
+  ];
+
   String get typeName => typeNames[this]!;
   String get labelName => labelNames[this]!;
 }
@@ -62,6 +69,14 @@ extension FriendsFilterTypeExtension on FriendsFilterType {
     FriendsFilterType.ThreeOrMoreFriends,
     FriendsFilterType.FourOrMoreFriends,
     FriendsFilterType.FiveOrMoreFriends,
+  ];
+
+  static final sortFilterButtonFriendsFilterLabels = [
+    ["Friends", "1+"],
+    ["Friends", "2+"],
+    ["Friends", "3+"],
+    ["Friends", "4+"],
+    ["Friends", "5+"],
   ];
 
   String get typeName => typeNames[this]!;
@@ -115,6 +130,18 @@ extension TimeFilterTypeExtension on TimeFilterType {
     TimeFilterType.SixDays,
     TimeFilterType.OneWeek,
     TimeFilterType.All,
+  ];
+
+  static final sortFilterButtonTimeFilterLabels = [
+    ["8", "hrs"],
+    ["24", "hrs"],
+    ["2", "days"],
+    ["3", "hrs"],
+    ["4", "hrs"],
+    ["5", "hrs"],
+    ["6", "hrs"],
+    ["1", "week"],
+    ["All"],
   ];
 
   String get typeName => typeNames[this]!;
