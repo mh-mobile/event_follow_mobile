@@ -14,6 +14,8 @@ import '../extension/datetime_ex.dart';
 import '../extension/string_ex.dart';
 import '../extension/image_ex.dart';
 
+final sortFilterStateKey = GlobalKey<SortFilterButtonState>();
+
 class EventList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -21,9 +23,11 @@ class EventList extends StatelessWidget {
       appBar: AppBar(
         title: const Text("イベント一覧"),
         actions: [
-          SortFilterButton(onTap: () {
-            print("sort&filter");
-          })
+          SortFilterButton(
+              key: sortFilterStateKey,
+              onTap: () {
+                print("sort&filter");
+              })
         ],
       ),
       drawer: Drawer(
@@ -107,7 +111,8 @@ class _EventListViewState extends State<EventListView> {
   }
 
   void initCardList() async {
-    final eventListRepository = EventListRepository(getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
+    final eventListRepository = EventListRepository(
+        getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
     final eventListApiRequest = EventListApiRequest(
         pageId: "1",
         sort: "friends_number_order",
@@ -115,6 +120,10 @@ class _EventListViewState extends State<EventListView> {
         friends: "five_or_more_friends");
     final results = await eventListRepository.requestEventListApi(
         request: eventListApiRequest);
+    sortFilterStateKey.currentState?.setCondition(
+        sortType: SortType.FriendsNumber,
+        friendsFilterType: FriendsFilterType.FourOrMoreFriends,
+        timeFilterType: TimeFilterType.FiveDays);
     setState(() {
       _cardList.addAll(results.data.map((datum) {
         final event = datum.event;
@@ -129,7 +138,7 @@ class _EventListViewState extends State<EventListView> {
     return Container(
       padding: EdgeInsets.all((8)),
       child: RefreshIndicator(
-        onRefresh:_onRefresh,
+        onRefresh: _onRefresh,
         child: ListView.builder(
             itemCount: _cardList.length,
             shrinkWrap: true,
@@ -154,9 +163,10 @@ class EventCard extends StatelessWidget {
   final FollowingTweetsRepository _followingTweetsRepository;
 
   EventCard(this._event, this._extra, this._getOrGenerateIdToken)
-      : _friendshipsRepository = FriendshipsRepository(getOrGenerateIdToken: _getOrGenerateIdToken),
-        _followingTweetsRepository =
-            FollowingTweetsRepository(getOrGenerateIdToken: _getOrGenerateIdToken);
+      : _friendshipsRepository =
+            FriendshipsRepository(getOrGenerateIdToken: _getOrGenerateIdToken),
+        _followingTweetsRepository = FollowingTweetsRepository(
+            getOrGenerateIdToken: _getOrGenerateIdToken);
 
   @override
   Widget build(BuildContext context) {
@@ -206,12 +216,15 @@ class EventCard extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              child: ImageExtension.getEventLogoPath(_event.siteId),
+                              child: ImageExtension.getEventLogoPath(
+                                  _event.siteId),
                             ),
                             GestureDetector(
                               onTap: () {
-                                final text = "\"${_event.title}\"\n${_event.url}";
-                                launch("twitter://post?message=${Uri.encodeFull(text)}");
+                                final text =
+                                    "\"${_event.title}\"\n${_event.url}";
+                                launch(
+                                    "twitter://post?message=${Uri.encodeFull(text)}");
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
@@ -222,8 +235,14 @@ class EventCard extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Image.asset("assets/twitter_logo.png", height: 15.0),
-                                      Text("ツイート", style: TextStyle(color: Colors.white, fontSize: 10.0),)
+                                      Image.asset("assets/twitter_logo.png",
+                                          height: 15.0),
+                                      Text(
+                                        "ツイート",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 10.0),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -243,17 +262,23 @@ class EventCard extends StatelessWidget {
                                 flex: 3,
                                 child: Container(
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
                                           flex: 7,
                                           child: Container(
-                                            child: Text(_event.title, style: TextStyle(color: Colors.blue[800]),),
+                                            child: Text(
+                                              _event.title,
+                                              style: TextStyle(
+                                                  color: Colors.blue[800]),
+                                            ),
                                           )),
                                       Expanded(
                                           flex: 3,
                                           child: Container(
-                                            margin: EdgeInsets.only(right: 5, left: 5),
+                                            margin: EdgeInsets.only(
+                                                right: 5, left: 5),
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
@@ -311,14 +336,15 @@ class EventCard extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return Container(
-                              constraints:
-                                  BoxConstraints(minHeight: 100, maxHeight: 600),
+                              constraints: BoxConstraints(
+                                  minHeight: 100, maxHeight: 600),
                               color: Colors.white,
                               child: FutureBuilder(
                                 future: _followingTweetsRepository
                                     .requestFollowingTweetsApi(
                                         request: FollowingTweetsApiRequest(
-                                            eventId: this._event.id.toString())),
+                                            eventId:
+                                                this._event.id.toString())),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
@@ -333,8 +359,8 @@ class EventCard extends StatelessWidget {
                                     );
                                   }
 
-                                  final results =
-                                      snapshot.data! as FollowingTweetsApiResults;
+                                  final results = snapshot.data!
+                                      as FollowingTweetsApiResults;
                                   final tweets = results.tweets;
 
                                   return ListView.separated(
@@ -368,11 +394,12 @@ class EventCard extends StatelessWidget {
                                                           },
                                                           child: ClipRRect(
                                                             borderRadius:
-                                                                BorderRadius.all(
-                                                                    Radius
+                                                                BorderRadius
+                                                                    .all(Radius
                                                                         .circular(
                                                                             50)),
-                                                            child: Image.network(
+                                                            child:
+                                                                Image.network(
                                                               tweet.user
                                                                   .profileImage,
                                                               height: 30,
@@ -389,21 +416,25 @@ class EventCard extends StatelessWidget {
                                                 child: Container(
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Row(
                                                         children: [
                                                           Text(tweet.user.name,
                                                               style: TextStyle(
                                                                   color: Colors
-                                                                      .blue[800],
-                                                                  fontSize: 12)),
+                                                                          .blue[
+                                                                      800],
+                                                                  fontSize:
+                                                                      12)),
                                                           Text(
                                                               "@${tweet.user.screenName}",
                                                               style: TextStyle(
-                                                                  color:
-                                                                      Colors.grey,
-                                                                  fontSize: 12)),
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  fontSize:
+                                                                      12)),
                                                         ],
                                                       ),
                                                       SizedBox(
@@ -421,8 +452,8 @@ class EventCard extends StatelessWidget {
                                                         style: TextStyle(
                                                             fontSize: 12),
                                                         linkStyle: TextStyle(
-                                                            color:
-                                                                Colors.blue[800],
+                                                            color: Colors
+                                                                .blue[800],
                                                             fontSize: 12),
                                                       ),
                                                       SizedBox(
@@ -466,8 +497,8 @@ class EventCard extends StatelessWidget {
                   ),
                   FutureBuilder(
                     future: _friendshipsRepository.requestFriendshipsApi(
-                        request:
-                            FriendshipsApiRequest(userIds: this._extra.userIds)),
+                        request: FriendshipsApiRequest(
+                            userIds: this._extra.userIds)),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
                         return SizedBox.shrink();
