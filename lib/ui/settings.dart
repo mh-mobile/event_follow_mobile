@@ -10,6 +10,11 @@ enum AccountDeletionButtons {
   Cancel
 }
 
+enum SettingItemType {
+  AccountDeletion,
+  AppVersion,
+}
+
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,12 +23,12 @@ class Settings extends StatelessWidget {
         title: const Text("設定"),
       ),
       body: ListView.builder(
-          itemCount: 5,
+          itemCount: SettingItemType.values.length,
           shrinkWrap: true,
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            switch(index) {
-              case 0:
+            switch(SettingItemType.values[index]) {
+              case SettingItemType.AccountDeletion:
                 return InkWell(
                   onTap: () async {
                     final result = await showDialog<AccountDeletionButtons>(
@@ -68,7 +73,7 @@ class Settings extends StatelessWidget {
                   ),
                 );
                 break;
-              case 1:
+              case SettingItemType.AppVersion:
                 return FutureBuilder(
                   future: AppUtils.getAppVersion(),
                   builder: (context, snapshot) {
