@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:twitter_login/twitter_login.dart';
@@ -29,8 +30,9 @@ class _HomeState extends State<Home> {
       body: Container(
         child: Column(
           children: [
-            !isLoading ? FlatButton(
-              child: const Text("Twitterでログイン"),
+            !isLoading ? ElevatedButton.icon(
+              icon: Image.asset("assets/twitter_logo.png", height: 25,),
+              label: Text("Twitterでログイン"),
               onPressed: () async {
                 final twitterLogin = TwitterLogin(
                   apiKey: "${apiKey}",
