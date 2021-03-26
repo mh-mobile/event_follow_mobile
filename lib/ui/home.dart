@@ -25,90 +25,109 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        backgroundColor: Colors.white.withOpacity(0.0),
+        elevation: 0.0,
       ),
-      body: Container(
-        child: Column(
-          children: [
-            !isLoading ? ElevatedButton.icon(
-              icon: Image.asset("assets/twitter_logo.png", height: 25,),
-              label: Text("Twitterでログイン"),
-              onPressed: () async {
-                final twitterLogin = TwitterLogin(
-                  apiKey: "${apiKey}",
-                  apiSecretKey: "${apiSecretKey}",
-                  redirectURI: "${redirectURI}"
-                );
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            width: MediaQuery.of(context).size.width * 6/7,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Container()
+                ),
+                Container(child: Image.asset("assets/logo_transparent.png", height: 80,)),
+                Expanded(
+                    flex: 2,
+                    child: Container()
+                ),
+                !isLoading ? ElevatedButton.icon(
+                  icon: Image.asset("assets/twitter_logo.png", height: 25,),
+                  label: Text("Twitterでログイン"),
+                  onPressed: () async {
+                    final twitterLogin = TwitterLogin(
+                        apiKey: "${apiKey}",
+                        apiSecretKey: "${apiSecretKey}",
+                        redirectURI: "${redirectURI}"
+                    );
+                    final authResult = await twitterLogin.login();
+                    switch (authResult.status) {
+                      case TwitterLoginStatus.loggedIn:
+                        setState(() {
+                          isLoading = true;
+                        });
+                        final credential = TwitterAuthProvider.credential(
+                            accessToken: authResult.authToken,
+                            secret: authResult.authTokenSecret);
+                        final firebaseCredential = await firebaseAuth.signInWithCredential(credential);
 
-                final authResult = await twitterLogin.login();
-                switch (authResult.status) {
-                  case TwitterLoginStatus.loggedIn:
-                    setState(() {
-                      isLoading = true;
-                    });
-                    final credential = TwitterAuthProvider.credential(
-                        accessToken: authResult.authToken,
-                        secret: authResult.authTokenSecret);
-                    final firebaseCredential = await firebaseAuth.signInWithCredential(credential);
+                        final idToken = await firebaseCredential.user?.getIdToken();
 
-                    final idToken = await firebaseCredential.user?.getIdToken();
+                        final request = SessionApiRequest(
+                            token: idToken!,
+                            accessToken: authResult.authToken,
+                            accessTokenSecret: authResult.authTokenSecret);
 
-                    final request = SessionApiRequest(
-                        token: idToken!,
-                        accessToken: authResult.authToken,
-                        accessTokenSecret: authResult.authTokenSecret);
+                        final sessionApiResults =
+                            await requestSessionApi(request: request);
+                        if (sessionApiResults.status == "OK") {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) {
+                            return EventList();
+                          }));
+                        }
 
-                    final sessionApiResults =
-                        await requestSessionApi(request: request);
-                    if (sessionApiResults.status == "OK") {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) {
-                        return EventList();
-                      }));
+                        break;
+                      case TwitterLoginStatus.cancelledByUser:
+                        break;
+                      case TwitterLoginStatus.error:
+                        break;
                     }
-
-                    break;
-                  case TwitterLoginStatus.cancelledByUser:
-                    break;
-                  case TwitterLoginStatus.error:
-                    break;
-                }
-                setState(() {
-                  isLoading = false;
-                });
-              },
-            ) : CircularProgressIndicator(),
-            RichText(
-                text: TextSpan(children: [
-              TextSpan(
-                text: "アカウントを作成することで",
-                style: TextStyle(color: Colors.grey[800]),
-              ),
-              TextSpan(
-                  text: "利用規約",
-                  style: TextStyle(color: Colors.lightBlue),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      launch("https://event-follow-front.herokuapp.com/terms");
-                    }),
-              TextSpan(
-                text: "・",
-                style: TextStyle(color: Colors.grey[800]),
-              ),
-              TextSpan(
-                  text: "プライバシーポリシー",
-                  style: TextStyle(color: Colors.lightBlue),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      launch(
-                          "https://event-follow-front.herokuapp.com/privacy_policy");
-                    }),
-              TextSpan(
-                text: "に同意したものとみなします。",
-                style: TextStyle(color: Colors.grey[800]),
-              ),
-            ])),
-          ],
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
+                ) : CircularProgressIndicator(),
+                Expanded(
+                  flex: 3,
+                  child: Container()
+                ),
+                RichText(
+                    text: TextSpan(children: [
+                  TextSpan(
+                    text: "アカウントを作成することで",
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
+                  TextSpan(
+                      text: "利用規約",
+                      style: TextStyle(color: Colors.lightBlue),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launch("https://event-follow-front.herokuapp.com/terms");
+                        }),
+                  TextSpan(
+                    text: "・",
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
+                  TextSpan(
+                      text: "プライバシーポリシー",
+                      style: TextStyle(color: Colors.lightBlue),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          launch(
+                              "https://event-follow-front.herokuapp.com/privacy_policy");
+                        }),
+                  TextSpan(
+                    text: "に同意したものとみなします。",
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
+                ])),
+              ],
+            ),
+          ),
         ),
       ),
     );

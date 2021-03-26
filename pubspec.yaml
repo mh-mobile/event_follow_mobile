@@ -66,6 +66,7 @@ flutter:
     - assets/connpass_logo.png
     - assets/doorkeeper_logo.png
     - assets/twitter_logo.png
+    - assets/logo_transparent.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
