@@ -124,10 +124,8 @@ class EventList extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(
-        child: EventListView(
-          key: eventListViewStateKey
-        ),
+      body: EventListView(
+        key: eventListViewStateKey
       ),
     );
   }
