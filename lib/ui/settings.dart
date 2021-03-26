@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../repository/account_deletion_repository.dart';
 import '../main.dart';
 import '../utils/app_utils.dart';
@@ -11,6 +12,8 @@ enum AccountDeletionButtons {
 }
 
 enum SettingItemType {
+  Terms,
+  PrivacyPolicy,
   AccountDeletion,
   AppVersion,
 }
@@ -22,12 +25,40 @@ class Settings extends StatelessWidget {
       appBar: AppBar(
         title: const Text("設定"),
       ),
-      body: ListView.builder(
+      body: ListView.separated(
           itemCount: SettingItemType.values.length,
           shrinkWrap: true,
+          separatorBuilder: (context, index) {
+            return Divider(
+              color: Colors.black12,
+              height: 1,
+            );
+          },
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             switch(SettingItemType.values[index]) {
+              case SettingItemType.Terms:
+                return InkWell(
+                  onTap: () {
+                    launch("https://event-follow-front.herokuapp.com/terms");
+                  },
+                  child: ListTile(
+                    title: Text("利用規約", ),
+                    dense: true,
+                  ),
+                );
+                break;
+              case SettingItemType.PrivacyPolicy:
+                return InkWell(
+                  onTap: () {
+                    launch("https://event-follow-front.herokuapp.com/privacy_policy");
+                  },
+                  child: ListTile(
+                    title: Text("プライバシーポリシー", ),
+                    dense: true,
+                  ),
+                );
+                break;
               case SettingItemType.AccountDeletion:
                 return InkWell(
                   onTap: () async {
@@ -70,6 +101,7 @@ class Settings extends StatelessWidget {
                   },
                   child: ListTile(
                     title: Text("退会する", style: TextStyle(color: Colors.redAccent),),
+                    dense: true,
                   ),
                 );
                 break;
@@ -81,8 +113,11 @@ class Settings extends StatelessWidget {
                       return SizedBox.shrink();
                     }
 
-                    return Center(
-                      child: Text("ver ${snapshot.data as String}", style: TextStyle(color: Colors.grey[600])),
+                    return Container(
+                      margin: EdgeInsets.only(top: 10),
+                      child: Center(
+                        child: Text("ver ${snapshot.data as String}", style: TextStyle(color: Colors.grey[600])),
+                      ),
                     );
                   },
                 );
