@@ -59,6 +59,8 @@ PODS:
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
   - OrderedSet (5.0.0)
+  - package_info (0.0.1):
+    - Flutter
   - PromisesObjC (1.2.12)
   - twitter_login (0.0.1):
     - Flutter
@@ -70,6 +72,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
   - twitter_login (from `.symlinks/plugins/twitter_login/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
@@ -95,6 +98,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_inappwebview:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
   twitter_login:
     :path: ".symlinks/plugins/twitter_login/ios"
   url_launcher:
@@ -114,6 +119,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   twitter_login: 2794db69b7640681171b17b3c2c84ad9dfb4a57f
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
