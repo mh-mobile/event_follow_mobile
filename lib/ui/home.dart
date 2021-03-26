@@ -82,13 +82,17 @@ class _HomeState extends State<Home> {
 
                         break;
                       case TwitterLoginStatus.cancelledByUser:
+                        setState(() {
+                          isLoading = false;
+                        });
                         break;
                       case TwitterLoginStatus.error:
+                        setState(() {
+                          isLoading = false;
+                        });
                         break;
                     }
-                    setState(() {
-                      isLoading = false;
-                    });
+
                   },
                 ) : CircularProgressIndicator(),
                 Expanded(
