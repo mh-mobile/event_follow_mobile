@@ -44,57 +44,64 @@ class _HomeState extends State<Home> {
                     flex: 2,
                     child: Container()
                 ),
-                !isLoading ? ElevatedButton.icon(
-                  icon: Image.asset("assets/twitter_logo.png", height: 25,),
-                  label: Text("Twitterでログイン"),
-                  onPressed: () async {
-                    final twitterLogin = TwitterLogin(
-                        apiKey: "${apiKey}",
-                        apiSecretKey: "${apiSecretKey}",
-                        redirectURI: "${redirectURI}"
-                    );
-                    final authResult = await twitterLogin.login();
-                    switch (authResult.status) {
-                      case TwitterLoginStatus.loggedIn:
-                        setState(() {
-                          isLoading = true;
-                        });
-                        final credential = TwitterAuthProvider.credential(
-                            accessToken: authResult.authToken,
-                            secret: authResult.authTokenSecret);
-                        final firebaseCredential = await firebaseAuth.signInWithCredential(credential);
+                !isLoading ? Container(
+                  height: 44,
+                  child: ElevatedButton.icon(
+                    icon: Image.asset("assets/twitter_logo.png", height: 25,),
+                    label: Text("Twitterでログイン"),
+                    onPressed: () async {
+                      final twitterLogin = TwitterLogin(
+                          apiKey: "${apiKey}",
+                          apiSecretKey: "${apiSecretKey}",
+                          redirectURI: "${redirectURI}"
+                      );
+                      final authResult = await twitterLogin.login();
+                      switch (authResult.status) {
+                        case TwitterLoginStatus.loggedIn:
+                          setState(() {
+                            isLoading = true;
+                          });
+                          final credential = TwitterAuthProvider.credential(
+                              accessToken: authResult.authToken,
+                              secret: authResult.authTokenSecret);
+                          final firebaseCredential = await firebaseAuth.signInWithCredential(credential);
 
-                        final idToken = await firebaseCredential.user?.getIdToken();
+                          final idToken = await firebaseCredential.user?.getIdToken();
 
-                        final request = SessionApiRequest(
-                            token: idToken!,
-                            accessToken: authResult.authToken,
-                            accessTokenSecret: authResult.authTokenSecret);
+                          final request = SessionApiRequest(
+                              token: idToken!,
+                              accessToken: authResult.authToken,
+                              accessTokenSecret: authResult.authTokenSecret);
 
-                        final sessionApiResults =
-                            await requestSessionApi(request: request);
-                        if (sessionApiResults.status == "OK") {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) {
-                            return EventList();
-                          }));
-                        }
+                          final sessionApiResults =
+                              await requestSessionApi(request: request);
+                          if (sessionApiResults.status == "OK") {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return EventList();
+                            }));
+                          }
 
-                        break;
-                      case TwitterLoginStatus.cancelledByUser:
-                        setState(() {
-                          isLoading = false;
-                        });
-                        break;
-                      case TwitterLoginStatus.error:
-                        setState(() {
-                          isLoading = false;
-                        });
-                        break;
-                    }
+                          break;
+                        case TwitterLoginStatus.cancelledByUser:
+                          setState(() {
+                            isLoading = false;
+                          });
+                          break;
+                        case TwitterLoginStatus.error:
+                          setState(() {
+                            isLoading = false;
+                          });
+                          break;
+                      }
 
-                  },
-                ) : CircularProgressIndicator(),
+                    },
+                  ),
+                ) : Container(
+                  height: 44,
+                  width: 44,
+                  child: CircularProgressIndicator()
+                ),
                 Expanded(
                   flex: 3,
                   child: Container()
