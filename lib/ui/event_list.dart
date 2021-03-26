@@ -147,14 +147,34 @@ class EventListView extends StatefulWidget {
 
 class _EventListViewState extends State<EventListView> {
   List<EventCard> _cardList = [];
+  late ScrollController _scrollController;
+  bool _isLoading = false;
+  int _currentPage = 1;
+  int _totalPages = 1;
 
   @override
   void initState() {
-    super.initState();
     initCardList();
+
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      final maxScrollExtent = _scrollController.position.maxScrollExtent;
+      final currentPosition = _scrollController.position.pixels;
+      if (maxScrollExtent > 0 && (maxScrollExtent - 100.0) <= currentPosition) {
+        _addCardList();
+      }
+    });
+    super.initState();
+  }
+
+  void _setPagingInfo({int currentPage = 1, int totalPages = 1}) {
+    _currentPage = currentPage;
+    _totalPages = totalPages;
   }
 
   void initCardList() async {
+    _setPagingInfo();
+
     final eventListRepository = EventListRepository(
         getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
     final eventListApiRequest = EventListApiRequest(
@@ -164,6 +184,7 @@ class _EventListViewState extends State<EventListView> {
         friends: sortFilterStateStore.friendFilterType!.typeName);
     final results = await eventListRepository.requestEventListApi(
         request: eventListApiRequest);
+    _setPagingInfo(currentPage: results.meta.currentPage, totalPages: results.meta.totalPages);
 
     sortFilterStateKey.currentState?.setCondition(sortFilterStateStore);
     setState(() {
@@ -176,6 +197,42 @@ class _EventListViewState extends State<EventListView> {
     });
   }
 
+  void _addCardList() async {
+    if (_isLoading || !_hasNextPaging(_currentPage, _totalPages)) {
+      return;
+    }
+
+    _isLoading = true;
+
+    final eventListRepository = EventListRepository(
+        getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
+    final eventListApiRequest = EventListApiRequest(
+        pageId: "${_currentPage + 1}",
+        sort: sortFilterStateStore.sortType.typeName,
+        time: sortFilterStateStore.timeFilterType!.typeName,
+        friends: sortFilterStateStore.friendFilterType!.typeName);
+
+    Future.delayed(Duration(milliseconds: 200), () async {
+      final results = await eventListRepository.requestEventListApi(
+          request: eventListApiRequest);
+      _setPagingInfo(currentPage: results.meta.currentPage, totalPages: results.meta.totalPages);
+      sortFilterStateKey.currentState?.setCondition(sortFilterStateStore);
+
+      setState(() {
+        _cardList.addAll(results.data.map((datum) {
+          final event = datum.event;
+          final extra = datum.extra;
+          return EventCard(event, extra, firebaseAuth.currentUser?.getIdToken);
+        }));
+      });
+      _isLoading = false;
+    });
+  }
+
+  bool _hasNextPaging(int currentPage, int totalPages) {
+    return currentPage < totalPages;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -186,6 +243,7 @@ class _EventListViewState extends State<EventListView> {
             itemCount: _cardList.length,
             shrinkWrap: true,
             physics: const AlwaysScrollableScrollPhysics(),
+            controller: _scrollController,
             itemBuilder: (context, index) {
               return _cardList[index];
             }),
