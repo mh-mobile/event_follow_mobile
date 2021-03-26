@@ -30,7 +30,7 @@ class EventList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("イベント一覧"),
+        title: Image.asset("assets/logo_notext.png", height: 30,),
         actions: [
           SortFilterButton(
               key: sortFilterStateKey,
