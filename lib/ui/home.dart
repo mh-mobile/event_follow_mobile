@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:twitter_login/twitter_login.dart';
@@ -51,9 +52,9 @@ class _HomeState extends State<Home> {
                     label: Text("Twitterでログイン"),
                     onPressed: () async {
                       final twitterLogin = TwitterLogin(
-                          apiKey: "${apiKey}",
-                          apiSecretKey: "${apiSecretKey}",
-                          redirectURI: "${redirectURI}"
+                          apiKey: env["TWITTER_API_KEY"],
+                          apiSecretKey: env["TWITTER_API_SECRET_KEY"],
+                          redirectURI: env["TWITTER_REDIRECT_RUI"]
                       );
                       final authResult = await twitterLogin.login();
                       switch (authResult.status) {
