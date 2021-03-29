@@ -1,26 +1,20 @@
 import 'package:event_follow/main.dart';
+import 'package:event_follow/pages/events_pages/events_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:twitter_login/twitter_login.dart';
 import 'dart:convert';
-import 'event_list.dart';
 
-class Home extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _HomeState();
-  }
-}
+bool isLoading = false;
 
-class _HomeState extends State<Home> {
-
-  bool isLoading = false;
+class HomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +53,9 @@ class _HomeState extends State<Home> {
                       final authResult = await twitterLogin.login();
                       switch (authResult.status) {
                         case TwitterLoginStatus.loggedIn:
-                          setState(() {
-                            isLoading = true;
-                          });
+                        // setState(() {
+                        //   isLoading = true;
+                        // });
                           final credential = TwitterAuthProvider.credential(
                               accessToken: authResult.authToken,
                               secret: authResult.authTokenSecret);
@@ -75,68 +69,68 @@ class _HomeState extends State<Home> {
                               accessTokenSecret: authResult.authTokenSecret);
 
                           final sessionApiResults =
-                              await requestSessionApi(request: request);
+                          await requestSessionApi(request: request);
                           if (sessionApiResults.status == "OK") {
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context) {
-                              return EventList();
-                            }));
+                                  return EventsPage();
+                                }));
                           }
 
                           break;
                         case TwitterLoginStatus.cancelledByUser:
-                          setState(() {
-                            isLoading = false;
-                          });
+                        // setState(() {
+                        //   isLoading = false;
+                        // });
                           break;
                         case TwitterLoginStatus.error:
-                          setState(() {
-                            isLoading = false;
-                          });
+                        // setState(() {
+                        //   isLoading = false;
+                        // });
                           break;
                       }
 
                     },
                   ),
                 ) : Container(
-                  height: 44,
-                  width: 44,
-                  child: CircularProgressIndicator()
+                    height: 44,
+                    width: 44,
+                    child: CircularProgressIndicator()
                 ),
                 Expanded(
-                  flex: 3,
-                  child: Container()
+                    flex: 3,
+                    child: Container()
                 ),
                 RichText(
                     text: TextSpan(children: [
-                  TextSpan(
-                    text: "アカウントを作成することで",
-                    style: TextStyle(color: Colors.grey[800]),
-                  ),
-                  TextSpan(
-                      text: "利用規約",
-                      style: TextStyle(color: Colors.lightBlue),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          launch("https://event-follow-front.herokuapp.com/terms");
-                        }),
-                  TextSpan(
-                    text: "・",
-                    style: TextStyle(color: Colors.grey[800]),
-                  ),
-                  TextSpan(
-                      text: "プライバシーポリシー",
-                      style: TextStyle(color: Colors.lightBlue),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          launch(
-                              "https://event-follow-front.herokuapp.com/privacy_policy");
-                        }),
-                  TextSpan(
-                    text: "に同意したものとみなします。",
-                    style: TextStyle(color: Colors.grey[800]),
-                  ),
-                ])),
+                      TextSpan(
+                        text: "アカウントを作成することで",
+                        style: TextStyle(color: Colors.grey[800]),
+                      ),
+                      TextSpan(
+                          text: "利用規約",
+                          style: TextStyle(color: Colors.lightBlue),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launch("https://event-follow-front.herokuapp.com/terms");
+                            }),
+                      TextSpan(
+                        text: "・",
+                        style: TextStyle(color: Colors.grey[800]),
+                      ),
+                      TextSpan(
+                          text: "プライバシーポリシー",
+                          style: TextStyle(color: Colors.lightBlue),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launch(
+                                  "https://event-follow-front.herokuapp.com/privacy_policy");
+                            }),
+                      TextSpan(
+                        text: "に同意したものとみなします。",
+                        style: TextStyle(color: Colors.grey[800]),
+                      ),
+                    ])),
               ],
             ),
           ),
@@ -146,10 +140,11 @@ class _HomeState extends State<Home> {
   }
 }
 
+
 Future<SessionApiResults> requestSessionApi(
     {required SessionApiRequest request}) async {
   final url =
-      Uri.parse("https://event-follow-front.herokuapp.com/api/sessions");
+  Uri.parse("https://event-follow-front.herokuapp.com/api/sessions");
   final response = await http.post(
     url,
     body: json.encode(request.toJson()),
@@ -175,10 +170,10 @@ class SessionApiRequest {
   });
 
   Map<String, dynamic> toJson() => {
-        "token": this.token,
-        "access_token": this.accessToken,
-        "access_token_secret": this.accessTokenSecret,
-      };
+    "token": this.token,
+    "access_token": this.accessToken,
+    "access_token_secret": this.accessTokenSecret,
+  };
 }
 
 class SessionApiResults {

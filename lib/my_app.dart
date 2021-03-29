@@ -1,6 +1,6 @@
 import 'package:event_follow/main.dart';
-import 'package:event_follow/ui/event_list.dart';
-import 'package:event_follow/ui/home.dart';
+import 'package:event_follow/pages/events_pages/events_page.dart';
+import 'package:event_follow/pages/home_pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: (firebaseAuth.currentUser != null) ? EventList() : Home(),
+      home: (firebaseAuth.currentUser != null) ? EventsPage() : HomePage(),
     );
   }
 }
