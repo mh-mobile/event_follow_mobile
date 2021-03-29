@@ -13,6 +13,8 @@ import 'package:http/http.dart' as http;
 import 'package:twitter_login/twitter_login.dart';
 import 'dart:convert';
 
+import 'home_logo.dart';
+
 bool isLoading = false;
 
 class HomePage extends HookWidget {
@@ -35,7 +37,7 @@ class HomePage extends HookWidget {
                     flex: 1,
                     child: Container()
                 ),
-                Container(child: Image.asset("assets/logo_transparent.png", height: 80,)),
+                HomeLogo(),
                 Expanded(
                     flex: 2,
                     child: Container()
