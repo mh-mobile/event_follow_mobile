@@ -1,5 +1,6 @@
 import 'package:event_follow/main.dart';
 import 'package:event_follow/pages/events_pages/events_page.dart';
+import 'package:event_follow/pages/home_pages/home_footer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/gestures.dart';
@@ -101,36 +102,7 @@ class HomePage extends HookWidget {
                     flex: 3,
                     child: Container()
                 ),
-                RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                        text: "アカウントを作成することで",
-                        style: TextStyle(color: Colors.grey[800]),
-                      ),
-                      TextSpan(
-                          text: "利用規約",
-                          style: TextStyle(color: Colors.lightBlue),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              launch("https://event-follow-front.herokuapp.com/terms");
-                            }),
-                      TextSpan(
-                        text: "・",
-                        style: TextStyle(color: Colors.grey[800]),
-                      ),
-                      TextSpan(
-                          text: "プライバシーポリシー",
-                          style: TextStyle(color: Colors.lightBlue),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              launch(
-                                  "https://event-follow-front.herokuapp.com/privacy_policy");
-                            }),
-                      TextSpan(
-                        text: "に同意したものとみなします。",
-                        style: TextStyle(color: Colors.grey[800]),
-                      ),
-                    ])),
+                HomeFooter(),
               ],
             ),
           ),
