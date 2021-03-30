@@ -16,9 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$SessionsStateTearOff {
   const _$SessionsStateTearOff();
 
-  _SessionsState call({SessionsStatus status = SessionsStatus.NG}) {
+  _SessionsState call(
+      {SessionsStatus status = SessionsStatus.NG, bool isLoading = true}) {
     return _SessionsState(
       status: status,
+      isLoading: isLoading,
     );
   }
 }
@@ -29,6 +31,7 @@ const $SessionsState = _$SessionsStateTearOff();
 /// @nodoc
 mixin _$SessionsState {
   SessionsStatus get status => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SessionsStateCopyWith<SessionsState> get copyWith =>
@@ -40,7 +43,7 @@ abstract class $SessionsStateCopyWith<$Res> {
   factory $SessionsStateCopyWith(
           SessionsState value, $Res Function(SessionsState) then) =
       _$SessionsStateCopyWithImpl<$Res>;
-  $Res call({SessionsStatus status});
+  $Res call({SessionsStatus status, bool isLoading});
 }
 
 /// @nodoc
@@ -55,12 +58,17 @@ class _$SessionsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_value.copyWith(
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as SessionsStatus,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -72,7 +80,7 @@ abstract class _$SessionsStateCopyWith<$Res>
           _SessionsState value, $Res Function(_SessionsState) then) =
       __$SessionsStateCopyWithImpl<$Res>;
   @override
-  $Res call({SessionsStatus status});
+  $Res call({SessionsStatus status, bool isLoading});
 }
 
 /// @nodoc
@@ -89,27 +97,36 @@ class __$SessionsStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = freezed,
+    Object? isLoading = freezed,
   }) {
     return _then(_SessionsState(
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as SessionsStatus,
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 class _$_SessionsState extends _SessionsState with DiagnosticableTreeMixin {
-  _$_SessionsState({this.status = SessionsStatus.NG}) : super._();
+  _$_SessionsState({this.status = SessionsStatus.NG, this.isLoading = true})
+      : super._();
 
   @JsonKey(defaultValue: SessionsStatus.NG)
   @override
   final SessionsStatus status;
+  @JsonKey(defaultValue: true)
+  @override
+  final bool isLoading;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SessionsState(status: $status)';
+    return 'SessionsState(status: $status, isLoading: $isLoading)';
   }
 
   @override
@@ -117,7 +134,8 @@ class _$_SessionsState extends _SessionsState with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'SessionsState'))
-      ..add(DiagnosticsProperty('status', status));
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('isLoading', isLoading));
   }
 
   @override
@@ -125,12 +143,17 @@ class _$_SessionsState extends _SessionsState with DiagnosticableTreeMixin {
     return identical(this, other) ||
         (other is _SessionsState &&
             (identical(other.status, status) ||
-                const DeepCollectionEquality().equals(other.status, status)));
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.isLoading, isLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.isLoading, isLoading)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(status);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -139,11 +162,14 @@ class _$_SessionsState extends _SessionsState with DiagnosticableTreeMixin {
 }
 
 abstract class _SessionsState extends SessionsState {
-  factory _SessionsState({SessionsStatus status}) = _$_SessionsState;
+  factory _SessionsState({SessionsStatus status, bool isLoading}) =
+      _$_SessionsState;
   _SessionsState._() : super._();
 
   @override
   SessionsStatus get status => throw _privateConstructorUsedError;
+  @override
+  bool get isLoading => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SessionsStateCopyWith<_SessionsState> get copyWith =>

@@ -12,6 +12,7 @@ enum SessionsStatus {
 abstract class SessionsState with _$SessionsState {
   factory SessionsState({
     @Default(SessionsStatus.NG) SessionsStatus status,
+    @Default(false) bool isLoading,
   }) = _SessionsState;
 
   SessionsState._();
