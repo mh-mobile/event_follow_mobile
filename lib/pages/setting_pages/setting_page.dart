@@ -1,4 +1,6 @@
 import 'package:event_follow/pages/home_pages/home_page.dart';
+import 'package:event_follow/pages/setting_pages/privacy_policy_tile.dart';
+import 'package:event_follow/pages/setting_pages/terms_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -39,27 +41,9 @@ class SettingPage extends HookWidget {
           itemBuilder: (context, index) {
             switch(SettingItemType.values[index]) {
               case SettingItemType.Terms:
-                return InkWell(
-                  onTap: () {
-                    launch("https://event-follow-front.herokuapp.com/terms");
-                  },
-                  child: ListTile(
-                    title: Text("利用規約", ),
-                    dense: true,
-                  ),
-                );
-                break;
+                return TermsTile();
               case SettingItemType.PrivacyPolicy:
-                return InkWell(
-                  onTap: () {
-                    launch("https://event-follow-front.herokuapp.com/privacy_policy");
-                  },
-                  child: ListTile(
-                    title: Text("プライバシーポリシー", ),
-                    dense: true,
-                  ),
-                );
-                break;
+                return PrivacyPolicyTile();
               case SettingItemType.AccountDeletion:
                 return InkWell(
                   onTap: () async {
