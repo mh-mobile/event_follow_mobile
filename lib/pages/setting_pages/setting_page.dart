@@ -1,19 +1,16 @@
+import 'package:event_follow/models/controllers/users_controller/users_controller.dart';
 import 'package:event_follow/pages/home_pages/home_page.dart';
+import 'package:event_follow/pages/setting_pages/account_deletion_tile.dart';
 import 'package:event_follow/pages/setting_pages/app_version_tile.dart';
 import 'package:event_follow/pages/setting_pages/privacy_policy_tile.dart';
 import 'package:event_follow/pages/setting_pages/terms_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../repository/account_deletion_repository.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../main.dart';
-import '../../utils//app_utils.dart';
 
-enum AccountDeletionButtons {
-  OK,
-  Cancel
-}
+enum AccountDeletionButtons { OK, Cancel }
 
 enum SettingItemType {
   Terms,
@@ -21,6 +18,9 @@ enum SettingItemType {
   AccountDeletion,
   AppVersion,
 }
+
+final _shouldLogout = Provider.autoDispose(
+    (ref) => ref.watch(usersProvider.state).status == UsersStatus.OK);
 
 class SettingPage extends HookWidget {
   @override
@@ -40,61 +40,33 @@ class SettingPage extends HookWidget {
           },
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            switch(SettingItemType.values[index]) {
+            switch (SettingItemType.values[index]) {
               case SettingItemType.Terms:
                 return TermsTile();
               case SettingItemType.PrivacyPolicy:
                 return PrivacyPolicyTile();
               case SettingItemType.AccountDeletion:
-                return InkWell(
-                  onTap: () async {
-                    final result = await showDialog<AccountDeletionButtons>(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text("確認"),
-                          content: Text("アカウントを削除してもよろしいですか？"),
-                          actions: [
-                            TextButton(
-                                onPressed: () => Navigator.pop(context, AccountDeletionButtons.Cancel),
-                                child: Text("Cancel")),
-                            TextButton(
-                                onPressed: () => Navigator.pop(context, AccountDeletionButtons.OK),
-                                child: Text("OK")),
-                          ],
-                        );
-                      },
-                    );
-
-                    switch (result) {
-                      case AccountDeletionButtons.OK:
-                        final accountDeletionRepository = AccountDeletionRepository(getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
-                        final results = await accountDeletionRepository.requestAccountDeletion();
-                        if (results.status == "OK") {
-                          firebaseAuth.signOut();
-                          Navigator.pushReplacement(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (context, _, __) => HomePage(),
-                              transitionDuration: Duration(seconds: 0),
-                            ),
-                          );
-                        }
-                        break;
-                      case AccountDeletionButtons.Cancel:
-                        break;
+                return ProviderListener(
+                  provider: _shouldLogout,
+                  onChange: (BuildContext context, bool shouldLogout) {
+                    if (shouldLogout) {
+                      firebaseAuth.signOut();
+                      Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, _, __) => HomePage(),
+                          transitionDuration: Duration(seconds: 0),
+                        ),
+                      );
                     }
                   },
-                  child: ListTile(
-                    title: Text("退会する", style: TextStyle(color: Colors.redAccent),),
-                    dense: true,
-                  ),
+                  child: AccountDeletionTile(),
                 );
-                break;
               case SettingItemType.AppVersion:
                 return AppVersion();
               default:
-                return Container(); break;
+                return Container();
+                break;
             }
           }),
     );

@@ -1,11 +1,14 @@
-import 'dart:convert';
 import 'dart:io';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-class AccountDeletionRepository {
+final usersRepositoryProvider = Provider.autoDispose.family<UsersRepository, dynamic>(
+        (ref, getOrGenerateIdToken) => UsersRepository(getOrGenerateIdToken: getOrGenerateIdToken));
+
+class UsersRepository {
   final getOrGenerateIdToken;
 
-  AccountDeletionRepository({required this.getOrGenerateIdToken});
+  UsersRepository({required this.getOrGenerateIdToken});
 
   Future<AccountDeletionApiResults> requestAccountDeletion() async {
     final url = Uri.https("event-follow-front.herokuapp.com", "/api/users");
@@ -15,7 +18,7 @@ class AccountDeletionRepository {
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader:
-            "Bearer ${await this.getOrGenerateIdToken()}"
+        "Bearer ${await this.getOrGenerateIdToken()}"
       },
     );
 
