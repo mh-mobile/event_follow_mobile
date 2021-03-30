@@ -1,16 +1,13 @@
 import 'package:event_follow/main.dart';
+import 'package:event_follow/pages/events_pages/friends_footer.dart';
 import 'package:event_follow/pages/home_pages/home_page.dart';
 import 'package:event_follow/pages/setting_pages/setting_page.dart';
 import 'package:event_follow/repository/event_list_repository.dart';
-import 'package:event_follow/repository/following_tweets_repository.dart';
-import 'package:event_follow/repository/friendships_repository.dart';
 import 'package:event_follow/ui/sort_filter_button.dart';
 import 'package:event_follow/ui/sort_filter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_linkify/flutter_linkify.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../extension/datetime_ex.dart';
 import '../../extension/string_ex.dart';
@@ -260,14 +257,8 @@ class EventCard extends StatelessWidget {
   final Event _event;
   final Extra _extra;
   final _getOrGenerateIdToken;
-  final FriendshipsRepository _friendshipsRepository;
-  final FollowingTweetsRepository _followingTweetsRepository;
 
-  EventCard(this._event, this._extra, this._getOrGenerateIdToken)
-      : _friendshipsRepository =
-  FriendshipsRepository(getOrGenerateIdToken: _getOrGenerateIdToken),
-        _followingTweetsRepository = FollowingTweetsRepository(
-            getOrGenerateIdToken: _getOrGenerateIdToken);
+  EventCard(this._event, this._extra, this._getOrGenerateIdToken);
 
   @override
   Widget build(BuildContext context) {
@@ -426,216 +417,7 @@ class EventCard extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return Container(
-                              constraints: BoxConstraints(
-                                  minHeight: 100, maxHeight: 600),
-                              color: Colors.white,
-                              child: FutureBuilder(
-                                future: _followingTweetsRepository
-                                    .requestFollowingTweetsApi(
-                                    request: FollowingTweetsApiRequest(
-                                        eventId:
-                                        this._event.id.toString())),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-
-                                  if (snapshot.error != null) {
-                                    return Center(
-                                      child: Text("エラーが発生しました"),
-                                    );
-                                  }
-
-                                  final results = snapshot.data!
-                                  as FollowingTweetsApiResults;
-                                  final tweets = results.tweets;
-
-                                  return ListView.separated(
-                                      itemCount: tweets.length,
-                                      shrinkWrap: true,
-                                      separatorBuilder: (context, index) {
-                                        return Divider(
-                                          color: Colors.black12,
-                                          height: 1,
-                                        );
-                                      },
-                                      itemBuilder: (context, index) {
-                                        final tweet = tweets[index];
-                                        return Container(
-                                          margin: EdgeInsets.only(
-                                              top: 5, bottom: 5, right: 10),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                flex: 2,
-                                                child: Container(
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            launch(
-                                                                "https://twitter.com/${tweet.user.screenName}");
-                                                          },
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .all(Radius
-                                                                .circular(
-                                                                50)),
-                                                            child:
-                                                            Image.network(
-                                                              tweet.user
-                                                                  .profileImage,
-                                                              height: 30,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 8,
-                                                child: Container(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Text(tweet.user.name,
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .blue[
-                                                                  800],
-                                                                  fontSize:
-                                                                  12)),
-                                                          Text(
-                                                              "@${tweet.user.screenName}",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  fontSize:
-                                                                  12)),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Linkify(
-                                                        onOpen: (link) async {
-                                                          if (await canLaunch(
-                                                              link.url)) {
-                                                            await launch(
-                                                                link.url);
-                                                          }
-                                                        },
-                                                        text: tweet.text,
-                                                        style: TextStyle(
-                                                            fontSize: 12),
-                                                        linkStyle: TextStyle(
-                                                            color: Colors
-                                                                .blue[800],
-                                                            fontSize: 12),
-                                                      ),
-                                                      SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                        tweet.tweetedAt
-                                                            .convertToTweetDateFormat(),
-                                                        style: TextStyle(
-                                                            color: Colors.grey),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                },
-                              ),
-                            );
-                          });
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 5.0),
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: const Color(0xfff0f1f5),
-                        border: Border.all(
-                          color: Color(0xffc1c1c1),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: Text("${_extra.friendsNumber}"),
-                      ),
-                    ),
-                  ),
-                  FutureBuilder(
-                    future: _friendshipsRepository.requestFriendshipsApi(
-                        request: FriendshipsApiRequest(
-                            userIds: this._extra.userIds)),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return SizedBox.shrink();
-                      }
-
-                      if (snapshot.data != "") {
-                        final friendshipsApiResults =
-                        snapshot.data! as FriendshipsApiResults;
-                        return Row(
-                          children: friendshipsApiResults.friends.map((friend) {
-                            return Container(
-                                margin: const EdgeInsets.only(right: 5.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    launch(
-                                        "https://twitter.com/${friend.screenName}");
-                                  },
-                                  child: ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                                    child: Image.network(
-                                      friend.profileImage,
-                                      height: 30,
-                                    ),
-                                  ),
-                                ));
-                          }).toList(),
-                        );
-                      } else {
-                        return SizedBox.shrink();
-                      }
-                    },
-                  ),
-                ],
-              ),
-            )
+            FriendsFooter(_event, _extra),
           ],
         ),
       ),

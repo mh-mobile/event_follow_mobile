@@ -1,6 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:event_follow/models/entities/user.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
+
+final friendshipsRepositoryProvider = Provider.autoDispose.family<FriendshipsRepository, dynamic>(
+        (ref, getOrGenerateIdToken) => FriendshipsRepository(getOrGenerateIdToken: getOrGenerateIdToken));
 
 class FriendshipsRepository {
   final getOrGenerateIdToken;
@@ -41,38 +46,11 @@ class FriendshipsApiResults {
     required this.friends,
   });
 
-  List<Friend> friends;
+  List<User> friends;
 
   factory FriendshipsApiResults.fromJson(List<dynamic> json) =>
       FriendshipsApiResults(
-        friends: List<Friend>.from(json.map((x) => Friend.fromJson(x))),
+        friends: List<User>.from(json.map((x) => User.fromJson(x))),
       );
 }
 
-class Friend {
-  Friend({
-    required this.id,
-    required this.screenName,
-    required this.name,
-    required this.profileImage,
-  });
-
-  String id;
-  String screenName;
-  String name;
-  String profileImage;
-
-  factory Friend.fromJson(Map<String, dynamic> json) => Friend(
-    id: json["id"],
-    screenName: json["screen_name"],
-    name: json["name"],
-    profileImage: json["profile_image"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "screen_name": screenName,
-    "name": name,
-    "profile_image": profileImage,
-  };
-}
