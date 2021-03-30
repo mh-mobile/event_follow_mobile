@@ -1,4 +1,5 @@
 import 'package:event_follow/pages/home_pages/home_page.dart';
+import 'package:event_follow/pages/setting_pages/app_version_tile.dart';
 import 'package:event_follow/pages/setting_pages/privacy_policy_tile.dart';
 import 'package:event_follow/pages/setting_pages/terms_tile.dart';
 import 'package:flutter/cupertino.dart';
@@ -91,22 +92,7 @@ class SettingPage extends HookWidget {
                 );
                 break;
               case SettingItemType.AppVersion:
-                return FutureBuilder(
-                  future: AppUtils.getAppVersion(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return SizedBox.shrink();
-                    }
-
-                    return Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: Center(
-                        child: Text("ver ${snapshot.data as String}", style: TextStyle(color: Colors.grey[600])),
-                      ),
-                    );
-                  },
-                );
-                break;
+                return AppVersion();
               default:
                 return Container(); break;
             }
