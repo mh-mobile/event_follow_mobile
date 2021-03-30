@@ -1,8 +1,7 @@
-import 'package:event_follow/models/controllers/sessions_controller/sessions_controller.dart';
-import 'package:event_follow/models/controllers/sessions_controller/sessions_state.dart';
 import 'package:event_follow/pages/events_pages/events_page.dart';
 import 'package:event_follow/pages/home_pages/home_footer.dart';
 import 'package:event_follow/pages/home_pages/twitter_login_button.dart';
+import 'package:event_follow/models/controllers/controllers.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
