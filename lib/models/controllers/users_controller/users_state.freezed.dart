@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'sessions_state.dart';
+part of 'users_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,12 +13,12 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$SessionsStateTearOff {
-  const _$SessionsStateTearOff();
+class _$UsersStateTearOff {
+  const _$UsersStateTearOff();
 
-  _SessionsState call(
-      {SessionsStatus status = SessionsStatus.NG, bool isLoading = false}) {
-    return _SessionsState(
+  _UsersState call(
+      {UsersStatus status = UsersStatus.NG, bool isLoading = false}) {
+    return _UsersState(
       status: status,
       isLoading: isLoading,
     );
@@ -26,34 +26,33 @@ class _$SessionsStateTearOff {
 }
 
 /// @nodoc
-const $SessionsState = _$SessionsStateTearOff();
+const $UsersState = _$UsersStateTearOff();
 
 /// @nodoc
-mixin _$SessionsState {
-  SessionsStatus get status => throw _privateConstructorUsedError;
+mixin _$UsersState {
+  UsersStatus get status => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SessionsStateCopyWith<SessionsState> get copyWith =>
+  $UsersStateCopyWith<UsersState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SessionsStateCopyWith<$Res> {
-  factory $SessionsStateCopyWith(
-          SessionsState value, $Res Function(SessionsState) then) =
-      _$SessionsStateCopyWithImpl<$Res>;
-  $Res call({SessionsStatus status, bool isLoading});
+abstract class $UsersStateCopyWith<$Res> {
+  factory $UsersStateCopyWith(
+          UsersState value, $Res Function(UsersState) then) =
+      _$UsersStateCopyWithImpl<$Res>;
+  $Res call({UsersStatus status, bool isLoading});
 }
 
 /// @nodoc
-class _$SessionsStateCopyWithImpl<$Res>
-    implements $SessionsStateCopyWith<$Res> {
-  _$SessionsStateCopyWithImpl(this._value, this._then);
+class _$UsersStateCopyWithImpl<$Res> implements $UsersStateCopyWith<$Res> {
+  _$UsersStateCopyWithImpl(this._value, this._then);
 
-  final SessionsState _value;
+  final UsersState _value;
   // ignore: unused_field
-  final $Res Function(SessionsState) _then;
+  final $Res Function(UsersState) _then;
 
   @override
   $Res call({
@@ -64,7 +63,7 @@ class _$SessionsStateCopyWithImpl<$Res>
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as SessionsStatus,
+              as UsersStatus,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -74,36 +73,34 @@ class _$SessionsStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SessionsStateCopyWith<$Res>
-    implements $SessionsStateCopyWith<$Res> {
-  factory _$SessionsStateCopyWith(
-          _SessionsState value, $Res Function(_SessionsState) then) =
-      __$SessionsStateCopyWithImpl<$Res>;
+abstract class _$UsersStateCopyWith<$Res> implements $UsersStateCopyWith<$Res> {
+  factory _$UsersStateCopyWith(
+          _UsersState value, $Res Function(_UsersState) then) =
+      __$UsersStateCopyWithImpl<$Res>;
   @override
-  $Res call({SessionsStatus status, bool isLoading});
+  $Res call({UsersStatus status, bool isLoading});
 }
 
 /// @nodoc
-class __$SessionsStateCopyWithImpl<$Res>
-    extends _$SessionsStateCopyWithImpl<$Res>
-    implements _$SessionsStateCopyWith<$Res> {
-  __$SessionsStateCopyWithImpl(
-      _SessionsState _value, $Res Function(_SessionsState) _then)
-      : super(_value, (v) => _then(v as _SessionsState));
+class __$UsersStateCopyWithImpl<$Res> extends _$UsersStateCopyWithImpl<$Res>
+    implements _$UsersStateCopyWith<$Res> {
+  __$UsersStateCopyWithImpl(
+      _UsersState _value, $Res Function(_UsersState) _then)
+      : super(_value, (v) => _then(v as _UsersState));
 
   @override
-  _SessionsState get _value => super._value as _SessionsState;
+  _UsersState get _value => super._value as _UsersState;
 
   @override
   $Res call({
     Object? status = freezed,
     Object? isLoading = freezed,
   }) {
-    return _then(_SessionsState(
+    return _then(_UsersState(
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as SessionsStatus,
+              as UsersStatus,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -113,35 +110,26 @@ class __$SessionsStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$_SessionsState extends _SessionsState with DiagnosticableTreeMixin {
-  _$_SessionsState({this.status = SessionsStatus.NG, this.isLoading = false})
+class _$_UsersState extends _UsersState {
+  _$_UsersState({this.status = UsersStatus.NG, this.isLoading = false})
       : super._();
 
-  @JsonKey(defaultValue: SessionsStatus.NG)
+  @JsonKey(defaultValue: UsersStatus.NG)
   @override
-  final SessionsStatus status;
+  final UsersStatus status;
   @JsonKey(defaultValue: false)
   @override
   final bool isLoading;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SessionsState(status: $status, isLoading: $isLoading)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SessionsState'))
-      ..add(DiagnosticsProperty('status', status))
-      ..add(DiagnosticsProperty('isLoading', isLoading));
+  String toString() {
+    return 'UsersState(status: $status, isLoading: $isLoading)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SessionsState &&
+        (other is _UsersState &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
             (identical(other.isLoading, isLoading) ||
@@ -157,21 +145,20 @@ class _$_SessionsState extends _SessionsState with DiagnosticableTreeMixin {
 
   @JsonKey(ignore: true)
   @override
-  _$SessionsStateCopyWith<_SessionsState> get copyWith =>
-      __$SessionsStateCopyWithImpl<_SessionsState>(this, _$identity);
+  _$UsersStateCopyWith<_UsersState> get copyWith =>
+      __$UsersStateCopyWithImpl<_UsersState>(this, _$identity);
 }
 
-abstract class _SessionsState extends SessionsState {
-  factory _SessionsState({SessionsStatus status, bool isLoading}) =
-      _$_SessionsState;
-  _SessionsState._() : super._();
+abstract class _UsersState extends UsersState {
+  factory _UsersState({UsersStatus status, bool isLoading}) = _$_UsersState;
+  _UsersState._() : super._();
 
   @override
-  SessionsStatus get status => throw _privateConstructorUsedError;
+  UsersStatus get status => throw _privateConstructorUsedError;
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SessionsStateCopyWith<_SessionsState> get copyWith =>
+  _$UsersStateCopyWith<_UsersState> get copyWith =>
       throw _privateConstructorUsedError;
 }
