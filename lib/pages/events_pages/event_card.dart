@@ -1,5 +1,6 @@
+import 'package:event_follow/models/entities/event.dart';
+import 'package:event_follow/models/entities/event_extra.dart';
 import 'package:event_follow/pages/events_pages/friends_footer.dart';
-import 'package:event_follow/repository/event_list_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,10 +11,9 @@ import '../../extension/image_ex.dart';
 
 class EventCard extends HookWidget {
   final Event _event;
-  final Extra _extra;
-  final _getOrGenerateIdToken;
+  final EventExtra _extra;
 
-  EventCard(this._event, this._extra, this._getOrGenerateIdToken);
+  EventCard(this._event, this._extra);
 
   @override
   Widget build(BuildContext context) {

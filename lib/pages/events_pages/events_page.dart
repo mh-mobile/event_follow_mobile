@@ -1,26 +1,23 @@
 import 'package:event_follow/main.dart';
-import 'package:event_follow/pages/events_pages/friends_footer.dart';
+import 'package:event_follow/models/controllers/events_controller/events_controller.dart';
+import 'package:event_follow/models/repositories/events/events_repository.dart';
+import 'package:event_follow/pages/events_pages/event_card.dart';
 import 'package:event_follow/pages/home_pages/home_page.dart';
 import 'package:event_follow/pages/setting_pages/setting_page.dart';
-import 'package:event_follow/repository/event_list_repository.dart';
 import 'package:event_follow/ui/sort_filter_button.dart';
 import 'package:event_follow/ui/sort_filter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../extension/datetime_ex.dart';
-import '../../extension/string_ex.dart';
-import '../../extension/image_ex.dart';
 import '../../config/sort_filter_globals.dart';
 
 final sortFilterStateKey = GlobalKey<SortFilterButtonState>();
-final eventListViewStateKey = GlobalKey<_EventListViewState>();
+// final eventListViewStateKey = GlobalKey<_EventListViewState>();
 
 var sortFilterStateStore = SortFilterStateStore(
     sortType: SortType.FriendsNumber,
-    friendFilterType:
-    FriendsFilterType.ThreeOrMoreFriends,
+    friendFilterType: FriendsFilterType.ThreeOrMoreFriends,
     timeFilterType: TimeFilterType.SixDays);
 
 class EventsPage extends HookWidget {
@@ -28,7 +25,10 @@ class EventsPage extends HookWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset("assets/logo_notext.png", height: 30,),
+        title: Image.asset(
+          "assets/logo_notext.png",
+          height: 30,
+        ),
         actions: [
           SortFilterButton(
               key: sortFilterStateKey,
@@ -45,7 +45,7 @@ class EventsPage extends HookWidget {
                       onChange: (store) {
                         sortFilterStateStore = store;
                         sortFilterStateKey.currentState?.setCondition(store);
-                        eventListViewStateKey.currentState?.initCardList();
+                        // eventListViewStateKey.currentState?.initCardList();
                       },
                     );
                   },
@@ -53,7 +53,7 @@ class EventsPage extends HookWidget {
                       (context, animation, secondaryAnimation, child) {
                     return SlideTransition(
                       position: CurvedAnimation(
-                          parent: animation, curve: Curves.easeOut)
+                              parent: animation, curve: Curves.easeOut)
                           .drive(Tween<Offset>(
                         begin: Offset(0, -1.0),
                         end: Offset.zero,
@@ -122,305 +122,71 @@ class EventsPage extends HookWidget {
           ],
         ),
       ),
-      body: EventListView(
-          key: eventListViewStateKey
-      ),
+      body: EventListView(),
     );
   }
 }
 
-class EventListView extends StatefulWidget {
-
+class EventListView extends HookWidget {
   const EventListView({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return _EventListViewState();
-  }
-}
+  Widget build(BuildContext context) {
+    final controller = useProvider(eventsProvider);
+    final data =
+        useProvider(eventsProvider.state.select((value) => value.data));
+    final isLoading =
+        useProvider(eventsProvider.state.select((value) => value.isLoading));
+    print(isLoading);
 
-class _EventListViewState extends State<EventListView> {
-  List<EventCard> _cardList = [];
-  late ScrollController _scrollController;
-  bool _isLoading = false;
-  int _currentPage = 1;
-  int _totalPages = 1;
+    final _cardList =
+        data.map((datum) => EventCard(datum.event, datum.extra)).toList();
 
-  @override
-  void initState() {
-    initCardList();
-
-    _scrollController = ScrollController();
-    _scrollController.addListener(() {
-      final maxScrollExtent = _scrollController.position.maxScrollExtent;
-      final currentPosition = _scrollController.position.pixels;
-      if (maxScrollExtent > 0 && (maxScrollExtent - 100.0) <= currentPosition) {
-        _addCardList();
-      }
-    });
-    super.initState();
-  }
-
-  void _setPagingInfo({int currentPage = 1, int totalPages = 1}) {
-    _currentPage = currentPage;
-    _totalPages = totalPages;
-  }
-
-  void initCardList() async {
-    _setPagingInfo();
-
-    final eventListRepository = EventListRepository(
-        getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
-    final eventListApiRequest = EventListApiRequest(
-        pageId: "1",
-        sort: sortFilterStateStore.sortType.typeName,
-        time: sortFilterStateStore.timeFilterType!.typeName,
-        friends: sortFilterStateStore.friendFilterType!.typeName);
-    final results = await eventListRepository.requestEventListApi(
-        request: eventListApiRequest);
-    _setPagingInfo(currentPage: results.meta.currentPage, totalPages: results.meta.totalPages);
-
-    sortFilterStateKey.currentState?.setCondition(sortFilterStateStore);
-    setState(() {
-      _cardList.clear();
-      _cardList.addAll(results.data.map((datum) {
-        final event = datum.event;
-        final extra = datum.extra;
-        return EventCard(event, extra, firebaseAuth.currentUser?.getIdToken);
-      }));
-    });
-  }
-
-  void _addCardList() async {
-    if (_isLoading || !_hasNextPaging(_currentPage, _totalPages)) {
-      return;
+    Future<void> _onRefresh() async {
+      controller.request(EventsApiRequest(
+          pageId: "1",
+          sort: "friends_number_order",
+          time: "past_8_hours",
+          friends: "one_or_more_friends"));
     }
 
-    _isLoading = true;
-
-    final eventListRepository = EventListRepository(
-        getOrGenerateIdToken: firebaseAuth.currentUser?.getIdToken);
-    final eventListApiRequest = EventListApiRequest(
-        pageId: "${_currentPage + 1}",
-        sort: sortFilterStateStore.sortType.typeName,
-        time: sortFilterStateStore.timeFilterType!.typeName,
-        friends: sortFilterStateStore.friendFilterType!.typeName);
-
-    Future.delayed(Duration(milliseconds: 200), () async {
-      final results = await eventListRepository.requestEventListApi(
-          request: eventListApiRequest);
-      _setPagingInfo(currentPage: results.meta.currentPage, totalPages: results.meta.totalPages);
-      sortFilterStateKey.currentState?.setCondition(sortFilterStateStore);
-
-      setState(() {
-        _cardList.addAll(results.data.map((datum) {
-          final event = datum.event;
-          final extra = datum.extra;
-          return EventCard(event, extra, firebaseAuth.currentUser?.getIdToken);
-        }));
+    late ScrollController _scrollController = () {
+      var _scrollController = ScrollController();
+      _scrollController.addListener(() {
+        final maxScrollExtent = _scrollController.position.maxScrollExtent;
+        final currentPosition = _scrollController.position.pixels;
+        if (maxScrollExtent > 0 &&
+            (maxScrollExtent - 100.0) <= currentPosition) {
+          // _addCardList();
+        }
       });
-      _isLoading = false;
-    });
+      return _scrollController;
+    }();
+
+    print(isLoading);
+    return !isLoading
+        ? Container(
+            padding: EdgeInsets.all((8)),
+            child: RefreshIndicator(
+              onRefresh: _onRefresh,
+              child: ListView.builder(
+                  itemCount: _cardList.length,
+                  shrinkWrap: true,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  controller: _scrollController,
+                  itemBuilder: (context, index) {
+                    return _cardList[index];
+                  }),
+            ),
+          )
+        : Center(
+            child: CircularProgressIndicator(),
+          );
   }
 
   bool _hasNextPaging(int currentPage, int totalPages) {
     return currentPage < totalPages;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all((8)),
-      child: RefreshIndicator(
-        onRefresh: _onRefresh,
-        child: ListView.builder(
-            itemCount: _cardList.length,
-            shrinkWrap: true,
-            physics: const AlwaysScrollableScrollPhysics(),
-            controller: _scrollController,
-            itemBuilder: (context, index) {
-              return _cardList[index];
-            }),
-      ),
-    );
-  }
-
-  Future<void> _onRefresh() async {
-    initCardList();
-  }
-
-}
-
-class EventCard extends StatelessWidget {
-  final Event _event;
-  final Extra _extra;
-  final _getOrGenerateIdToken;
-
-  EventCard(this._event, this._extra, this._getOrGenerateIdToken);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          launch(_event.url);
-        },
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              child: IntrinsicHeight(
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 5.0),
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: const Color(0xfff0f1f5),
-                                border: Border.all(
-                                  color: Color(0xffc1c1c1),
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    _event.startedAt.convertToEventDateFormat(),
-                                    style: TextStyle(fontSize: 16.0),
-                                  ),
-                                  Text(
-                                    "開催",
-                                    style: TextStyle(fontSize: 12.0),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              child: ImageExtension.getEventLogoPath(
-                                  _event.siteId),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                final text =
-                                    "\"${_event.title}\"\n${_event.url}";
-                                launch(
-                                    "twitter://post?message=${Uri.encodeFull(text)}");
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: Container(
-                                  width: 100,
-                                  height: 20,
-                                  color: Colors.blue,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset("assets/twitter_logo.png",
-                                          height: 15.0),
-                                      Text(
-                                        "ツイート",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 10.0),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 8,
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        child: Column(
-                          children: [
-                            Expanded(
-                                flex: 3,
-                                child: Container(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                          flex: 7,
-                                          child: Container(
-                                            child: Text(
-                                              _event.title,
-                                              style: TextStyle(
-                                                  color: Colors.blue[800]),
-                                            ),
-                                          )),
-                                      Expanded(
-                                          flex: 3,
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                                right: 5, left: 5),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  child: Image.network(
-                                                    _event.banner,
-                                                    height: 50,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ))
-                                    ],
-                                  ),
-                                )),
-                            Expanded(
-                              flex: 7,
-                              child: Container(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        child: Text(
-                                          _event.description
-                                              .removeAllHtmlTags()
-                                              .stripEventDescription(),
-                                          style: TextStyle(
-                                            fontSize: 11,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            FriendsFooter(_event, _extra),
-          ],
-        ),
-      ),
-    );
   }
 }
