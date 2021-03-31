@@ -17,11 +17,7 @@ class EventsController extends StateNotifier<EventsState> {
     final getIdToken = firebaseAuth.currentUser?.getIdToken;
     _eventsRepository = this._read(eventsRepositoryProvider(getIdToken));
 
-    request(EventsApiRequest(
-        pageId: "1",
-        sort: "friends_number_order",
-        time: "past_8_hours",
-        friends: "one_or_more_friends"));
+    request(EventsApiRequest(pageId: "1"));
   }
 
   final Reader _read;
