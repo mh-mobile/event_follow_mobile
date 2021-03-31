@@ -1,6 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:event_follow/models/entities/entities.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
+
+final followingTweetsRepositoryProvider = Provider.autoDispose.family<FollowingTweetsRepository, dynamic>(
+        (ref, getOrGenerateIdToken) => FollowingTweetsRepository(getOrGenerateIdToken: getOrGenerateIdToken));
 
 class FollowingTweetsRepository {
   final getOrGenerateIdToken;
@@ -47,54 +52,4 @@ class FollowingTweetsApiResults {
       FollowingTweetsApiResults(
         tweets: List<FollowingTweet>.from(json.map((x) => FollowingTweet.fromJson(x))),
       );
-}
-
-class FollowingTweet {
-  String id;
-  String text;
-  DateTime tweetedAt;
-  dynamic quotedTweetId;
-  dynamic retweetedTweetId;
-  User user;
-
-  FollowingTweet({
-    required this.id,
-    required this.text,
-    required this.tweetedAt,
-    this.quotedTweetId,
-    this.retweetedTweetId,
-    required this.user,
-  });
-
-  factory FollowingTweet.fromJson(Map<String, dynamic> json) => FollowingTweet(
-    id: json["id"],
-    text: json["text"],
-    tweetedAt: DateTime.parse(json["tweeted_at"]),
-    quotedTweetId: json["quoted_tweet_id"],
-    retweetedTweetId: json["retweeted_tweet_id"],
-    user: User.fromJson(json["user"]),
-  );
-
-}
-
-class User {
-  String id;
-  String screenName;
-  String name;
-  String profileImage;
-  
-  User({
-    required this.id,
-    required this.screenName,
-    required this.name,
-    required this.profileImage,
-  });
-
-  factory User.fromJson(Map<String, dynamic> json) => User(
-    id: json["id"],
-    screenName: json["screen_name"],
-    name: json["name"],
-    profileImage: json["profile_image"],
-  );
-
 }
