@@ -148,10 +148,9 @@ class EventListView extends HookWidget {
     final data =
         useProvider(eventsProvider.state.select((value) => value.data));
     final meta =
-    useProvider(eventsProvider.state.select((value) => value.meta));
+        useProvider(eventsProvider.state.select((value) => value.meta));
     final isLoading =
         useProvider(eventsProvider.state.select((value) => value.isLoading));
-    print(isLoading);
 
     final _cardList =
         data.map((datum) => EventCard(datum.event, datum.extra)).toList();
@@ -159,9 +158,9 @@ class EventListView extends HookWidget {
     Future<void> _onRefresh() async {
       controller.request(EventsApiRequest(
           pageId: "1",
-          sort: "friends_number_order",
-          time: "past_8_hours",
-          friends: "one_or_more_friends"));
+          sort: sortFilterStateStore.sortType.typeName,
+          time: sortFilterStateStore.timeFilterType!.typeName,
+          friends: sortFilterStateStore.friendFilterType!.typeName));
     }
 
     late ScrollController _scrollController = () {
@@ -171,15 +170,27 @@ class EventListView extends HookWidget {
         final currentPosition = _scrollController.position.pixels;
         if (maxScrollExtent > 0 &&
             (maxScrollExtent - 100.0) <= currentPosition) {
-          // _addCardList();
+          final currentPage = meta?.currentPage ?? 1;
+          final totalPages = meta?.totalPages ?? 1;
+          if (!isLoading && _hasNextPaging(currentPage, totalPages)) {
+            final nextPageId = (meta?.currentPage ?? 1) + 1;
+
+            controller.request(EventsApiRequest(
+                pageId: nextPageId.toString(),
+                sort: sortFilterStateStore.sortType.typeName,
+                time: sortFilterStateStore.timeFilterType!.typeName,
+                friends: sortFilterStateStore.friendFilterType!.typeName));
+          }
         }
       });
       return _scrollController;
     }();
 
-    print(isLoading);
-    return !isLoading
-        ? Container(
+    return (isLoading && data.length == 0)
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Container(
             padding: EdgeInsets.all((8)),
             child: RefreshIndicator(
               onRefresh: _onRefresh,
@@ -192,9 +203,6 @@ class EventListView extends HookWidget {
                     return _cardList[index];
                   }),
             ),
-          )
-        : Center(
-            child: CircularProgressIndicator(),
           );
   }
 
