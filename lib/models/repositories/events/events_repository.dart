@@ -33,22 +33,22 @@ class EventsRepository {
 
 class EventsApiRequest {
   final String pageId;
-  final String sort;
-  final String time;
-  final String friends;
+  final String? sort;
+  final String? time;
+  final String? friends;
 
   EventsApiRequest({
     required this.pageId,
-    required this.sort,
-    required this.time,
-    required this.friends,
+    this.sort,
+    this.time,
+    this.friends,
   });
 
   Map<String, String> toParams() => {
         "page": this.pageId,
-        "sort": this.sort,
-        "time": this.time,
-        "friends": this.friends,
+        if (this.sort != null) "sort": this.sort!,
+        if (this.time != null) "time": this.time!,
+        if (this.friends != null) "friends": this.friends!,
       };
 }
 
