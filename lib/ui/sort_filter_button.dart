@@ -18,13 +18,11 @@ class SortFilterButton extends StatefulWidget {
 
 class SortFilterButtonState extends State<SortFilterButton> {
   bool _pressing = false;
-  SortFilterStateStore? selectedStateStore;
-
-
-
+  late SortFilterStateStore? selectedStateStore = widget.selectedStateStore;
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapDown: (_) {
