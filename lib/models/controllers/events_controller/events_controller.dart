@@ -10,11 +10,20 @@ final eventsProvider =
 
 class EventsController extends StateNotifier<EventsState> {
   EventsController(this._read) : super(EventsState()) {
+
     state = state.copyWith(
       isLoading: false,
     );
     final getIdToken = firebaseAuth.currentUser?.getIdToken;
     _eventsRepository = this._read(eventsRepositoryProvider(getIdToken));
+
+    print("EventsController initaaa");
+    request(EventsApiRequest(
+        pageId: "1",
+        sort: "friends_number_order",
+        time: "past_8_hours",
+        friends: "one_or_more_friends"));
+
   }
 
   final Reader _read;
@@ -38,5 +47,4 @@ class EventsController extends StateNotifier<EventsState> {
       data: [],
     );
   }
-
 }
