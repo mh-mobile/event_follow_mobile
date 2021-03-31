@@ -1,7 +1,6 @@
 import '../../../main.dart';
 import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'following_tweets_state.dart';
 
 export 'following_tweets_state.dart';
