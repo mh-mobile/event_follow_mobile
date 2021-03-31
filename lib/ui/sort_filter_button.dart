@@ -5,10 +5,12 @@ import '../config/sort_filter_globals.dart';
 class SortFilterButton extends StatefulWidget {
   const SortFilterButton({
     required this.onTap,
+    required this.selectedStateStore,
     Key? key,
   }) : super(key: key);
 
   final VoidCallback onTap;
+  final SortFilterStateStore selectedStateStore;
 
   @override
   State<StatefulWidget> createState() => SortFilterButtonState();

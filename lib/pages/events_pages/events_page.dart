@@ -32,6 +32,7 @@ class EventsPage extends HookWidget {
         actions: [
           SortFilterButton(
               key: sortFilterStateKey,
+              selectedStateStore: sortFilterStateStore,
               onTap: () {
                 showGeneralDialog(
                   context: context,
@@ -137,6 +138,8 @@ class EventListView extends HookWidget {
     final controller = useProvider(eventsProvider);
     final data =
         useProvider(eventsProvider.state.select((value) => value.data));
+    final meta =
+    useProvider(eventsProvider.state.select((value) => value.meta));
     final isLoading =
         useProvider(eventsProvider.state.select((value) => value.isLoading));
     print(isLoading);
