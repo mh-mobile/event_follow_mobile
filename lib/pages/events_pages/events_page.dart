@@ -23,6 +23,8 @@ var sortFilterStateStore = SortFilterStateStore(
 class EventsPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final controller = useProvider(eventsProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(
@@ -46,6 +48,13 @@ class EventsPage extends HookWidget {
                       onChange: (store) {
                         sortFilterStateStore = store;
                         sortFilterStateKey.currentState?.setCondition(store);
+
+                        controller.request(EventsApiRequest(
+                            pageId: "1",
+                            sort: store.sortType.typeName,
+                            time: store.timeFilterType!.typeName,
+                            friends: store.friendFilterType!.typeName));
+
                         // eventListViewStateKey.currentState?.initCardList();
                       },
                     );
