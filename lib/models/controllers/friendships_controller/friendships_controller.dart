@@ -1,9 +1,7 @@
 import 'package:synchronized/synchronized.dart';
-
 import '../../../main.dart';
 import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'friendships_state.dart';
 
 final friendshipsProvider =
