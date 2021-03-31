@@ -13,7 +13,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../config/sort_filter_globals.dart';
 
 final sortFilterStateKey = GlobalKey<SortFilterButtonState>();
-// final eventListViewStateKey = GlobalKey<_EventListViewState>();
 
 var sortFilterStateStore = SortFilterStateStore(
     sortType: SortType.FriendsNumber,
