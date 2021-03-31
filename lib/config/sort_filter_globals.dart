@@ -34,6 +34,10 @@ extension SortTypeExtension on SortType {
     ["開催が近い", "順"],
   ];
 
+  static SortType convert(String typeName) {
+    return types.firstWhere((element) => typeNames[element] == typeName);
+  }
+
   String get typeName => typeNames[this]!;
   String get labelName => labelNames[this]!;
 }
@@ -78,6 +82,10 @@ extension FriendsFilterTypeExtension on FriendsFilterType {
     ["Friends", "4+"],
     ["Friends", "5+"],
   ];
+
+  static FriendsFilterType convert(String typeName) {
+    return types.firstWhere((element) => typeNames[element] == typeName);
+  }
 
   String get typeName => typeNames[this]!;
   String get labelName => labelNames[this]!;
@@ -143,6 +151,10 @@ extension TimeFilterTypeExtension on TimeFilterType {
     ["1", "week"],
     ["All"],
   ];
+
+  static TimeFilterType convert(String typeName) {
+    return types.firstWhere((element) => typeNames[element] == typeName);
+  }
 
   String get typeName => typeNames[this]!;
   String get labelName => labelNames[this]!;

@@ -14,15 +14,19 @@ import '../../config/sort_filter_globals.dart';
 
 final sortFilterStateKey = GlobalKey<SortFilterButtonState>();
 
-var sortFilterStateStore = SortFilterStateStore(
-    sortType: SortType.FriendsNumber,
-    friendFilterType: FriendsFilterType.ThreeOrMoreFriends,
-    timeFilterType: TimeFilterType.SixDays);
+// var sortFilterStateStore = SortFilterStateStore(
+//     sortType: SortType.FriendsNumber,
+//     friendFilterType: FriendsFilterType.ThreeOrMoreFriends,
+//     timeFilterType: TimeFilterType.SixDays);
 
 class EventsPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final controller = useProvider(eventsProvider);
+    final sortFilterStateStore = useProvider(eventsConditionProvider).state;
+    if (sortFilterStateStore != null) {
+      sortFilterStateKey.currentState?.setCondition(sortFilterStateStore);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -43,18 +47,16 @@ class EventsPage extends HookWidget {
                   barrierColor: Colors.black.withOpacity(0.5),
                   pageBuilder: (context, _, __) {
                     return SortFilterDialog(
-                      store: sortFilterStateStore,
+                      store: sortFilterStateStore!,
                       onChange: (store) {
-                        sortFilterStateStore = store;
                         sortFilterStateKey.currentState?.setCondition(store);
 
                         controller.request(EventsApiRequest(
                             pageId: "1",
                             sort: store.sortType.typeName,
-                            time: store.timeFilterType!.typeName,
-                            friends: store.friendFilterType!.typeName));
+                            time: store.timeFilterType?.typeName,
+                            friends: store.friendFilterType?.typeName));
 
-                        // eventListViewStateKey.currentState?.initCardList();
                       },
                     );
                   },
@@ -150,6 +152,7 @@ class EventListView extends HookWidget {
         useProvider(eventsProvider.state.select((value) => value.meta));
     final isLoading =
         useProvider(eventsProvider.state.select((value) => value.isLoading));
+    final sortFilterStateStore = useProvider(eventsConditionProvider).state;
 
     final _cardList =
         data.map((datum) => EventCard(datum.event, datum.extra)).toList();
@@ -157,9 +160,9 @@ class EventListView extends HookWidget {
     Future<void> _onRefresh() async {
       controller.request(EventsApiRequest(
           pageId: "1",
-          sort: sortFilterStateStore.sortType.typeName,
-          time: sortFilterStateStore.timeFilterType!.typeName,
-          friends: sortFilterStateStore.friendFilterType!.typeName));
+          sort: sortFilterStateStore?.sortType.typeName,
+          time: sortFilterStateStore?.timeFilterType!.typeName,
+          friends: sortFilterStateStore?.friendFilterType!.typeName));
     }
 
     late ScrollController _scrollController = () {
@@ -176,9 +179,9 @@ class EventListView extends HookWidget {
 
             controller.request(EventsApiRequest(
                 pageId: nextPageId.toString(),
-                sort: sortFilterStateStore.sortType.typeName,
-                time: sortFilterStateStore.timeFilterType!.typeName,
-                friends: sortFilterStateStore.friendFilterType!.typeName));
+                sort: sortFilterStateStore?.sortType.typeName,
+                time: sortFilterStateStore?.timeFilterType!.typeName,
+                friends: sortFilterStateStore?.friendFilterType!.typeName));
           }
         }
       });

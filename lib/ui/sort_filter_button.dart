@@ -10,7 +10,7 @@ class SortFilterButton extends StatefulWidget {
   }) : super(key: key);
 
   final VoidCallback onTap;
-  final SortFilterStateStore selectedStateStore;
+  final SortFilterStateStore? selectedStateStore;
 
   @override
   State<StatefulWidget> createState() => SortFilterButtonState();
