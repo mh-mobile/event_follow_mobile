@@ -9,8 +9,8 @@ import 'package:event_follow/ui/sort_filter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import '../../config/sort_filter_globals.dart';
+import 'no_empty_logo.dart';
 
 final sortFilterStateKey = GlobalKey<SortFilterButtonState>();
 
@@ -56,7 +56,6 @@ class EventsPage extends HookWidget {
                             sort: store.sortType.typeName,
                             time: store.timeFilterType?.typeName,
                             friends: store.friendFilterType?.typeName));
-
                       },
                     );
                   },
@@ -187,6 +186,25 @@ class EventListView extends HookWidget {
       });
       return _scrollController;
     }();
+
+    if (!isLoading && data.length == 0) {
+      return RefreshIndicator(
+          onRefresh: _onRefresh,
+          child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    NoEmptyLogo(),
+                    SizedBox(height: 20.0,),
+                    Text("イベントがまだありません", style: TextStyle(fontWeight: FontWeight.bold),),
+                  ],
+                ),
+                height: MediaQuery.of(context).size.height - 200,
+                width: MediaQuery.of(context).size.width,
+              )));
+    }
 
     return (isLoading && data.length == 0)
         ? Center(
