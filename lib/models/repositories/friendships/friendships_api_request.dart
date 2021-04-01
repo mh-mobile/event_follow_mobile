@@ -6,6 +6,6 @@ class FriendshipsApiRequest {
   });
 
   Map<String, String> toParams() => {
-    "user_ids": this.userIds,
-  };
+        "user_ids": this.userIds,
+      };
 }
