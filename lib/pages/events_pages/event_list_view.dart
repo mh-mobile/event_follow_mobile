@@ -17,15 +17,15 @@ class EventListView extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useProvider(eventsProvider);
     final data =
-    useProvider(eventsProvider.state.select((value) => value.data));
+        useProvider(eventsProvider.state.select((value) => value.data));
     final meta =
-    useProvider(eventsProvider.state.select((value) => value.meta));
+        useProvider(eventsProvider.state.select((value) => value.meta));
     final isLoading =
-    useProvider(eventsProvider.state.select((value) => value.isLoading));
+        useProvider(eventsProvider.state.select((value) => value.isLoading));
     final sortFilterStateStore = useProvider(eventsConditionProvider).state;
 
     final _cardList =
-    data.map((datum) => EventCard(datum.event, datum.extra)).toList();
+        data.map((datum) => EventCard(datum.event, datum.extra)).toList();
 
     Future<void> _onRefresh() async {
       controller.request(EventsApiRequest(
@@ -69,11 +69,9 @@ class EventListView extends HookWidget {
     }
 
     return EventContentView(
-      onRefresh: _onRefresh,
-      scrollController: _scrollController,
-      cardList: _cardList
-    );
-
+        onRefresh: _onRefresh,
+        scrollController: _scrollController,
+        cardList: _cardList);
   }
 
   bool _hasNextPaging(int currentPage, int totalPages) {
