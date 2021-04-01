@@ -180,6 +180,11 @@ class SortFilterStateStore {
       currentSortType = SortTypeExtension.types.firstWhere((type) {
         return type.index == itemSelectedIndex;
       });
+
+      return SortFilterStateStore(
+          sortType: currentSortType,
+          friendFilterType: currentFriendsFilterType,
+          timeFilterType: currentTimeFilterType);
     }
 
     if (currentSortType == SortType.FriendsNumber) {
