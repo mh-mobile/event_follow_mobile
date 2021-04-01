@@ -1,3 +1,4 @@
+import 'package:event_follow/models/repositories/friendships/friendships_api_request.dart';
 import 'package:synchronized/synchronized.dart';
 import '../../../main.dart';
 import '../../models.dart';
