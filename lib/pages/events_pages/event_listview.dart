@@ -1,5 +1,6 @@
 import 'package:event_follow/models/controllers/events_controller/events_controller.dart';
 import 'package:event_follow/models/repositories/events/events_repository.dart';
+import 'package:event_follow/pages/events_pages/event_empty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -58,22 +59,7 @@ class EventListView extends HookWidget {
     }();
 
     if (!isLoading && data.length == 0) {
-      return RefreshIndicator(
-          onRefresh: _onRefresh,
-          child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    NoEmptyLogo(),
-                    SizedBox(height: 20.0,),
-                    Text("イベントがまだありません", style: TextStyle(fontWeight: FontWeight.bold),),
-                  ],
-                ),
-                height: MediaQuery.of(context).size.height - 200,
-                width: MediaQuery.of(context).size.width,
-              )));
+      return EventEmptyView(onRefresh: _onRefresh);
     }
 
     return (isLoading && data.length == 0)
