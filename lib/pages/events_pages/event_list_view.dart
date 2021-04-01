@@ -31,8 +31,8 @@ class EventListView extends HookWidget {
       controller.request(EventsApiRequest(
           pageId: "1",
           sort: sortFilterStateStore?.sortType.typeName,
-          time: sortFilterStateStore?.timeFilterType!.typeName,
-          friends: sortFilterStateStore?.friendFilterType!.typeName));
+          time: sortFilterStateStore?.timeFilterType?.typeName,
+          friends: sortFilterStateStore?.friendFilterType?.typeName));
     }
 
     late ScrollController _scrollController = () {
@@ -50,8 +50,8 @@ class EventListView extends HookWidget {
             controller.request(EventsApiRequest(
                 pageId: nextPageId.toString(),
                 sort: sortFilterStateStore?.sortType.typeName,
-                time: sortFilterStateStore?.timeFilterType!.typeName,
-                friends: sortFilterStateStore?.friendFilterType!.typeName));
+                time: sortFilterStateStore?.timeFilterType?.typeName,
+                friends: sortFilterStateStore?.friendFilterType?.typeName));
           }
         }
       });
