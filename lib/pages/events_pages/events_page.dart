@@ -1,13 +1,13 @@
 import 'package:event_follow/models/controllers/events_controller/events_controller.dart';
 import 'package:event_follow/models/repositories/events/events_repository.dart';
 import 'package:event_follow/pages/events_pages/event_drawer_header.dart';
-import 'package:event_follow/ui/sort_filter_button.dart';
-import 'package:event_follow/ui/sort_filter_dialog.dart';
+import 'package:event_follow/pages/events_pages/sort_filter_button.dart';
+import 'package:event_follow/pages/events_pages/sort_filter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../config/sort_filter_globals.dart';
 import 'event_list_view.dart';
+import 'package:event_follow/config/sort_filter_globals.dart';
 
 final sortFilterStateKey = GlobalKey<SortFilterButtonState>();
 
