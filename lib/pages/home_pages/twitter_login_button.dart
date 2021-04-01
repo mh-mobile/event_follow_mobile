@@ -1,4 +1,5 @@
 import 'package:event_follow/models/controllers/sessions_controller/sessions_controller.dart';
+import 'package:event_follow/models/repositories/sessions/sessions_api_request.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -39,7 +40,7 @@ class TwitterLoginButton extends HookWidget {
 
               final idToken = await firebaseCredential.user?.getIdToken();
 
-              final request = SessionApiRequest(
+              final request = SessionsApiRequest(
                   token: idToken!,
                   accessToken: authResult.authToken,
                   accessTokenSecret: authResult.authTokenSecret);
