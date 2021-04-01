@@ -1,5 +1,5 @@
 import 'package:event_follow/models/controllers/events_controller/events_controller.dart';
-import 'package:event_follow/models/repositories/events/events_repository.dart';
+import 'package:event_follow/models/repositories/events/events_api_request.dart';
 import 'package:event_follow/pages/events_pages/event_drawer_header.dart';
 import 'package:event_follow/pages/events_pages/sort_filter_button.dart';
 import 'package:event_follow/pages/events_pages/sort_filter_dialog.dart';

@@ -1,4 +1,5 @@
 import 'package:event_follow/config/sort_filter_globals.dart';
+import 'package:event_follow/models/repositories/events/events_api_request.dart';
 import 'package:event_follow/models/repositories/events/events_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../main.dart';

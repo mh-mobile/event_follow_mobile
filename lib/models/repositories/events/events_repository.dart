@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:event_follow/models/entities/event_datum.dart';
-import 'package:event_follow/models/entities/event_meta.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'events_api_request.dart';
+import 'events_api_response.dart';
 
 final eventsRepositoryProvider = Provider.autoDispose
     .family<EventsRepository, dynamic>((ref, getOrGenerateIdToken) =>
@@ -14,7 +14,7 @@ class EventsRepository {
 
   EventsRepository({required this.getOrGenerateIdToken});
 
-  Future<EventsApiResults> requestEventsApi(
+  Future<EventsApiResponse> requestEventsApi(
       {required EventsApiRequest request}) async {
     final url = Uri.https(
         "event-follow-front.herokuapp.com", "/api/events", request.toParams());
@@ -27,49 +27,6 @@ class EventsRepository {
             "Bearer ${await this.getOrGenerateIdToken()}"
       },
     );
-    return EventsApiResults.fromJson(json.decode(response.body));
+    return EventsApiResponse.fromJson(json.decode(response.body));
   }
-}
-
-class EventsApiRequest {
-  final String pageId;
-  final String? sort;
-  final String? time;
-  final String? friends;
-
-  EventsApiRequest({
-    required this.pageId,
-    this.sort,
-    this.time,
-    this.friends,
-  });
-
-  Map<String, String> toParams() => {
-        "page": this.pageId,
-        if (this.sort != null) "sort": this.sort!,
-        if (this.time != null) "time": this.time!,
-        if (this.friends != null) "friends": this.friends!,
-      };
-}
-
-class EventsApiResults {
-  EventsApiResults({
-    required this.meta,
-    required this.data,
-  });
-
-  EventMeta meta;
-  List<EventDatum> data;
-
-  factory EventsApiResults.fromJson(Map<String, dynamic> json) =>
-      EventsApiResults(
-        meta: EventMeta.fromJson(json["meta"]),
-        data: List<EventDatum>.from(
-            json["data"].map((x) => EventDatum.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "meta": meta.toJson(),
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
 }
