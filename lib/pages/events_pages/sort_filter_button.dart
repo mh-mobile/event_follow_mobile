@@ -1,6 +1,6 @@
+import 'package:event_follow/config/sort_filter_globals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../config/sort_filter_globals.dart';
 
 class SortFilterButton extends StatefulWidget {
   const SortFilterButton({
