@@ -1,3 +1,4 @@
+import 'package:event_follow/models/repositories/following_tweets/following_tweets_api_request.dart';
 import '../../../main.dart';
 import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
