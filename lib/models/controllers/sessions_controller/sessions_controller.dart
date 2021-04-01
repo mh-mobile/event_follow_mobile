@@ -1,3 +1,4 @@
+import 'package:event_follow/models/repositories/sessions/sessions_api_request.dart';
 import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -19,7 +20,7 @@ class SessionsController extends StateNotifier<SessionsState> {
   final Reader _read;
   late final SessionsRepository _sessionsRepository;
 
-  Future<void> request(SessionApiRequest request) async {
+  Future<void> request(SessionsApiRequest request) async {
 
     final sessionApiResults =
     await _sessionsRepository.requestSessionsApi(request: request);
