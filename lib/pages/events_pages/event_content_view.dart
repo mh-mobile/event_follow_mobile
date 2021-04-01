@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
 import 'event_card.dart';
 
 class EventContentView extends HookWidget {
-
   final onRefresh;
   final scrollController;
   final List<EventCard> cardList;
@@ -17,7 +15,6 @@ class EventContentView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: EdgeInsets.all((8)),
       child: RefreshIndicator(
@@ -33,5 +30,4 @@ class EventContentView extends HookWidget {
       ),
     );
   }
-
 }
