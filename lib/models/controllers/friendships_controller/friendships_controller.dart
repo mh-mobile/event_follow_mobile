@@ -10,8 +10,7 @@ StateNotifierProvider.autoDispose((ref) => FriendshipsController(ref.read));
 
 class FriendshipsController extends StateNotifier<FriendshipsState> {
   FriendshipsController(this._read) : super(FriendshipsState()) {
-    final getIdToken = firebaseAuth.currentUser?.getIdToken;
-    _friendshipsRepository = this._read(friendshipsRepositoryProvider(getIdToken));
+    _friendshipsRepository = this._read(friendshipsRepositoryProvider);
   }
 
   final Reader _read;

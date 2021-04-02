@@ -1,7 +1,5 @@
 import 'package:event_follow/models/controllers/users_controller/users_state.dart';
 import 'package:event_follow/models/repositories/users/account_deletion_api_request.dart';
-
-import '../../../main.dart';
 import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,8 +15,7 @@ class UsersController extends StateNotifier<UsersState> {
       isLoading: false,
     );
 
-    final getIdToken = firebaseAuth.currentUser?.getIdToken;
-    _usersRepository = this._read(usersRepositoryProvider(getIdToken));
+    _usersRepository = this._read(usersRepositoryProvider);
   }
 
   final Reader _read;
