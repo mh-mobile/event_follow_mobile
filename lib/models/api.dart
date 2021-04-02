@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
@@ -36,7 +37,7 @@ abstract class ApiRequest {
   final getIdToken = firebaseAuth.currentUser?.getIdToken;
   String get apiPath;
   HttpMethod get httpMethod;
-  String get baseDomain => "event-follow-front.herokuapp.com";
+  String get baseDomain => env["BASE_DOMAIN"]!;
   Uri get uri => Uri.https(baseDomain, apiPath, toParams());
   bool get isAuthenticationReauired => false;
   Map<String, String> get defaultHeaders => { HttpHeaders.contentTypeHeader: "application/json" };
