@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
-
+import '../main.dart';
 
 final apiClientProvider = Provider((_) => ApiClient());
 
@@ -34,20 +33,20 @@ extension ApiInfoExtension on ApiInfo {
 }
 
 abstract class ApiRequest {
-  Map<String, String> _additionalHeaders = {} ;
-
+  final getIdToken = firebaseAuth.currentUser?.getIdToken;
   String get apiPath;
   HttpMethod get httpMethod;
   String get baseDomain => "event-follow-front.herokuapp.com";
   Uri get uri => Uri.https(baseDomain, apiPath, toParams());
+  bool get isAuthenticationReauired => false;
   Map<String, String> get defaultHeaders => { HttpHeaders.contentTypeHeader: "application/json" };
   Map<String, String> toParams() => {};
   Map<String, dynamic> toJson() => {};
-  void appendHeader(Map<String, String> appendedHeaders) {
-    _additionalHeaders = appendedHeaders;
-  }
-  Map<String, String> toHeaders() {
-    return {...defaultHeaders, ..._additionalHeaders};
+  Future<Map<String, String>> toHeaders() async {
+    final idToken = (getIdToken != null) ? await getIdToken!() : "";
+    return {...defaultHeaders, if (isAuthenticationReauired) ...{
+      HttpHeaders.authorizationHeader: "Bearer $idToken"
+    }};
   }
 }
 
@@ -60,27 +59,26 @@ class ApiClient extends ApiBaseClient {
 
   Future<http.Response> request(ApiRequest request) async {
     final url = request.uri;
-
     final response;
 
     switch (request.httpMethod) {
       case HttpMethod.GET:
         response = await http.get(
           url,
-          headers: request.toHeaders(),
+          headers: await request.toHeaders(),
         );
         break;
       case HttpMethod.POST:
         response = await http.post(
           url,
           body: json.encode(request.toJson()),
-          headers: request.toHeaders(),
+          headers: await request.toHeaders(),
         );
         break;
       case HttpMethod.DELETE:
         response = await http.delete(
           url,
-          headers: request.toHeaders(),
+          headers: await request.toHeaders(),
         );
         break;
     }

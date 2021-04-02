@@ -21,6 +21,9 @@ class EventsApiRequest extends ApiRequest{
   };
 
   @override
+  bool get isAuthenticationReauired => true;
+
+  @override
   String get apiPath => ApiInfo.EVENTS.apiPath;
 
   @override

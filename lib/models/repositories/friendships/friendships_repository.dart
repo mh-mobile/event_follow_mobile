@@ -17,11 +17,6 @@ class FriendshipsRepository {
   Future<FriendshipsApiResponse> requestFriendshipsApi(
       {required FriendshipsApiRequest request}) async {
 
-    request.appendHeader({
-      HttpHeaders.authorizationHeader: "Bearer ${await this
-          .getOrGenerateIdToken()}"
-    });
-
     final apiClient = read(apiClientProvider);
     final response = await apiClient.request(request);
 
