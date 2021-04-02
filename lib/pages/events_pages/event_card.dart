@@ -134,11 +134,11 @@ class EventCard extends HookWidget {
                                                 Container(
                                                   child: CachedNetworkImage(
                                                     imageUrl: _event.banner,
-                                                    placeholder: (context, url) => Container(
-                                                      color: const Color(0xffd7d7d8),
-                                                      height: 50,
-                                                      width: 50,
-                                                    ),
+                                                    errorWidget: (_, __, ___) {
+                                                      return Container(
+                                                        color: const Color(0xffd7d7d8),
+                                                      );
+                                                    },
                                                     height: 50,
                                                   ),
                                                 ),

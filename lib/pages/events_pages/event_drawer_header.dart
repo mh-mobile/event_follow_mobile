@@ -22,11 +22,8 @@ class EventDrawerHeader extends StatelessWidget {
                     child: Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: CachedNetworkImage(
-                            imageUrl: firebaseAuth.currentUser!.photoURL!,
-                            placeholder: (context, url) => Container(
-                              color: const Color(0xffd7d7d8),
-                            ),
+                          child: Image.network(
+                            firebaseAuth.currentUser!.photoURL!,
                             fit: BoxFit.cover,
                           ),
                       ),
