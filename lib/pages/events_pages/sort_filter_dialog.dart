@@ -1,5 +1,8 @@
 import 'package:event_follow/config/sort_filter_globals.dart';
+import 'package:event_follow/models/controllers/events_controller/events_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 typedef SortFilterDialogCallback = void Function(SortFilterStateStore store);
 
@@ -14,50 +17,59 @@ class _SortFilterListData {
   final int selectedItemIndex;
 }
 
-class SortFilterDialog extends StatefulWidget {
-  const SortFilterDialog({
+final sortFilterSelectedSegmentsProvider =
+    StateProvider.autoDispose<List<bool>>((ref) => [true, false]);
+
+class SortFilterDialog extends HookWidget {
+  SortFilterDialog({
     Key? key,
-    required this.store,
     required this.onChange,
   }) : super(key: key);
 
-  final SortFilterStateStore store;
   final SortFilterDialogCallback onChange;
 
-  @override
-  State<StatefulWidget> createState() => SortFilterDialogState();
-}
-
-class SortFilterDialogState extends State<SortFilterDialog> {
-  var _isSegmentSelected = [true, false];
-
-  int get _selectedSegmentIndex {
-    return _isSegmentSelected.indexOf(true);
+  int _selectedSegmentIndex(List<bool> isSegmentSelected) {
+    return isSegmentSelected.indexOf(true);
   }
 
-  _SortFilterListData get _listItemData {
-    if (_selectedSegmentIndex == SortFilterSegmentType.Sort.index) {
+  _SortFilterListData _listItemData(
+      SortFilterStateStore store, List<bool> isSegmentSelected) {
+    if (_selectedSegmentIndex(isSegmentSelected) ==
+        SortFilterSegmentType.Sort.index) {
       return _SortFilterListData(
           itemCount: SortTypeExtension.types.length,
-          itemLabels: SortTypeExtension.types.map((type) => type.labelName).toList(),
-          selectedItemIndex: widget.store.sortType.index);
+          itemLabels:
+              SortTypeExtension.types.map((type) => type.labelName).toList(),
+          selectedItemIndex: store.sortType.index);
     }
 
-    if (widget.store.sortType == SortType.FriendsNumber) {
+    if (store.sortType == SortType.FriendsNumber) {
       return _SortFilterListData(
           itemCount: TimeFilterTypeExtension.types.length,
-          itemLabels: TimeFilterTypeExtension.types.map((type) => type.labelName).toList(),
-          selectedItemIndex: widget.store.timeFilterType!.index);
+          itemLabels: TimeFilterTypeExtension.types
+              .map((type) => type.labelName)
+              .toList(),
+          selectedItemIndex: store.timeFilterType!.index);
     }
 
     return _SortFilterListData(
         itemCount: FriendsFilterTypeExtension.types.length,
-        itemLabels: FriendsFilterTypeExtension.types.map((type) => type.labelName).toList(),
-        selectedItemIndex: widget.store.friendFilterType!.index);
+        itemLabels: FriendsFilterTypeExtension.types
+            .map((type) => type.labelName)
+            .toList(),
+        selectedItemIndex: store.friendFilterType!.index);
   }
 
   @override
   Widget build(BuildContext context) {
+    final sortFilterStateStore = useProvider(eventsConditionProvider).state;
+    final sortFilterSelectedSegments =
+        useProvider(sortFilterSelectedSegmentsProvider).state;
+
+    if (sortFilterStateStore == null) {
+      return Container();
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -77,7 +89,7 @@ class SortFilterDialogState extends State<SortFilterDialog> {
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: ToggleButtons(
-                          isSelected: _isSegmentSelected,
+                          isSelected: sortFilterSelectedSegments,
                           borderRadius: BorderRadius.circular(5.0),
                           selectedColor: Colors.white,
                           fillColor: Colors.blueGrey[400],
@@ -93,30 +105,35 @@ class SortFilterDialogState extends State<SortFilterDialog> {
                             ),
                           ],
                           onPressed: (int index) {
-                            setState(() {
-                              for (int buttonIndex = 0;
-                                  buttonIndex < _isSegmentSelected.length;
-                                  buttonIndex++) {
-                                _isSegmentSelected[buttonIndex] =
-                                    buttonIndex == index;
-                              }
-                            });
+                            for (int buttonIndex = 0;
+                                buttonIndex < sortFilterSelectedSegments.length;
+                                buttonIndex++) {
+                              sortFilterSelectedSegments[buttonIndex] =
+                                  buttonIndex == index;
+                              context.read(sortFilterSelectedSegmentsProvider).state = sortFilterSelectedSegments;
+                            }
                           },
                         ),
                       ),
                     ),
                     ListView.separated(
                         shrinkWrap: true,
-                        itemCount: _listItemData.itemCount,
+                        itemCount: _listItemData(sortFilterStateStore,
+                                sortFilterSelectedSegments)
+                            .itemCount,
                         separatorBuilder: (context, index) {
                           return Divider(
                             height: 1,
                           );
                         },
                         itemBuilder: (context, index) {
-                          final label = _listItemData.itemLabels[index];
-                          final selectedItemIndex =
-                              _listItemData.selectedItemIndex;
+                          final label = _listItemData(sortFilterStateStore,
+                                  sortFilterSelectedSegments)
+                              .itemLabels[index];
+                          final selectedItemIndex = _listItemData(
+                                  sortFilterStateStore,
+                                  sortFilterSelectedSegments)
+                              .selectedItemIndex;
                           return ListTile(
                               title: Text(label),
                               trailing: (index == selectedItemIndex)
@@ -124,17 +141,25 @@ class SortFilterDialogState extends State<SortFilterDialog> {
                                   : null,
                               dense: true,
                               onTap: () {
-                                var currentSortType = widget.store.sortType;
+                                var currentSortType =
+                                    sortFilterStateStore.sortType;
                                 var currentTimeFilterType =
-                                    widget.store.timeFilterType;
+                                    sortFilterStateStore.timeFilterType;
                                 var currentFriendsFilterType =
-                                    widget.store.friendFilterType;
+                                    sortFilterStateStore.friendFilterType;
 
                                 final store = SortFilterStateStore(
                                     sortType: currentSortType,
                                     timeFilterType: currentTimeFilterType,
                                     friendFilterType: currentFriendsFilterType);
-                                widget.onChange(store.convert(_selectedSegmentIndex, index));
+
+                                final convertedStore = store.convert(
+                                    _selectedSegmentIndex(
+                                        sortFilterSelectedSegments),
+                                    index);
+
+                                context.read(eventsConditionProvider).state = convertedStore;
+                                onChange(convertedStore);
                                 Navigator.of(context).pop();
                               });
                         })
