@@ -21,5 +21,8 @@ class EventsApiRequest extends ApiRequest{
   };
 
   @override
-  String get getApiPath => ApiInfo.EVENTS.getApiPath;
+  String get apiPath => ApiInfo.EVENTS.apiPath;
+
+  @override
+  HttpMethod get httpMethod => HttpMethod.GET;
 }

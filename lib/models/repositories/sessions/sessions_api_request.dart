@@ -18,5 +18,9 @@ class SessionsApiRequest extends ApiRequest {
   };
 
   @override
-  String get getApiPath => ApiInfo.SESSIONS.getApiPath;
+  String get apiPath => ApiInfo.SESSIONS.apiPath;
+
+  @override
+  HttpMethod get httpMethod => HttpMethod.POST;
+
 }

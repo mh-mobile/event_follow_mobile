@@ -15,8 +15,7 @@ class FriendshipsRepository {
 
   Future<FriendshipsApiResponse> requestFriendshipsApi(
       {required FriendshipsApiRequest request}) async {
-    final url = Uri.https("event-follow-front.herokuapp.com",
-        request.getApiPath, request.toParams());
+    final url = request.uri;
 
     final response = await http.get(
       url,
