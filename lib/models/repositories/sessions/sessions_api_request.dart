@@ -1,4 +1,6 @@
-class SessionsApiRequest {
+import 'package:event_follow/models/api.dart';
+
+class SessionsApiRequest extends ApiRequest {
   final String token;
   final String accessToken;
   final String accessTokenSecret;
@@ -14,4 +16,7 @@ class SessionsApiRequest {
     "access_token": this.accessToken,
     "access_token_secret": this.accessTokenSecret,
   };
+
+  @override
+  String get getApiPath => ApiInfo.SESSIONS.getApiPath;
 }

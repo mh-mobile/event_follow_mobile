@@ -17,7 +17,7 @@ class EventsRepository {
   Future<EventsApiResponse> requestEventsApi(
       {required EventsApiRequest request}) async {
     final url = Uri.https(
-        "event-follow-front.herokuapp.com", "/api/events", request.toParams());
+        "event-follow-front.herokuapp.com", request.getApiPath, request.toParams());
 
     final response = await http.get(
       url,

@@ -1,4 +1,5 @@
 import 'package:event_follow/models/controllers/users_controller/users_state.dart';
+import 'package:event_follow/models/repositories/users/account_deletion_api_request.dart';
 
 import '../../../main.dart';
 import '../../models.dart';
@@ -24,7 +25,7 @@ class UsersController extends StateNotifier<UsersState> {
   late final UsersRepository _usersRepository;
 
   Future<void> requestAccountDeletion() async {
-    final usersApiResults = await _usersRepository.requestAccountDeletion();
+    final usersApiResults = await _usersRepository.requestAccountDeletion(AccountDeletionApiRequest());
     state = state.copyWith(
       status: usersApiResults.status == "OK" ? UsersStatus.OK : UsersStatus.NG,
     );
