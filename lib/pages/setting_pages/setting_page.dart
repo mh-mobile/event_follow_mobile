@@ -10,12 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../main.dart';
+import 'license_tile.dart';
 
 enum AccountDeletionButtons { OK, Cancel }
 
 enum SettingItemType {
   Terms,
   PrivacyPolicy,
+  License,
   AccountDeletion,
   AppVersion,
 }
@@ -46,6 +48,8 @@ class SettingPage extends HookWidget {
                 return TermsTile();
               case SettingItemType.PrivacyPolicy:
                 return PrivacyPolicyTile();
+              case SettingItemType.License:
+                return LicenseTile();
               case SettingItemType.AccountDeletion:
                 return ProviderListener(
                   provider: _shouldLogout,
