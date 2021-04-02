@@ -1,7 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
+
+
+final apiClientProvider = Provider((_) => ApiClient());
 
 enum ApiInfo {
   SESSIONS,
@@ -36,7 +40,7 @@ abstract class ApiRequest {
   HttpMethod get httpMethod;
   String get baseDomain => "event-follow-front.herokuapp.com";
   Uri get uri => Uri.https(baseDomain, apiPath, toParams());
-  Map<String, String> get defaultHeaders => { HttpHeaders.authorizationHeader: "application/json" };
+  Map<String, String> get defaultHeaders => { HttpHeaders.contentTypeHeader: "application/json" };
   Map<String, String> toParams() => {};
   Map<String, dynamic> toJson() => {};
   void appendHeader(Map<String, String> appendedHeaders) {

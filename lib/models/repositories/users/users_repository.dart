@@ -1,28 +1,27 @@
 import 'dart:io';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart' as http;
+import '../../api.dart';
 import 'account_deletion_api_request.dart';
 import 'account_deletion_api_response.dart';
 
 final usersRepositoryProvider = Provider.autoDispose.family<UsersRepository, dynamic>(
-        (ref, getOrGenerateIdToken) => UsersRepository(getOrGenerateIdToken: getOrGenerateIdToken));
+        (ref, getOrGenerateIdToken) => UsersRepository(getOrGenerateIdToken: getOrGenerateIdToken, read: ref.read));
 
 class UsersRepository {
   final getOrGenerateIdToken;
+  final Reader read;
 
-  UsersRepository({required this.getOrGenerateIdToken});
+  UsersRepository({required this.getOrGenerateIdToken, required this.read});
 
   Future<AccountDeletionApiResponse> requestAccountDeletion(AccountDeletionApiRequest request) async {
-    final url = request.uri;
 
-    final response = await http.delete(
-      url,
-      headers: {
-        HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader:
-        "Bearer ${await this.getOrGenerateIdToken()}"
-      },
-    );
+    request.appendHeader({
+      HttpHeaders.authorizationHeader: "Bearer ${await this
+          .getOrGenerateIdToken()}"
+    });
+
+    final apiClient = read(apiClientProvider);
+    final response = await apiClient.request(request);
 
     if (response.statusCode == 204) {
       return AccountDeletionApiResponse(status: "OK");

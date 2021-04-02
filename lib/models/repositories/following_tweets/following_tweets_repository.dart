@@ -1,30 +1,29 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart' as http;
+import '../../api.dart';
 import 'following_tweets_api_request.dart';
 import 'following_tweets_api_response.dart';
 
 final followingTweetsRepositoryProvider = Provider.autoDispose.family<FollowingTweetsRepository, dynamic>(
-        (ref, getOrGenerateIdToken) => FollowingTweetsRepository(getOrGenerateIdToken: getOrGenerateIdToken));
+        (ref, getOrGenerateIdToken) => FollowingTweetsRepository(getOrGenerateIdToken: getOrGenerateIdToken, read: ref.read));
 
 class FollowingTweetsRepository {
   final getOrGenerateIdToken;
+  final Reader read;
 
-  FollowingTweetsRepository({required this.getOrGenerateIdToken});
+  FollowingTweetsRepository({required this.getOrGenerateIdToken, required this.read});
 
   Future<FollowingTweetsApiResponse> requestFollowingTweetsApi(
       {required FollowingTweetsApiRequest request}) async {
-    final url = request.uri;
 
-    final response = await http.get(
-      url,
-      headers: {
-        HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader: "Bearer ${await this.getOrGenerateIdToken()}"
-      },
-    );
+    request.appendHeader({
+      HttpHeaders.authorizationHeader: "Bearer ${await this
+          .getOrGenerateIdToken()}"
+    });
 
+    final apiClient = read(apiClientProvider);
+    final response = await apiClient.request(request);
     return FollowingTweetsApiResponse.fromJson(json.decode(response.body));
   }
 }
