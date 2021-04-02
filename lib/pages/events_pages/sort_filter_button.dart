@@ -1,52 +1,46 @@
 import 'package:event_follow/config/sort_filter_globals.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:event_follow/models/controllers/events_controller/events_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SortFilterButton extends StatefulWidget {
+final sortFilterButtonPressingProvider =
+    StateProvider.autoDispose<bool>((ref) => false);
+
+class SortFilterButton extends HookWidget {
   const SortFilterButton({
     required this.onTap,
-    required this.selectedStateStore,
     Key? key,
   }) : super(key: key);
 
   final VoidCallback onTap;
-  final SortFilterStateStore? selectedStateStore;
-
-  @override
-  State<StatefulWidget> createState() => SortFilterButtonState();
-}
-
-class SortFilterButtonState extends State<SortFilterButton> {
-  bool _pressing = false;
-  late SortFilterStateStore? selectedStateStore = widget.selectedStateStore;
 
   @override
   Widget build(BuildContext context) {
+    final sortFilterStateStore =
+        useProvider(eventsConditionProvider).state;
+    final sortFilterPressing = useProvider(sortFilterButtonPressingProvider).state;
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTapDown: (_) {
-        setState(() {
-          _pressing = true;
-        });
+        context.read(sortFilterButtonPressingProvider).state = true;
       },
       onTapUp: (_) {
-        setState(() {
-          _pressing = false;
-        });
+        context.read(sortFilterButtonPressingProvider).state = false;
       },
       onTapCancel: () {
-        setState(() {
-          _pressing = false;
-        });
+        context.read(sortFilterButtonPressingProvider).state = false;
       },
-      onTap: widget.onTap,
-      child: selectedStateStore == null
+      onTap: this.onTap,
+      child: sortFilterStateStore == null
           ? SizedBox.shrink()
           : Padding(
               padding: EdgeInsets.all(6),
               child: AnimatedOpacity(
-                opacity: _pressing ? 0.4 : 1,
+                opacity: sortFilterPressing
+                    ? 0.4
+                    : 1,
                 duration: Duration(milliseconds: 160),
                 child: Container(
                   height: 44,
@@ -59,7 +53,7 @@ class SortFilterButtonState extends State<SortFilterButton> {
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: _createSortList(),
+                        children: _createSortList(sortFilterStateStore),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 5, right: 5),
@@ -71,7 +65,7 @@ class SortFilterButtonState extends State<SortFilterButton> {
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: _createFilterList(),
+                        children: _createFilterList(sortFilterStateStore),
                       )
                     ],
                   ),
@@ -81,42 +75,39 @@ class SortFilterButtonState extends State<SortFilterButton> {
     );
   }
 
-  List<Text> _createSortList() {
-    final labels = SortTypeExtension.sortFilterButtonSortLabels[selectedStateStore!.sortType.index];
+  List<Text> _createSortList(SortFilterStateStore store) {
+    final labels =
+        SortTypeExtension.sortFilterButtonSortLabels[store.sortType.index];
     return labels
         .map((label) => Text(label,
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
         .toList();
   }
 
-  List<Text> _createFilterList() {
-    if (selectedStateStore?.sortType == SortType.FriendsNumber) {
-      return _createTimeFilterList();
+  List<Text> _createFilterList(SortFilterStateStore store) {
+    if (store.sortType == SortType.FriendsNumber) {
+      return _createTimeFilterList(store);
     }
 
-    return _createFriendsFilterList();
+    return _createFriendsFilterList(store);
   }
 
-  List<Text> _createFriendsFilterList() {
-    final labels =
-        FriendsFilterTypeExtension.sortFilterButtonFriendsFilterLabels[selectedStateStore!.friendFilterType!.index];
+  List<Text> _createFriendsFilterList(SortFilterStateStore store) {
+    final labels = FriendsFilterTypeExtension
+        .sortFilterButtonFriendsFilterLabels[store.friendFilterType!.index];
     return labels
         .map((label) => Text(label,
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
         .toList();
   }
 
-  List<Text> _createTimeFilterList() {
-    final labels = TimeFilterTypeExtension.sortFilterButtonTimeFilterLabels[selectedStateStore!.timeFilterType!.index];
+  List<Text> _createTimeFilterList(SortFilterStateStore store) {
+    final labels = TimeFilterTypeExtension
+        .sortFilterButtonTimeFilterLabels[store.timeFilterType!.index];
     return labels
         .map((label) => Text(label,
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
         .toList();
   }
 
-  void setCondition(SortFilterStateStore store) {
-    setState(() {
-      this.selectedStateStore = store;
-    });
-  }
 }
