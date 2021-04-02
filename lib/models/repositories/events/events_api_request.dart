@@ -1,6 +1,6 @@
 import 'package:event_follow/models/api.dart';
 
-class EventsApiRequest extends ApiRequest{
+class EventsApiRequest extends ApiRequest {
   final String pageId;
   final String? sort;
   final String? time;
@@ -14,11 +14,11 @@ class EventsApiRequest extends ApiRequest{
   });
 
   Map<String, String> toParams() => {
-    "page": this.pageId,
-    if (this.sort != null) "sort": this.sort!,
-    if (this.time != null) "time": this.time!,
-    if (this.friends != null) "friends": this.friends!,
-  };
+        "page": this.pageId,
+        if (this.sort != null) "sort": this.sort!,
+        if (this.time != null) "time": this.time!,
+        if (this.friends != null) "friends": this.friends!,
+      };
 
   @override
   bool get isAuthenticationReauired => true;
