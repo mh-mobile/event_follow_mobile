@@ -1,4 +1,5 @@
 import 'package:event_follow/models/controllers/users_controller/users_controller.dart';
+import 'package:event_follow/pages/events_pages/events_page.dart';
 import 'package:event_follow/pages/home_pages/home_page.dart';
 import 'package:event_follow/pages/setting_pages/account_deletion_tile.dart';
 import 'package:event_follow/pages/setting_pages/app_version_tile.dart';
@@ -51,6 +52,7 @@ class SettingPage extends HookWidget {
                   onChange: (BuildContext context, bool shouldLogout) {
                     if (shouldLogout) {
                       firebaseAuth.signOut();
+                      Navigator.of(context).popUntil((root) => root.isFirst);
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
