@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:event_follow/models/controllers/following_tweets/following_tweets_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -55,8 +56,13 @@ class FollowingTweetsListView extends HookWidget {
                                   child: ClipRRect(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(50)),
-                                    child: Image.network(
-                                      tweet.user.profileImage,
+                                    child: CachedNetworkImage(
+                                      imageUrl: tweet.user.profileImage,
+                                      placeholder: (context, url) => Container(
+                                        color: const Color(0xffd7d7d8),
+                                        width: 30,
+                                        height: 30,
+                                      ),
                                       height: 30,
                                     ),
                                   ),

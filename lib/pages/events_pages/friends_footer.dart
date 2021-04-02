@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:event_follow/models/controllers/following_tweets/following_tweets_controller.dart';
 import 'package:event_follow/models/controllers/friendships_controller/friendships_controller.dart';
 import 'package:event_follow/models/entities/event.dart';
@@ -40,19 +41,21 @@ class FriendsFooter extends HookWidget {
         children: [
           GestureDetector(
             onTap: () async {
-              followingTweetsController.request(FollowingTweetsApiRequest(eventId: this._event.id.toString()));
+              followingTweetsController.request(FollowingTweetsApiRequest(
+                  eventId: this._event.id.toString()));
 
               showModalBottomSheet(
                   context: context,
                   builder: (context) {
                     return Container(
                       constraints:
-                      BoxConstraints(minHeight: 100, maxHeight: 600),
+                          BoxConstraints(minHeight: 100, maxHeight: 600),
                       color: Colors.white,
-                      child: FollowingTweetsListView(eventId: this._event.id.toString(),),
+                      child: FollowingTweetsListView(
+                        eventId: this._event.id.toString(),
+                      ),
                     );
-                  }
-              );
+                  });
             },
             child: Container(
               margin: const EdgeInsets.only(right: 5.0),
@@ -71,26 +74,29 @@ class FriendsFooter extends HookWidget {
               ),
             ),
           ),
-          isLoading
-              ? SizedBox.shrink()
-              : Row(
-                  children: friends.map((friend) {
-                    return Container(
-                        margin: const EdgeInsets.only(right: 5.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            launch("https://twitter.com/${friend.screenName}");
-                          },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                            child: Image.network(
-                              friend.profileImage,
-                              height: 30,
-                            ),
-                          ),
-                        ));
-                  }).toList(),
-                )
+          Row(
+            children: friends.map((friend) {
+              return Container(
+                  margin: const EdgeInsets.only(right: 5.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      launch("https://twitter.com/${friend.screenName}");
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      child: CachedNetworkImage(
+                        imageUrl: friend.profileImage,
+                        placeholder: (context, url) => Container(
+                          color: const Color(0xffd7d7d8),
+                          width: 30,
+                          height: 30,
+                        ),
+                        height: 30,
+                      ),
+                    ),
+                  ));
+            }).toList(),
+          )
         ],
       ),
     );

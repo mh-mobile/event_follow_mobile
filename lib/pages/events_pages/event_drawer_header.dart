@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:event_follow/pages/home_pages/home_page.dart';
 import 'package:event_follow/pages/setting_pages/setting_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,10 +22,14 @@ class EventDrawerHeader extends StatelessWidget {
                     child: Container(
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                            firebaseAuth.currentUser!.photoURL!,
+                          child: CachedNetworkImage(
+                            imageUrl: firebaseAuth.currentUser!.photoURL!,
+                            placeholder: (context, url) => Container(
+                              color: const Color(0xffd7d7d8),
+                            ),
                             fit: BoxFit.cover,
-                          )),
+                          ),
+                      ),
                     )),
                 Container(
                   margin: EdgeInsets.only(top: 10.0),
