@@ -18,11 +18,6 @@ class EventsRepository {
   Future<EventsApiResponse> requestEventsApi(
       {required EventsApiRequest request}) async {
 
-    request.appendHeader({
-      HttpHeaders.authorizationHeader: "Bearer ${await this
-          .getOrGenerateIdToken()}"
-    });
-
     final apiClient = read(apiClientProvider);
     final response = await apiClient.request(request);
     return EventsApiResponse.fromJson(json.decode(response.body));

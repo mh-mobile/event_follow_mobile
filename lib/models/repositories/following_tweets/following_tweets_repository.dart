@@ -17,11 +17,6 @@ class FollowingTweetsRepository {
   Future<FollowingTweetsApiResponse> requestFollowingTweetsApi(
       {required FollowingTweetsApiRequest request}) async {
 
-    request.appendHeader({
-      HttpHeaders.authorizationHeader: "Bearer ${await this
-          .getOrGenerateIdToken()}"
-    });
-
     final apiClient = read(apiClientProvider);
     final response = await apiClient.request(request);
     return FollowingTweetsApiResponse.fromJson(json.decode(response.body));

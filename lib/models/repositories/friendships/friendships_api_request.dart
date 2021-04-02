@@ -12,6 +12,9 @@ class FriendshipsApiRequest extends ApiRequest {
       };
 
   @override
+  bool get isAuthenticationReauired => true;
+
+  @override
   String get apiPath => ApiInfo.FRIENDSHIPS.apiPath;
 
   @override

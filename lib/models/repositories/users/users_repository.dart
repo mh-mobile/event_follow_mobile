@@ -15,11 +15,6 @@ class UsersRepository {
 
   Future<AccountDeletionApiResponse> requestAccountDeletion(AccountDeletionApiRequest request) async {
 
-    request.appendHeader({
-      HttpHeaders.authorizationHeader: "Bearer ${await this
-          .getOrGenerateIdToken()}"
-    });
-
     final apiClient = read(apiClientProvider);
     final response = await apiClient.request(request);
 

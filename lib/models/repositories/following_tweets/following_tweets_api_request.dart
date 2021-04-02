@@ -12,6 +12,9 @@ class FollowingTweetsApiRequest extends ApiRequest {
   };
 
   @override
+  bool get isAuthenticationReauired => true;
+
+  @override
   String get apiPath => ApiInfo.FOLLOWING_TWEETS.apiPath;
 
   @override
