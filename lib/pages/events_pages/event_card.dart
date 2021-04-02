@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:event_follow/models/entities/event.dart';
 import 'package:event_follow/models/entities/event_extra.dart';
 import 'package:event_follow/pages/events_pages/friends_footer.dart';
@@ -131,8 +132,13 @@ class EventCard extends HookWidget {
                                               CrossAxisAlignment.center,
                                               children: [
                                                 Container(
-                                                  child: Image.network(
-                                                    _event.banner,
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: _event.banner,
+                                                    placeholder: (context, url) => Container(
+                                                      color: const Color(0xffd7d7d8),
+                                                      height: 50,
+                                                      width: 50,
+                                                    ),
                                                     height: 50,
                                                   ),
                                                 ),
