@@ -1,5 +1,4 @@
 import 'package:event_follow/models/repositories/following_tweets/following_tweets_api_request.dart';
-import '../../../main.dart';
 import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'following_tweets_state.dart';
@@ -13,8 +12,7 @@ class FollowingTweetsController extends StateNotifier<FollowingTweetsState> {
     state = state.copyWith(
       isLoading: false,
     );
-    final getIdToken = firebaseAuth.currentUser?.getIdToken;
-    _followingTweetsRepository = this._read(followingTweetsRepositoryProvider(getIdToken));
+    _followingTweetsRepository = this._read(followingTweetsRepositoryProvider);
   }
 
   final Reader _read;

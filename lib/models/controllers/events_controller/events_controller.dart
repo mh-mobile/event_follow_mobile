@@ -2,7 +2,6 @@ import 'package:event_follow/config/sort_filter_globals.dart';
 import 'package:event_follow/models/repositories/events/events_api_request.dart';
 import 'package:event_follow/models/repositories/events/events_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../main.dart';
 import 'events_state.dart';
 
 export 'events_state.dart';
@@ -18,8 +17,7 @@ class EventsController extends StateNotifier<EventsState> {
     state = state.copyWith(
       isLoading: false,
     );
-    final getIdToken = firebaseAuth.currentUser?.getIdToken;
-    _eventsRepository = this._read(eventsRepositoryProvider(getIdToken));
+    _eventsRepository = this._read(eventsRepositoryProvider);
 
     request(EventsApiRequest(pageId: "1"));
   }

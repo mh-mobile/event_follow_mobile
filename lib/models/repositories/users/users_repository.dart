@@ -4,14 +4,13 @@ import '../../api.dart';
 import 'account_deletion_api_request.dart';
 import 'account_deletion_api_response.dart';
 
-final usersRepositoryProvider = Provider.autoDispose.family<UsersRepository, dynamic>(
-        (ref, getOrGenerateIdToken) => UsersRepository(getOrGenerateIdToken: getOrGenerateIdToken, read: ref.read));
+final usersRepositoryProvider = Provider.autoDispose<UsersRepository>(
+        (ref) => UsersRepository(read: ref.read));
 
 class UsersRepository {
-  final getOrGenerateIdToken;
   final Reader read;
 
-  UsersRepository({required this.getOrGenerateIdToken, required this.read});
+  UsersRepository({required this.read});
 
   Future<AccountDeletionApiResponse> requestAccountDeletion(AccountDeletionApiRequest request) async {
 

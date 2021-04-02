@@ -5,14 +5,13 @@ import '../../api.dart';
 import 'friendships_api_request.dart';
 import 'friendships_api_response.dart';
 
-final friendshipsRepositoryProvider = Provider.autoDispose.family<FriendshipsRepository, dynamic>(
-        (ref, getOrGenerateIdToken) => FriendshipsRepository(getOrGenerateIdToken: getOrGenerateIdToken, read: ref.read));
+final friendshipsRepositoryProvider = Provider.autoDispose<FriendshipsRepository>(
+        (ref) => FriendshipsRepository(read: ref.read));
 
 class FriendshipsRepository {
-  final getOrGenerateIdToken;
   final Reader read;
 
-  FriendshipsRepository({required this.getOrGenerateIdToken, required this.read});
+  FriendshipsRepository({required this.read});
 
   Future<FriendshipsApiResponse> requestFriendshipsApi(
       {required FriendshipsApiRequest request}) async {
