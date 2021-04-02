@@ -1,6 +1,5 @@
 import 'package:event_follow/models/controllers/events_controller/events_controller.dart';
 import 'package:event_follow/models/repositories/events/events_api_request.dart';
-import 'package:event_follow/models/repositories/events/events_repository.dart';
 import 'package:event_follow/pages/events_pages/event_content_view.dart';
 import 'package:event_follow/pages/events_pages/event_empty_view.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class EventListView extends HookWidget {
         data.map((datum) => EventCard(datum.event, datum.extra)).toList();
 
     Future<void> _onRefresh() async {
-      controller.request(EventsApiRequest(
+      await controller.request(EventsApiRequest(
           pageId: "1",
           sort: sortFilterStateStore?.sortType.typeName,
           time: sortFilterStateStore?.timeFilterType?.typeName,
