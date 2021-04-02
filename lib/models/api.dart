@@ -1,9 +1,20 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
+
 enum ApiInfo {
   SESSIONS,
   USERS,
   FRIENDSHIPS,
   FOLLOWING_TWEETS,
   EVENTS,
+}
+
+enum HttpMethod {
+  GET,
+  POST,
+  DELETE,
 }
 
 extension ApiInfoExtension on ApiInfo {
@@ -15,15 +26,62 @@ extension ApiInfoExtension on ApiInfo {
     ApiInfo.EVENTS: "/api/events",
   };
 
-  String get getApiPath => apiPaths[this]!;
+  String get apiPath => apiPaths[this]!;
 }
 
 abstract class ApiRequest {
-  String get getApiPath;
+  Map<String, String> _additionalHeaders = {} ;
+
+  String get apiPath;
+  HttpMethod get httpMethod;
+  String get baseDomain => "event-follow-front.herokuapp.com";
+  Uri get uri => Uri.https(baseDomain, apiPath, toParams());
+  Map<String, String> get defaultHeaders => { HttpHeaders.authorizationHeader: "application/json" };
+  Map<String, String> toParams() => {};
+  Map<String, dynamic> toJson() => {};
+  void appendHeader(Map<String, String> appendedHeaders) {
+    _additionalHeaders = appendedHeaders;
+  }
+  Map<String, String> toHeaders() {
+    return {...defaultHeaders, ..._additionalHeaders};
+  }
 }
 
-abstract class ApiClient {
-  final _baseUrl;
+abstract class ApiBaseClient {
+  Future<http.Response> request(ApiRequest request);
+}
 
-  ApiClient({ required baseUrl }): _baseUrl = baseUrl ;
+class ApiClient extends ApiBaseClient {
+  ApiClient() : super();
+
+  Future<http.Response> request(ApiRequest request) async {
+    final url = request.uri;
+
+    final response;
+
+    switch (request.httpMethod) {
+      case HttpMethod.GET:
+        response = await http.get(
+          url,
+          headers: request.toHeaders(),
+        );
+        break;
+      case HttpMethod.POST:
+        response = await http.post(
+          url,
+          body: json.encode(request.toJson()),
+          headers: request.toHeaders(),
+        );
+        break;
+      case HttpMethod.DELETE:
+        response = await http.delete(
+          url,
+          headers: request.toHeaders(),
+        );
+        break;
+    }
+
+    return response;
+  }
+
 }

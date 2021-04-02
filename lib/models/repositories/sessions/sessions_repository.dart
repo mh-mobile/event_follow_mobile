@@ -13,8 +13,7 @@ class SessionsRepository {
 
   Future<SessionsApiResponse> requestSessionsApi(
       {required SessionsApiRequest request}) async {
-    final url = Uri.https("event-follow-front.herokuapp.com",
-        request.getApiPath);
+    final url = request.uri;
 
     final response = await http.post(
       url,

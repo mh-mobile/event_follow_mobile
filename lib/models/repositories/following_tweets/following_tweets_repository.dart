@@ -15,8 +15,7 @@ class FollowingTweetsRepository {
 
   Future<FollowingTweetsApiResponse> requestFollowingTweetsApi(
       {required FollowingTweetsApiRequest request}) async {
-    final url = Uri.https("event-follow-front.herokuapp.com",
-        request.getApiPath, request.toParams());
+    final url = request.uri;
 
     final response = await http.get(
       url,

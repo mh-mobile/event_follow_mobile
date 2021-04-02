@@ -12,5 +12,8 @@ class FriendshipsApiRequest extends ApiRequest {
       };
 
   @override
-  String get getApiPath => ApiInfo.FRIENDSHIPS.getApiPath;
+  String get apiPath => ApiInfo.FRIENDSHIPS.apiPath;
+
+  @override
+  HttpMethod get httpMethod => HttpMethod.GET;
 }
