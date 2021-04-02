@@ -1,25 +1,22 @@
 import 'dart:convert';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart' as http;
+import '../../api.dart';
 import 'sessions_api_request.dart';
 import 'sessions_api_response.dart';
 
 final sessionsRepositoryProvider = Provider.autoDispose(
-        (ref) => SessionsRepository());
+        (ref) => SessionsRepository(read: ref.read));
 
 class SessionsRepository {
 
-  SessionsRepository();
+  final Reader read;
+  SessionsRepository({ required this.read });
 
   Future<SessionsApiResponse> requestSessionsApi(
       {required SessionsApiRequest request}) async {
-    final url = request.uri;
 
-    final response = await http.post(
-      url,
-      body: json.encode(request.toJson()),
-      headers: {"Content-Type": "application/json"},
-    );
+    final apiClient = read(apiClientProvider);
+    final response = await apiClient.request(request);
 
     if (response.statusCode == 200) {
       return SessionsApiResponse.fromJson(json.decode(response.body));

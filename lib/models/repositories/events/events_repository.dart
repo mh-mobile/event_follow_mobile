@@ -1,31 +1,30 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:event_follow/models/api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart' as http;
 import 'events_api_request.dart';
 import 'events_api_response.dart';
 
 final eventsRepositoryProvider = Provider.autoDispose
     .family<EventsRepository, dynamic>((ref, getOrGenerateIdToken) =>
-        EventsRepository(getOrGenerateIdToken: getOrGenerateIdToken));
+        EventsRepository(getOrGenerateIdToken: getOrGenerateIdToken, read: ref.read));
 
 class EventsRepository {
   final getOrGenerateIdToken;
+  final Reader read;
 
-  EventsRepository({required this.getOrGenerateIdToken});
+  EventsRepository({required this.getOrGenerateIdToken, required this.read});
 
   Future<EventsApiResponse> requestEventsApi(
       {required EventsApiRequest request}) async {
-    final url = request.uri;
 
-    final response = await http.get(
-      url,
-      headers: {
-        HttpHeaders.contentTypeHeader: "application/json",
-        HttpHeaders.authorizationHeader:
-            "Bearer ${await this.getOrGenerateIdToken()}"
-      },
-    );
+    request.appendHeader({
+      HttpHeaders.authorizationHeader: "Bearer ${await this
+          .getOrGenerateIdToken()}"
+    });
+
+    final apiClient = read(apiClientProvider);
+    final response = await apiClient.request(request);
     return EventsApiResponse.fromJson(json.decode(response.body));
   }
 }
