@@ -1,3 +1,4 @@
+import 'package:event_follow/config/app_link_globals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -7,7 +8,7 @@ class PrivacyPolicyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        launch("https://event-follow-front.herokuapp.com/privacy_policy");
+        launch(AppLink.PrivacyPolicy.url);
       },
       child: ListTile(
         title: Text("プライバシーポリシー", ),

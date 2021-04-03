@@ -37,7 +37,7 @@ abstract class ApiRequest {
   final getIdToken = firebaseAuth.currentUser?.getIdToken;
   String get apiPath;
   HttpMethod get httpMethod;
-  String get baseDomain => env["BASE_DOMAIN"]!;
+  String get baseDomain => env["API_DOMAIN"]!;
   Uri get uri => Uri.https(baseDomain, apiPath, toParams());
   bool get isAuthenticationReauired => false;
   Map<String, String> get defaultHeaders => { HttpHeaders.contentTypeHeader: "application/json" };
