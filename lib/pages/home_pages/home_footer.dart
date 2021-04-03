@@ -1,3 +1,4 @@
+import 'package:event_follow/config/app_link_globals.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -17,7 +18,7 @@ class HomeFooter extends HookWidget {
           style: TextStyle(color: Colors.lightBlue),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              launch("https://event-follow-front.herokuapp.com/terms");
+              launch(AppLink.Terms.url);
             }),
       TextSpan(
         text: "・",
@@ -28,7 +29,7 @@ class HomeFooter extends HookWidget {
           style: TextStyle(color: Colors.lightBlue),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              launch("https://event-follow-front.herokuapp.com/privacy_policy");
+              launch(AppLink.PrivacyPolicy.url);
             }),
       TextSpan(
         text: "に同意したものとみなします。",
