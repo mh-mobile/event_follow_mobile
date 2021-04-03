@@ -10,8 +10,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'home_logo.dart';
 
-final _shouldPush = Provider.autoDispose(
-    (ref) => ref.watch(sessionsProvider.state).status == SessionsStatus.OK);
+final _sessionStateProvider = Provider.autoDispose<SessionsStatus>(
+    (ref) => ref.watch(sessionsProvider.state).status);
 
 class HomePage extends HookWidget {
   @override
@@ -20,13 +20,34 @@ class HomePage extends HookWidget {
         useProvider(sessionsProvider.state.select((value) => value.isLoading));
 
     return ProviderListener(
-      provider: _shouldPush,
-      onChange: (context, bool shouldPush) {
-        if (shouldPush) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-                return EventsPage();
-              }));
+      provider: _sessionStateProvider,
+      onChange: (context, SessionsStatus sessionsStatus) async {
+        switch (sessionsStatus) {
+          case SessionsStatus.OK:
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) {
+              return EventsPage();
+            }));
+            break;
+          case SessionsStatus.NG:
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) => new AlertDialog(
+                title: new Text("確認"),
+                content: new Text("ログインエラーが発生しました。\n再度お試しください。"),
+                actions: <Widget>[
+                  new SimpleDialogOption(
+                    child: new Text("OK"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            );
+            break;
+          default:
+            break;
         }
       },
       child: Scaffold(

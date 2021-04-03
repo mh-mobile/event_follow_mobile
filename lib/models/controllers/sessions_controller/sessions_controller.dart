@@ -1,3 +1,4 @@
+import 'package:event_follow/models/controllers/sessions_controller/sessions_state.dart';
 import 'package:event_follow/models/repositories/sessions/sessions_api_request.dart';
 import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,12 +22,22 @@ class SessionsController extends StateNotifier<SessionsState> {
   late final SessionsRepository _sessionsRepository;
 
   Future<void> request(SessionsApiRequest request) async {
-
-    final sessionApiResults =
-    await _sessionsRepository.requestSessionsApi(request: request);
     state = state.copyWith(
-      status: sessionApiResults.status == "OK" ? SessionsStatus.OK : SessionsStatus.NG,
+      status: SessionsStatus.NONE,
     );
+
+    try {
+      final sessionApiResults = await _sessionsRepository.requestSessionsApi(request: request);
+      state = state.copyWith(
+        status: sessionApiResults.status == "OK" ? SessionsStatus.OK : SessionsStatus.NG,
+      );
+    } on Exception {
+      state = state.copyWith(
+        isLoading: false,
+        status: SessionsStatus.NG,
+      );
+    }
+
   }
 
   void setLoading(bool isLoading) {
