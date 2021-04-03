@@ -10,7 +10,7 @@ final sessionsProvider = StateNotifierProvider.autoDispose((ref) => SessionsCont
 class SessionsController extends StateNotifier<SessionsState> {
   SessionsController(this._read): super(SessionsState()) {
     state = state.copyWith(
-      status: SessionsStatus.NG,
+      status: SessionsStatus.NONE,
       isLoading: false,
     );
 
