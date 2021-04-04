@@ -17,6 +17,8 @@ class EventEmptyView extends HookWidget {
         child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Container(
+              height: MediaQuery.of(context).size.height - 200,
+              width: MediaQuery.of(context).size.width,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -30,8 +32,6 @@ class EventEmptyView extends HookWidget {
                   ),
                 ],
               ),
-              height: MediaQuery.of(context).size.height - 200,
-              width: MediaQuery.of(context).size.width,
             )));
   }
 }

@@ -13,6 +13,9 @@ class EventDrawerHeader extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -36,9 +39,6 @@ class EventDrawerHeader extends StatelessWidget {
                   ),
                 )
               ],
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.blue,
             ),
           ),
           ListTile(

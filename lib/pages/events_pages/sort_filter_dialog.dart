@@ -94,16 +94,6 @@ class SortFilterDialog extends HookWidget {
                           selectedColor: Colors.white,
                           fillColor: Colors.blueGrey[400],
                           selectedBorderColor: Colors.blueGrey[400],
-                          children: [
-                            Container(
-                              width: 100,
-                              child: const Center(child: const Text('Sort by')),
-                            ),
-                            Container(
-                              width: 100,
-                              child: const Center(child: Text('Filter by')),
-                            ),
-                          ],
                           onPressed: (int index) {
                             for (var buttonIndex = 0;
                                 buttonIndex < sortFilterSelectedSegments.length;
@@ -115,6 +105,16 @@ class SortFilterDialog extends HookWidget {
                                   .state = sortFilterSelectedSegments;
                             }
                           },
+                          children: [
+                            Container(
+                              width: 100,
+                              child: const Center(child: const Text('Sort by')),
+                            ),
+                            Container(
+                              width: 100,
+                              child: const Center(child: Text('Filter by')),
+                            ),
+                          ],
                         ),
                       ),
                     ),

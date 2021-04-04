@@ -36,10 +36,10 @@ class HomePage extends HookWidget {
                 content: const Text('ログインエラーが発生しました。\n再度お試しください。'),
                 actions: <Widget>[
                   SimpleDialogOption(
-                    child: const Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
+                    child: const Text('OK'),
                   ),
                 ],
               ),
