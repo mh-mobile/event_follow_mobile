@@ -7,14 +7,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../extension/datetime_ex.dart';
-import '../../extension/string_ex.dart';
 import '../../extension/image_ex.dart';
+import '../../extension/string_ex.dart';
 
 class EventCard extends HookWidget {
   final Event _event;
   final EventExtra _extra;
 
-  EventCard(this._event, this._extra);
+  const EventCard(this._event, this._extra);
 
   @override
   Widget build(BuildContext context) {

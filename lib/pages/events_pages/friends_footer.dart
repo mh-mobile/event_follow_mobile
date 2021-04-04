@@ -16,7 +16,7 @@ class FriendsFooter extends HookWidget {
   final Event _event;
   final EventExtra _extra;
 
-  FriendsFooter(this._event, this._extra);
+  const FriendsFooter(this._event, this._extra);
 
   @override
   Widget build(BuildContext context) {

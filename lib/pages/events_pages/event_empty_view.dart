@@ -6,7 +6,7 @@ import 'no_empty_logo.dart';
 class EventEmptyView extends HookWidget {
   final onRefresh;
 
-  EventEmptyView({
+  const EventEmptyView({
     required this.onRefresh,
   });
 

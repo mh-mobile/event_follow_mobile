@@ -21,7 +21,7 @@ final sortFilterSelectedSegmentsProvider =
     StateProvider.autoDispose<List<bool>>((ref) => [true, false]);
 
 class SortFilterDialog extends HookWidget {
-  SortFilterDialog({
+  const SortFilterDialog({
     Key? key,
     required this.onChange,
   }) : super(key: key);
@@ -124,7 +124,7 @@ class SortFilterDialog extends HookWidget {
                                 sortFilterSelectedSegments)
                             .itemCount,
                         separatorBuilder: (context, index) {
-                          return Divider(
+                          return const Divider(
                             height: 1,
                           );
                         },

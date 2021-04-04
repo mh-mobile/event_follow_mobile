@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'event_card.dart';
 
 class EventContentView extends HookWidget {
@@ -7,7 +8,7 @@ class EventContentView extends HookWidget {
   final scrollController;
   final List<EventCard> cardList;
 
-  EventContentView({
+  const EventContentView({
     required this.onRefresh,
     required this.scrollController,
     required this.cardList,

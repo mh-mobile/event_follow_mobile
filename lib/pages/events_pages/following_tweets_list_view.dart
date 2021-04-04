@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:event_follow/extension/datetime_ex.dart';
 import 'package:event_follow/models/controllers/following_tweets/following_tweets_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:event_follow/extension/datetime_ex.dart';
 
 class FollowingTweetsListView extends HookWidget {
   final eventId;
 
-  FollowingTweetsListView({
+  const FollowingTweetsListView({
     required this.eventId,
     Key? key,
   }) : super(key: key);
