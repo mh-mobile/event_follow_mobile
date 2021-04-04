@@ -56,7 +56,7 @@ class SortFilterButton extends HookWidget {
                       Container(
                         margin: EdgeInsets.only(left: 5, right: 5),
                         child: Text(
-                          "x",
+                          'x',
                           style: TextStyle(
                               fontSize: 10, fontWeight: FontWeight.bold),
                         ),

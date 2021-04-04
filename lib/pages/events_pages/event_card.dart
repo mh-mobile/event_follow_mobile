@@ -57,7 +57,7 @@ class EventCard extends HookWidget {
                                     style: TextStyle(fontSize: 16.0),
                                   ),
                                   Text(
-                                    "開催",
+                                    '開催',
                                     style: TextStyle(fontSize: 12.0),
                                   )
                                 ],
@@ -70,9 +70,9 @@ class EventCard extends HookWidget {
                             GestureDetector(
                               onTap: () {
                                 final text =
-                                    "\"${_event.title}\"\n${_event.url}";
+                                    '\"${_event.title}\"\n${_event.url}';
                                 launch(
-                                    "twitter://post?message=${Uri.encodeFull(text)}");
+                                    'twitter://post?message=${Uri.encodeFull(text)}');
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
@@ -83,10 +83,10 @@ class EventCard extends HookWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Image.asset("assets/twitter_logo.png",
+                                      Image.asset('assets/twitter_logo.png',
                                           height: 15.0),
                                       Text(
-                                        "ツイート",
+                                        'ツイート',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 10.0),

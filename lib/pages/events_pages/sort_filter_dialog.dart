@@ -97,11 +97,11 @@ class SortFilterDialog extends HookWidget {
                           children: [
                             Container(
                               width: 100,
-                              child: Center(child: Text("Sort by")),
+                              child: Center(child: Text('Sort by')),
                             ),
                             Container(
                               width: 100,
-                              child: Center(child: Text("Filter by")),
+                              child: Center(child: Text('Filter by')),
                             ),
                           ],
                           onPressed: (int index) {

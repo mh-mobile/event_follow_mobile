@@ -13,9 +13,9 @@ class SessionsApiRequest extends ApiRequest {
 
   @override
   Map<String, dynamic> toJson() => {
-        "token": token,
-        "access_token": accessToken,
-        "access_token_secret": accessTokenSecret,
+        'token': token,
+        'access_token': accessToken,
+        'access_token_secret': accessTokenSecret,
       };
 
   @override

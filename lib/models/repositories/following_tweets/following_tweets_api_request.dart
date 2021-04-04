@@ -8,7 +8,7 @@ class FollowingTweetsApiRequest extends ApiRequest {
   });
 
   Map<String, String> toParams() => {
-        "event_id": eventId,
+        'event_id': eventId,
       };
 
   @override

@@ -71,7 +71,7 @@ class FriendsFooter extends HookWidget {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Center(
-                child: Text("${_extra.friendsNumber}"),
+                child: Text('${_extra.friendsNumber}'),
               ),
             ),
           ),
@@ -81,7 +81,7 @@ class FriendsFooter extends HookWidget {
                   margin: const EdgeInsets.only(right: 5.0),
                   child: GestureDetector(
                     onTap: () {
-                      launch("https://twitter.com/${friend.screenName}");
+                      launch('https://twitter.com/${friend.screenName}');
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(50)),

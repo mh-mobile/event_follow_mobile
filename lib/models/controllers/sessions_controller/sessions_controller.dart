@@ -31,7 +31,7 @@ class SessionsController extends StateNotifier<SessionsState> {
       final sessionApiResults =
           await _sessionsRepository.requestSessionsApi(request: request);
       state = state.copyWith(
-        status: sessionApiResults.status == "OK"
+        status: sessionApiResults.status == 'OK'
             ? SessionsStatus.OK
             : SessionsStatus.NG,
       );

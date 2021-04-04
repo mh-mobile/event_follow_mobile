@@ -13,10 +13,10 @@ class AppUtils {
   }
 
   static Future<Image> getAppIcon({double width = 40}) async {
-    return Image.asset("assets/logo_notext.png", width: width);
+    return Image.asset('assets/logo_notext.png', width: width);
   }
 
   static Future<String> getAppLegalese() async {
-    return "2021 mh-mobile";
+    return '2021 mh-mobile';
   }
 }

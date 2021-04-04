@@ -11,7 +11,7 @@ class TermsTile extends StatelessWidget {
       },
       child: ListTile(
         title: Text(
-          "利用規約",
+          '利用規約',
         ),
         dense: true,
       ),

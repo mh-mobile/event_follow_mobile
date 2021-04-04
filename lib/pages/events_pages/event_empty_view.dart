@@ -25,7 +25,7 @@ class EventEmptyView extends HookWidget {
                     height: 20.0,
                   ),
                   Text(
-                    "イベントがまだありません",
+                    'イベントがまだありません',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],

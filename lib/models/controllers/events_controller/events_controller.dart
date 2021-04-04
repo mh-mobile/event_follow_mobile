@@ -20,7 +20,7 @@ class EventsController extends StateNotifier<EventsState> {
     );
     _eventsRepository = _read(eventsRepositoryProvider);
 
-    request(EventsApiRequest(pageId: "1"));
+    request(EventsApiRequest(pageId: '1'));
   }
 
   final Reader _read;
@@ -31,7 +31,7 @@ class EventsController extends StateNotifier<EventsState> {
       isLoading: true,
     );
 
-    if (request.pageId == "1") {
+    if (request.pageId == '1') {
       clearData();
     }
 

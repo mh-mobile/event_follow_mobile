@@ -12,13 +12,13 @@ class EventsApiResponse {
 
   factory EventsApiResponse.fromJson(Map<String, dynamic> json) =>
       EventsApiResponse(
-        meta: EventMeta.fromJson(json["meta"]),
+        meta: EventMeta.fromJson(json['meta']),
         data: List<EventDatum>.from(
-            json["data"].map((x) => EventDatum.fromJson(x))),
+            json['data'].map((x) => EventDatum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "meta": meta.toJson(),
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        'meta': meta.toJson(),
+        'data': List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }

@@ -15,9 +15,9 @@ abstract class User implements _$User {
   User._();
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        screenName: json["screen_name"],
-        name: json["name"],
-        profileImage: json["profile_image"],
+        id: json['id'],
+        screenName: json['screen_name'],
+        name: json['name'],
+        profileImage: json['profile_image'],
       );
 }

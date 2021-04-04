@@ -14,10 +14,10 @@ class EventsApiRequest extends ApiRequest {
   });
 
   Map<String, String> toParams() => {
-        "page": pageId,
-        if (sort != null) "sort": sort!,
-        if (time != null) "time": time!,
-        if (friends != null) "friends": friends!,
+        'page': pageId,
+        if (sort != null) 'sort': sort!,
+        if (time != null) 'time': time!,
+        if (friends != null) 'friends': friends!,
       };
 
   @override

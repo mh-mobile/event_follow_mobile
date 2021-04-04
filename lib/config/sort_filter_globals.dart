@@ -7,17 +7,17 @@ enum SortType {
 
 extension SortTypeExtension on SortType {
   static final typeNames = {
-    SortType.FriendsNumber: "friends_number_order",
-    SortType.RecentOrder: "recent_order",
-    SortType.CreatedOrder: "created_order",
-    SortType.ClosenessOrder: "closeness_order",
+    SortType.FriendsNumber: 'friends_number_order',
+    SortType.RecentOrder: 'recent_order',
+    SortType.CreatedOrder: 'created_order',
+    SortType.ClosenessOrder: 'closeness_order',
   };
 
   static final labelNames = {
-    SortType.FriendsNumber: "Friend数",
-    SortType.RecentOrder: "新着順",
-    SortType.CreatedOrder: "投稿順",
-    SortType.ClosenessOrder: "開催が近い順",
+    SortType.FriendsNumber: 'Friend数',
+    SortType.RecentOrder: '新着順',
+    SortType.CreatedOrder: '投稿順',
+    SortType.ClosenessOrder: '開催が近い順',
   };
 
   static final types = [
@@ -28,10 +28,10 @@ extension SortTypeExtension on SortType {
   ];
 
   static final sortFilterButtonSortLabels = [
-    ["Friend", "数"],
-    ["新着", "順"],
-    ["投稿", "順"],
-    ["開催が近い", "順"],
+    ['Friend', '数'],
+    ['新着', '順'],
+    ['投稿', '順'],
+    ['開催が近い', '順'],
   ];
 
   static SortType convert(String typeName) {
@@ -52,19 +52,19 @@ enum FriendsFilterType {
 
 extension FriendsFilterTypeExtension on FriendsFilterType {
   static final typeNames = {
-    FriendsFilterType.OneOrMoreFriends: "one_or_more_friends",
-    FriendsFilterType.TwoOrMoreFriends: "two_or_more_friends",
-    FriendsFilterType.ThreeOrMoreFriends: "three_or_more_friends",
-    FriendsFilterType.FourOrMoreFriends: "four_or_more_friends",
-    FriendsFilterType.FiveOrMoreFriends: "five_or_more_friends",
+    FriendsFilterType.OneOrMoreFriends: 'one_or_more_friends',
+    FriendsFilterType.TwoOrMoreFriends: 'two_or_more_friends',
+    FriendsFilterType.ThreeOrMoreFriends: 'three_or_more_friends',
+    FriendsFilterType.FourOrMoreFriends: 'four_or_more_friends',
+    FriendsFilterType.FiveOrMoreFriends: 'five_or_more_friends',
   };
 
   static final labelNames = {
-    FriendsFilterType.OneOrMoreFriends: "Friends 1+",
-    FriendsFilterType.TwoOrMoreFriends: "Friends 2+",
-    FriendsFilterType.ThreeOrMoreFriends: "Friends 3+",
-    FriendsFilterType.FourOrMoreFriends: "Friends 4+",
-    FriendsFilterType.FiveOrMoreFriends: "Friends 5+",
+    FriendsFilterType.OneOrMoreFriends: 'Friends 1+',
+    FriendsFilterType.TwoOrMoreFriends: 'Friends 2+',
+    FriendsFilterType.ThreeOrMoreFriends: 'Friends 3+',
+    FriendsFilterType.FourOrMoreFriends: 'Friends 4+',
+    FriendsFilterType.FiveOrMoreFriends: 'Friends 5+',
   };
 
   static final types = [
@@ -76,11 +76,11 @@ extension FriendsFilterTypeExtension on FriendsFilterType {
   ];
 
   static final sortFilterButtonFriendsFilterLabels = [
-    ["Friends", "1+"],
-    ["Friends", "2+"],
-    ["Friends", "3+"],
-    ["Friends", "4+"],
-    ["Friends", "5+"],
+    ['Friends', '1+'],
+    ['Friends', '2+'],
+    ['Friends', '3+'],
+    ['Friends', '4+'],
+    ['Friends', '5+'],
   ];
 
   static FriendsFilterType convert(String typeName) {
@@ -105,27 +105,27 @@ enum TimeFilterType {
 
 extension TimeFilterTypeExtension on TimeFilterType {
   static final typeNames = {
-    TimeFilterType.EightHours: "past_8_hours",
-    TimeFilterType.TwentyFourHour: "past_24_hours",
-    TimeFilterType.TwoDays: "past_2_days",
-    TimeFilterType.ThreeDays: "past_3_days",
-    TimeFilterType.FourDays: "past_4_days",
-    TimeFilterType.FiveDays: "past_5_days",
-    TimeFilterType.SixDays: "past_6_days",
-    TimeFilterType.OneWeek: "past_1_weeks",
-    TimeFilterType.All: "past_all",
+    TimeFilterType.EightHours: 'past_8_hours',
+    TimeFilterType.TwentyFourHour: 'past_24_hours',
+    TimeFilterType.TwoDays: 'past_2_days',
+    TimeFilterType.ThreeDays: 'past_3_days',
+    TimeFilterType.FourDays: 'past_4_days',
+    TimeFilterType.FiveDays: 'past_5_days',
+    TimeFilterType.SixDays: 'past_6_days',
+    TimeFilterType.OneWeek: 'past_1_weeks',
+    TimeFilterType.All: 'past_all',
   };
 
   static final labelNames = {
-    TimeFilterType.EightHours: "過去8時間",
-    TimeFilterType.TwentyFourHour: "過去24時間",
-    TimeFilterType.TwoDays: "過去2日",
-    TimeFilterType.ThreeDays: "過去3日",
-    TimeFilterType.FourDays: "過去4日",
-    TimeFilterType.FiveDays: "過去5日",
-    TimeFilterType.SixDays: "過去6日",
-    TimeFilterType.OneWeek: "過去1週間",
-    TimeFilterType.All: "All",
+    TimeFilterType.EightHours: '過去8時間',
+    TimeFilterType.TwentyFourHour: '過去24時間',
+    TimeFilterType.TwoDays: '過去2日',
+    TimeFilterType.ThreeDays: '過去3日',
+    TimeFilterType.FourDays: '過去4日',
+    TimeFilterType.FiveDays: '過去5日',
+    TimeFilterType.SixDays: '過去6日',
+    TimeFilterType.OneWeek: '過去1週間',
+    TimeFilterType.All: 'All',
   };
 
   static final types = [
@@ -141,15 +141,15 @@ extension TimeFilterTypeExtension on TimeFilterType {
   ];
 
   static final sortFilterButtonTimeFilterLabels = [
-    ["8", "hrs"],
-    ["24", "hrs"],
-    ["2", "days"],
-    ["3", "days"],
-    ["4", "days"],
-    ["5", "days"],
-    ["6", "days"],
-    ["1", "week"],
-    ["All"],
+    ['8', 'hrs'],
+    ['24', 'hrs'],
+    ['2', 'days'],
+    ['3', 'days'],
+    ['4', 'days'],
+    ['5', 'days'],
+    ['6', 'days'],
+    ['1', 'week'],
+    ['All'],
   ];
 
   static TimeFilterType convert(String typeName) {

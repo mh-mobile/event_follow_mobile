@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 extension ImageExtension on Image {
@@ -6,13 +7,13 @@ extension ImageExtension on Image {
     final path;
     switch (eventSiteId) {
       case 1:
-        path = "assets/connpass_logo.png";
+        path = 'assets/connpass_logo.png';
         break;
       case 2:
-        path = "assets/doorkeeper_logo.png";
+        path = 'assets/doorkeeper_logo.png';
         break;
       default:
-        path = "";
+        path = '';
         break;
     }
 

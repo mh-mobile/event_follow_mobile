@@ -5,6 +5,7 @@ import 'package:event_follow/pages/events_pages/event_empty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../config/sort_filter_globals.dart';
 import 'event_card.dart';
 
@@ -29,7 +30,7 @@ class EventListView extends HookWidget {
 
     Future<void> _onRefresh() async {
       await controller.request(EventsApiRequest(
-          pageId: "1",
+          pageId: '1',
           sort: sortFilterStateStore?.sortType.typeName,
           time: sortFilterStateStore?.timeFilterType?.typeName,
           friends: sortFilterStateStore?.friendFilterType?.typeName));

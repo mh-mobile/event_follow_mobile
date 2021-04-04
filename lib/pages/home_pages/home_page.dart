@@ -1,8 +1,7 @@
+import 'package:event_follow/models/controllers/controllers.dart';
 import 'package:event_follow/pages/events_pages/events_page.dart';
 import 'package:event_follow/pages/home_pages/home_footer.dart';
 import 'package:event_follow/pages/home_pages/twitter_login_button.dart';
-import 'package:event_follow/models/controllers/controllers.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -33,11 +32,11 @@ class HomePage extends HookWidget {
             await showDialog(
               context: context,
               builder: (BuildContext context) => new AlertDialog(
-                title: new Text("確認"),
-                content: new Text("ログインエラーが発生しました。\n再度お試しください。"),
+                title: new Text('確認'),
+                content: new Text('ログインエラーが発生しました。\n再度お試しください。'),
                 actions: <Widget>[
                   new SimpleDialogOption(
-                    child: new Text("OK"),
+                    child: new Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },

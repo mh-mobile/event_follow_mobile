@@ -18,11 +18,11 @@ abstract class FollowingTweet implements _$FollowingTweet {
   FollowingTweet._();
 
   factory FollowingTweet.fromJson(Map<String, dynamic> json) => FollowingTweet(
-        id: json["id"],
-        text: json["text"],
-        tweetedAt: DateTime.parse(json["tweeted_at"]),
-        quotedTweetId: json["quoted_tweet_id"],
-        retweetedTweetId: json["retweeted_tweet_id"],
-        user: User.fromJson(json["user"]),
+        id: json['id'],
+        text: json['text'],
+        tweetedAt: DateTime.parse(json['tweeted_at']),
+        quotedTweetId: json['quoted_tweet_id'],
+        retweetedTweetId: json['retweeted_tweet_id'],
+        user: User.fromJson(json['user']),
       );
 }

@@ -51,7 +51,7 @@ class FollowingTweetsListView extends HookWidget {
                                 child: GestureDetector(
                                   onTap: () {
                                     launch(
-                                        "https://twitter.com/${tweet.user.screenName}");
+                                        'https://twitter.com/${tweet.user.screenName}');
                                   },
                                   child: ClipRRect(
                                     borderRadius:
@@ -91,7 +91,7 @@ class FollowingTweetsListView extends HookWidget {
                                       style: TextStyle(
                                           color: Colors.blue[800],
                                           fontSize: 12)),
-                                  Text("@${tweet.user.screenName}",
+                                  Text('@${tweet.user.screenName}',
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 12)),
                                 ],

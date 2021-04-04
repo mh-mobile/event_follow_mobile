@@ -12,7 +12,7 @@ class PrivacyPolicyTile extends StatelessWidget {
       },
       child: ListTile(
         title: Text(
-          "プライバシーポリシー",
+          'プライバシーポリシー',
         ),
         dense: true,
       ),

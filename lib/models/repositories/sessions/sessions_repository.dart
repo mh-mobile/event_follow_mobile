@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../api.dart';
 import 'sessions_api_request.dart';
 import 'sessions_api_response.dart';
@@ -19,7 +21,7 @@ class SessionsRepository {
     if (response.statusCode == 200) {
       return SessionsApiResponse.fromJson(json.decode(response.body));
     } else {
-      throw Exception("Login Failed");
+      throw Exception('Login Failed');
     }
   }
 }

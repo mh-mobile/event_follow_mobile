@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:event_follow/pages/home_pages/home_page.dart';
 import 'package:event_follow/pages/setting_pages/setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../main.dart';
 
 class EventDrawerHeader extends StatelessWidget {
@@ -42,7 +42,7 @@ class EventDrawerHeader extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text("設定"),
+            title: Text('設定'),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -51,7 +51,7 @@ class EventDrawerHeader extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("ログアウト"),
+            title: Text('ログアウト'),
             onTap: () {
               firebaseAuth.signOut();
               Navigator.pushReplacement(
