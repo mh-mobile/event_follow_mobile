@@ -143,11 +143,11 @@ class SortFilterDialog extends HookWidget {
                                   : null,
                               dense: true,
                               onTap: () {
-                                var currentSortType =
+                                final currentSortType =
                                     sortFilterStateStore.sortType;
-                                var currentTimeFilterType =
+                                final currentTimeFilterType =
                                     sortFilterStateStore.timeFilterType;
-                                var currentFriendsFilterType =
+                                final currentFriendsFilterType =
                                     sortFilterStateStore.friendFilterType;
 
                                 final store = SortFilterStateStore(

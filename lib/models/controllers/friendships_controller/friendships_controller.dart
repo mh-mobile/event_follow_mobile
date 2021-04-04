@@ -21,9 +21,9 @@ class FriendshipsController extends StateNotifier<FriendshipsState> {
     final friendshipApiResults =
         await _friendshipsRepository.requestFriendshipsApi(request: request);
 
-    var lock = Lock();
+    final lock = Lock();
     await lock.synchronized(() async {
-      var friendsData = {...state.friendsData};
+      final friendsData = {...state.friendsData};
       friendsData[eventId] = friendshipApiResults.friends;
       state = state.copyWith(
         friendsData: friendsData,

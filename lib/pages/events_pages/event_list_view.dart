@@ -36,8 +36,8 @@ class EventListView extends HookWidget {
           friends: sortFilterStateStore?.friendFilterType?.typeName));
     }
 
-    late ScrollController _scrollController = () {
-      var _scrollController = ScrollController();
+    late final ScrollController _scrollController = () {
+      final _scrollController = ScrollController();
       _scrollController.addListener(() {
         final maxScrollExtent = _scrollController.position.maxScrollExtent;
         final currentPosition = _scrollController.position.pixels;
