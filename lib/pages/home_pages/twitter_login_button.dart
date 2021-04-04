@@ -31,7 +31,7 @@ class TwitterLoginButton extends HookWidget {
           final authResult = await twitterLogin.login();
           switch (authResult.status) {
             case TwitterLoginStatus.loggedIn:
-              controller.setLoading(true);
+              controller.setLoading(isLoading: true);
               final credential = TwitterAuthProvider.credential(
                   accessToken: authResult.authToken,
                   secret: authResult.authTokenSecret);
@@ -47,10 +47,10 @@ class TwitterLoginButton extends HookWidget {
               await controller.request(request);
               break;
             case TwitterLoginStatus.cancelledByUser:
-              controller.setLoading(false);
+              controller.setLoading(isLoading: false);
               break;
             case TwitterLoginStatus.error:
-              controller.setLoading(false);
+              controller.setLoading(isLoading: false);
               break;
           }
         },

@@ -30,7 +30,7 @@ class UsersController extends StateNotifier<UsersState> {
     );
   }
 
-  void setLoading(bool isLoading) {
+  void setLoading({required bool isLoading}) {
     state = state.copyWith(isLoading: isLoading);
   }
 }

@@ -36,10 +36,10 @@ class AccountDeletionTile extends HookWidget {
 
               switch (result) {
                 case AccountDeletionButtons.OK:
-                  controller.setLoading(true);
+                  controller.setLoading(isLoading: true);
 
                   await controller.requestAccountDeletion();
-                  controller.setLoading(false);
+                  controller.setLoading(isLoading: false);
                   break;
                 case AccountDeletionButtons.Cancel:
                   break;

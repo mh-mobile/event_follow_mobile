@@ -32,8 +32,4 @@ class FollowingTweetsController extends StateNotifier<FollowingTweetsState> {
       isLoading: false,
     );
   }
-
-  void setLoading(bool isLoading) {
-    state = state.copyWith(isLoading: isLoading);
-  }
 }

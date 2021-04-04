@@ -43,7 +43,7 @@ class SessionsController extends StateNotifier<SessionsState> {
     }
   }
 
-  void setLoading(bool isLoading) {
+  void setLoading({required bool isLoading}) {
     state = state.copyWith(isLoading: isLoading);
   }
 }
