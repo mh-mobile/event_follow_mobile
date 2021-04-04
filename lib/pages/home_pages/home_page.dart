@@ -69,7 +69,7 @@ class HomePage extends HookWidget {
                       : const SizedBox(
                           height: 44,
                           width: 44,
-                          child: const CircularProgressIndicator()),
+                          child: CircularProgressIndicator()),
                   Expanded(flex: 3, child: Container()),
                   HomeFooter(),
                 ],
