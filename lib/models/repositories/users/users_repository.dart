@@ -5,15 +5,15 @@ import 'account_deletion_api_request.dart';
 import 'account_deletion_api_response.dart';
 
 final usersRepositoryProvider = Provider.autoDispose<UsersRepository>(
-        (ref) => UsersRepository(read: ref.read));
+    (ref) => UsersRepository(read: ref.read));
 
 class UsersRepository {
   final Reader read;
 
   UsersRepository({required this.read});
 
-  Future<AccountDeletionApiResponse> requestAccountDeletion(AccountDeletionApiRequest request) async {
-
+  Future<AccountDeletionApiResponse> requestAccountDeletion(
+      AccountDeletionApiRequest request) async {
     final apiClient = read(apiClientProvider);
     final response = await apiClient.request(request);
 
@@ -24,4 +24,3 @@ class UsersRepository {
     }
   }
 }
-

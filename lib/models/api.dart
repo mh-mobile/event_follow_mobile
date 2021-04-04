@@ -40,14 +40,18 @@ abstract class ApiRequest {
   String get baseDomain => env["API_DOMAIN"]!;
   Uri get uri => Uri.https(baseDomain, apiPath, toParams());
   bool get isAuthenticationReauired => false;
-  Map<String, String> get defaultHeaders => { HttpHeaders.contentTypeHeader: "application/json" };
+  Map<String, String> get defaultHeaders =>
+      {HttpHeaders.contentTypeHeader: "application/json"};
   Map<String, String> toParams() => {};
   Map<String, dynamic> toJson() => {};
   Future<Map<String, String>> toHeaders() async {
     final idToken = (getIdToken != null) ? await getIdToken!() : "";
-    return {...defaultHeaders, if (isAuthenticationReauired) ...{
-      HttpHeaders.authorizationHeader: "Bearer $idToken"
-    }};
+    return {
+      ...defaultHeaders,
+      if (isAuthenticationReauired) ...{
+        HttpHeaders.authorizationHeader: "Bearer $idToken"
+      }
+    };
   }
 }
 
@@ -86,5 +90,4 @@ class ApiClient extends ApiBaseClient {
 
     return response;
   }
-
 }

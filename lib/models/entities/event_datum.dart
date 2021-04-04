@@ -8,14 +8,14 @@ part 'event_datum.g.dart';
 @freezed
 abstract class EventDatum implements _$EventDatum {
   factory EventDatum({
-     required Event event,
-     required EventExtra extra,
+    required Event event,
+    required EventExtra extra,
   }) = _EventDatum;
 
   EventDatum._();
 
   factory EventDatum.fromJson(Map<String, dynamic> json) => EventDatum(
-    event: Event.fromJson(json["event"]),
-    extra: EventExtra.fromJson(json["extra"]),
-  );
+        event: Event.fromJson(json["event"]),
+        extra: EventExtra.fromJson(json["extra"]),
+      );
 }

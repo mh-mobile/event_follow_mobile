@@ -17,9 +17,9 @@ class SortFilterButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sortFilterStateStore =
-        useProvider(eventsConditionProvider).state;
-    final sortFilterPressing = useProvider(sortFilterButtonPressingProvider).state;
+    final sortFilterStateStore = useProvider(eventsConditionProvider).state;
+    final sortFilterPressing =
+        useProvider(sortFilterButtonPressingProvider).state;
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -38,9 +38,7 @@ class SortFilterButton extends HookWidget {
           : Padding(
               padding: EdgeInsets.all(6),
               child: AnimatedOpacity(
-                opacity: sortFilterPressing
-                    ? 0.4
-                    : 1,
+                opacity: sortFilterPressing ? 0.4 : 1,
                 duration: Duration(milliseconds: 160),
                 child: Container(
                   height: 44,
@@ -109,5 +107,4 @@ class SortFilterButton extends HookWidget {
             style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
         .toList();
   }
-
 }

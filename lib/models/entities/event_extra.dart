@@ -13,7 +13,7 @@ abstract class EventExtra implements _$EventExtra {
   EventExtra._();
 
   factory EventExtra.fromJson(Map<String, dynamic> json) => EventExtra(
-    userIds: json["user_ids"],
-    friendsNumber: json["friends_number"],
-  );
+        userIds: json["user_ids"],
+        friendsNumber: json["friends_number"],
+      );
 }

@@ -9,6 +9,7 @@ class FollowingTweetsApiResponse {
 
   factory FollowingTweetsApiResponse.fromJson(List<dynamic> json) =>
       FollowingTweetsApiResponse(
-        tweets: List<FollowingTweet>.from(json.map((x) => FollowingTweet.fromJson(x))),
+        tweets: List<FollowingTweet>.from(
+            json.map((x) => FollowingTweet.fromJson(x))),
       );
 }

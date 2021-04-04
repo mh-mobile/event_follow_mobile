@@ -6,14 +6,14 @@ import 'events_state.dart';
 
 export 'events_state.dart';
 
-final eventsConditionProvider = StateProvider.autoDispose<SortFilterStateStore?>((ref) => null);
+final eventsConditionProvider =
+    StateProvider.autoDispose<SortFilterStateStore?>((ref) => null);
 
 final eventsProvider =
     StateNotifierProvider.autoDispose((ref) => EventsController(ref.read));
 
 class EventsController extends StateNotifier<EventsState> {
   EventsController(this._read) : super(EventsState()) {
-
     state = state.copyWith(
       isLoading: false,
     );
@@ -39,8 +39,10 @@ class EventsController extends StateNotifier<EventsState> {
 
     this._read(eventsConditionProvider).state = SortFilterStateStore(
       sortType: SortTypeExtension.convert(eventsApiResults.meta.eventSortType),
-      timeFilterType: TimeFilterTypeExtension.convert(eventsApiResults.meta.timeFilterType),
-      friendFilterType: FriendsFilterTypeExtension.convert(eventsApiResults.meta.friendsFilterType),
+      timeFilterType:
+          TimeFilterTypeExtension.convert(eventsApiResults.meta.timeFilterType),
+      friendFilterType: FriendsFilterTypeExtension.convert(
+          eventsApiResults.meta.friendsFilterType),
     );
 
     state = state.copyWith(

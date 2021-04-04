@@ -18,7 +18,7 @@ class EventsApiResponse {
       );
 
   Map<String, dynamic> toJson() => {
-    "meta": meta.toJson(),
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
+        "meta": meta.toJson(),
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+      };
 }

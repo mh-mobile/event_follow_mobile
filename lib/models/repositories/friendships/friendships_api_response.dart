@@ -12,4 +12,3 @@ class FriendshipsApiResponse {
         friends: List<User>.from(json.map((x) => User.fromJson(x))),
       );
 }
-

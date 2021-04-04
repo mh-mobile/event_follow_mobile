@@ -111,7 +111,7 @@ class EventCard extends HookWidget {
                                 child: Container(
                                   child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
                                           flex: 7,
@@ -129,14 +129,15 @@ class EventCard extends HookWidget {
                                                 right: 5, left: 5),
                                             child: Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Container(
                                                   child: CachedNetworkImage(
                                                     imageUrl: _event.banner,
                                                     errorWidget: (_, __, ___) {
                                                       return Container(
-                                                        color: const Color(0xffd7d7d8),
+                                                        color: const Color(
+                                                            0xffd7d7d8),
                                                       );
                                                     },
                                                     height: 50,
