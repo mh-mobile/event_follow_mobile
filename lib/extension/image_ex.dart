@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 extension ImageExtension on Image {
   static Image getEventLogoPath(int eventSiteId) {
-    final path;
+    final String path;
     switch (eventSiteId) {
       case 1:
         path = 'assets/connpass_logo.png';

@@ -8,10 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FollowingTweetsListView extends HookWidget {
-  final eventId;
-
   const FollowingTweetsListView({
-    required this.eventId,
     Key? key,
   }) : super(key: key);
 

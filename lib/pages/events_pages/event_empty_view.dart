@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'no_empty_logo.dart';
 
 class EventEmptyView extends HookWidget {
-  final onRefresh;
+  final ScrollController onRefresh;
 
   const EventEmptyView({
     required this.onRefresh,

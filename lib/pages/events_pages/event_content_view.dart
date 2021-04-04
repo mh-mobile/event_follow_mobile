@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'event_card.dart';
 
 class EventContentView extends HookWidget {
-  final onRefresh;
-  final scrollController;
+  final RefreshCallback onRefresh;
+  final ScrollController scrollController;
   final List<EventCard> cardList;
 
   const EventContentView({

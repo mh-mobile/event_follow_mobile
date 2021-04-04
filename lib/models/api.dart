@@ -66,7 +66,7 @@ class ApiClient extends ApiBaseClient {
 
   Future<http.Response> request(ApiRequest request) async {
     final url = request.uri;
-    final response;
+    final http.Response response;
 
     switch (request.httpMethod) {
       case HttpMethod.GET:
