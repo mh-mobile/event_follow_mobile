@@ -105,7 +105,7 @@ class SortFilterDialog extends HookWidget {
                             ),
                           ],
                           onPressed: (int index) {
-                            for (int buttonIndex = 0;
+                            for (var buttonIndex = 0;
                                 buttonIndex < sortFilterSelectedSegments.length;
                                 buttonIndex++) {
                               sortFilterSelectedSegments[buttonIndex] =
