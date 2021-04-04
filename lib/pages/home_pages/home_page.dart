@@ -45,7 +45,7 @@ class HomePage extends HookWidget {
               ),
             );
             break;
-          default:
+          case SessionsStatus.none:
             break;
         }
       },

@@ -70,9 +70,6 @@ class SettingPage extends HookWidget {
                 );
               case SettingItemType.appVersion:
                 return AppVersion();
-              default:
-                return Container();
-                break;
             }
           }),
     );
