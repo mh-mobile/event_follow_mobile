@@ -46,7 +46,7 @@ class EventsPage extends HookWidget {
                   position:
                       CurvedAnimation(parent: animation, curve: Curves.easeOut)
                           .drive(Tween<Offset>(
-                    begin: const Offset(0, -1.0),
+                    begin: const Offset(0, -1),
                     end: Offset.zero,
                   )),
                   child: child,

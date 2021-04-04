@@ -37,7 +37,7 @@ class EventCard extends HookWidget {
                         child: Column(
                           children: [
                             Container(
-                              margin: const EdgeInsets.only(bottom: 5.0),
+                              margin: const EdgeInsets.only(bottom: 5),
                               width: 60,
                               height: 60,
                               decoration: BoxDecoration(
@@ -54,11 +54,11 @@ class EventCard extends HookWidget {
                                 children: [
                                   Text(
                                     _event.startedAt.convertToEventDateFormat(),
-                                    style: const TextStyle(fontSize: 16.0),
+                                    style: const TextStyle(fontSize: 16),
                                   ),
                                   const Text(
                                     '開催',
-                                    style: TextStyle(fontSize: 12.0),
+                                    style: TextStyle(fontSize: 12),
                                   )
                                 ],
                               ),
@@ -84,12 +84,11 @@ class EventCard extends HookWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image.asset('assets/twitter_logo.png',
-                                          height: 15.0),
+                                          height: 15),
                                       const Text(
                                         'ツイート',
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 10.0),
+                                            color: Colors.white, fontSize: 10),
                                       )
                                     ],
                                   ),

@@ -22,7 +22,7 @@ class EventEmptyView extends HookWidget {
                 children: [
                   NoEmptyLogo(),
                   const SizedBox(
-                    height: 20.0,
+                    height: 20,
                   ),
                   const Text(
                     'イベントがまだありません',

@@ -90,7 +90,7 @@ class SortFilterDialog extends HookWidget {
                       child: Center(
                         child: ToggleButtons(
                           isSelected: sortFilterSelectedSegments,
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(5),
                           selectedColor: Colors.white,
                           fillColor: Colors.blueGrey[400],
                           selectedBorderColor: Colors.blueGrey[400],

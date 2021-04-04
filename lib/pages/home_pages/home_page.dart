@@ -51,8 +51,8 @@ class HomePage extends HookWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white.withOpacity(0.0),
-          elevation: 0.0,
+          backgroundColor: Colors.white.withOpacity(0),
+          elevation: 0,
         ),
         body: SafeArea(
           child: Center(

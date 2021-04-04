@@ -42,7 +42,7 @@ class SortFilterButton extends HookWidget {
                 duration: const Duration(milliseconds: 160),
                 child: Container(
                   height: 44,
-                  margin: const EdgeInsets.only(right: 5.0),
+                  margin: const EdgeInsets.only(right: 5),
                   decoration: const BoxDecoration(
                     color: Colors.transparent,
                   ),

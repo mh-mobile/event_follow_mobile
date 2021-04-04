@@ -59,7 +59,7 @@ class FriendsFooter extends HookWidget {
                   });
             },
             child: Container(
-              margin: const EdgeInsets.only(right: 5.0),
+              margin: const EdgeInsets.only(right: 5),
               width: 30,
               height: 30,
               decoration: BoxDecoration(
@@ -78,7 +78,7 @@ class FriendsFooter extends HookWidget {
           Row(
             children: friends.map((friend) {
               return Container(
-                  margin: const EdgeInsets.only(right: 5.0),
+                  margin: const EdgeInsets.only(right: 5),
                   child: GestureDetector(
                     onTap: () {
                       launch('https://twitter.com/${friend.screenName}');

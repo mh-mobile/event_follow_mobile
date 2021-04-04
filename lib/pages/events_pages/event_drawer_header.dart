@@ -29,7 +29,7 @@ class EventDrawerHeader extends StatelessWidget {
                       ),
                     )),
                 Container(
-                  margin: const EdgeInsets.only(top: 10.0),
+                  margin: const EdgeInsets.only(top: 10),
                   child: Text(
                     firebaseAuth.currentUser!.displayName!,
                     style: const TextStyle(color: Colors.white),
