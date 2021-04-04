@@ -59,11 +59,11 @@ class EventListView extends HookWidget {
       return _scrollController;
     }();
 
-    if (!isLoading && data.length == 0) {
+    if (!isLoading && data.isEmpty) {
       return EventEmptyView(onRefresh: _onRefresh);
     }
 
-    if (isLoading && data.length == 0) {
+    if (isLoading && data.isEmpty) {
       return const Center(
         child: CircularProgressIndicator(),
       );
