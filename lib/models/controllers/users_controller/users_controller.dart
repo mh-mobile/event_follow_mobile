@@ -22,7 +22,8 @@ class UsersController extends StateNotifier<UsersState> {
   late final UsersRepository _usersRepository;
 
   Future<void> requestAccountDeletion() async {
-    final usersApiResults = await _usersRepository.requestAccountDeletion(AccountDeletionApiRequest());
+    final usersApiResults = await _usersRepository
+        .requestAccountDeletion(AccountDeletionApiRequest());
     state = state.copyWith(
       status: usersApiResults.status == "OK" ? UsersStatus.OK : UsersStatus.NG,
     );

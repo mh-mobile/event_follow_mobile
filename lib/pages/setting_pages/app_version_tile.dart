@@ -15,7 +15,8 @@ class AppVersion extends StatelessWidget {
         return Container(
           margin: EdgeInsets.only(top: 10),
           child: Center(
-            child: Text("ver ${snapshot.data as String}", style: TextStyle(color: Colors.grey[600])),
+            child: Text("ver ${snapshot.data as String}",
+                style: TextStyle(color: Colors.grey[600])),
           ),
         );
       },

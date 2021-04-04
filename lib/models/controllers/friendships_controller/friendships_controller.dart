@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'friendships_state.dart';
 
 final friendshipsProvider =
-StateNotifierProvider.autoDispose((ref) => FriendshipsController(ref.read));
+    StateNotifierProvider.autoDispose((ref) => FriendshipsController(ref.read));
 
 class FriendshipsController extends StateNotifier<FriendshipsState> {
   FriendshipsController(this._read) : super(FriendshipsState()) {
@@ -16,8 +16,10 @@ class FriendshipsController extends StateNotifier<FriendshipsState> {
   final Reader _read;
   late final FriendshipsRepository _friendshipsRepository;
 
-  Future<void> requestFriendships(FriendshipsApiRequest request, int eventId) async {
-    final friendshipApiResults = await _friendshipsRepository.requestFriendshipsApi(request: request);
+  Future<void> requestFriendships(
+      FriendshipsApiRequest request, int eventId) async {
+    final friendshipApiResults =
+        await _friendshipsRepository.requestFriendshipsApi(request: request);
 
     var lock = Lock();
     await lock.synchronized(() async {
@@ -28,5 +30,4 @@ class FriendshipsController extends StateNotifier<FriendshipsState> {
       );
     });
   }
-
 }

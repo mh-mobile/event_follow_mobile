@@ -10,7 +10,9 @@ class TermsTile extends StatelessWidget {
         launch(AppLink.Terms.url);
       },
       child: ListTile(
-        title: Text("利用規約", ),
+        title: Text(
+          "利用規約",
+        ),
         dense: true,
       ),
     );

@@ -12,15 +12,14 @@ class SessionsApiRequest extends ApiRequest {
   });
 
   Map<String, dynamic> toJson() => {
-    "token": this.token,
-    "access_token": this.accessToken,
-    "access_token_secret": this.accessTokenSecret,
-  };
+        "token": this.token,
+        "access_token": this.accessToken,
+        "access_token_secret": this.accessTokenSecret,
+      };
 
   @override
   String get apiPath => ApiInfo.SESSIONS.apiPath;
 
   @override
   HttpMethod get httpMethod => HttpMethod.POST;
-
 }

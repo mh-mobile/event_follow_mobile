@@ -5,10 +5,11 @@ import 'following_tweets_state.dart';
 
 export 'following_tweets_state.dart';
 
-final followingTweetsProvider = StateNotifierProvider.autoDispose((ref) => FollowingTweetsController(ref.read));
+final followingTweetsProvider = StateNotifierProvider.autoDispose(
+    (ref) => FollowingTweetsController(ref.read));
 
 class FollowingTweetsController extends StateNotifier<FollowingTweetsState> {
-  FollowingTweetsController(this._read): super(FollowingTweetsState()) {
+  FollowingTweetsController(this._read) : super(FollowingTweetsState()) {
     state = state.copyWith(
       isLoading: false,
     );
@@ -23,8 +24,8 @@ class FollowingTweetsController extends StateNotifier<FollowingTweetsState> {
       tweets: [],
       isLoading: true,
     );
-    final followingTweetsApiResults =
-    await _followingTweetsRepository.requestFollowingTweetsApi(request: request);
+    final followingTweetsApiResults = await _followingTweetsRepository
+        .requestFollowingTweetsApi(request: request);
     state = state.copyWith(
       tweets: followingTweetsApiResults.tweets,
       isLoading: false,
@@ -32,9 +33,6 @@ class FollowingTweetsController extends StateNotifier<FollowingTweetsState> {
   }
 
   void setLoading(bool isLoading) {
-    state = state.copyWith(
-      isLoading: isLoading
-    );
+    state = state.copyWith(isLoading: isLoading);
   }
-
 }

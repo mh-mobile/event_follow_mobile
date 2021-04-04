@@ -1,9 +1,7 @@
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
 extension ImageExtension on Image {
-
   static Image getEventLogoPath(int eventSiteId) {
     final path;
     switch (eventSiteId) {

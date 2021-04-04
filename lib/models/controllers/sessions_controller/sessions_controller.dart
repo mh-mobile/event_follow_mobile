@@ -5,17 +5,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 export 'sessions_state.dart';
 
-final sessionsProvider = StateNotifierProvider.autoDispose((ref) => SessionsController(ref.read));
+final sessionsProvider =
+    StateNotifierProvider.autoDispose((ref) => SessionsController(ref.read));
 
 class SessionsController extends StateNotifier<SessionsState> {
-  SessionsController(this._read): super(SessionsState()) {
+  SessionsController(this._read) : super(SessionsState()) {
     state = state.copyWith(
       status: SessionsStatus.NONE,
       isLoading: false,
     );
 
     _sessionsRepository = this._read(sessionsRepositoryProvider);
-
   }
 
   final Reader _read;
@@ -27,9 +27,12 @@ class SessionsController extends StateNotifier<SessionsState> {
     );
 
     try {
-      final sessionApiResults = await _sessionsRepository.requestSessionsApi(request: request);
+      final sessionApiResults =
+          await _sessionsRepository.requestSessionsApi(request: request);
       state = state.copyWith(
-        status: sessionApiResults.status == "OK" ? SessionsStatus.OK : SessionsStatus.NG,
+        status: sessionApiResults.status == "OK"
+            ? SessionsStatus.OK
+            : SessionsStatus.NG,
       );
     } on Exception {
       state = state.copyWith(
@@ -37,13 +40,9 @@ class SessionsController extends StateNotifier<SessionsState> {
         status: SessionsStatus.NG,
       );
     }
-
   }
 
   void setLoading(bool isLoading) {
-    state = state.copyWith(
-      isLoading: isLoading
-    );
+    state = state.copyWith(isLoading: isLoading);
   }
-
 }

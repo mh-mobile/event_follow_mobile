@@ -2,10 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'users_state.freezed.dart';
 
-enum UsersStatus {
-  OK,
-  NG
-}
+enum UsersStatus { OK, NG }
 
 @freezed
 abstract class UsersState with _$UsersState {

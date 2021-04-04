@@ -21,39 +21,38 @@ class EventsPage extends HookWidget {
           height: 30,
         ),
         actions: [
-          SortFilterButton(
-              onTap: () {
-                showGeneralDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  transitionDuration: Duration(milliseconds: 300),
-                  barrierLabel: "sort&filter",
-                  barrierColor: Colors.black.withOpacity(0.5),
-                  pageBuilder: (context, _, __) {
-                    return SortFilterDialog(
-                      onChange: (store) {
-                        controller.request(EventsApiRequest(
-                            pageId: "1",
-                            sort: store.sortType.typeName,
-                            time: store.timeFilterType?.typeName,
-                            friends: store.friendFilterType?.typeName));
-                      },
-                    );
-                  },
-                  transitionBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    return SlideTransition(
-                      position: CurvedAnimation(
-                              parent: animation, curve: Curves.easeOut)
-                          .drive(Tween<Offset>(
-                        begin: Offset(0, -1.0),
-                        end: Offset.zero,
-                      )),
-                      child: child,
-                    );
+          SortFilterButton(onTap: () {
+            showGeneralDialog(
+              context: context,
+              barrierDismissible: true,
+              transitionDuration: Duration(milliseconds: 300),
+              barrierLabel: "sort&filter",
+              barrierColor: Colors.black.withOpacity(0.5),
+              pageBuilder: (context, _, __) {
+                return SortFilterDialog(
+                  onChange: (store) {
+                    controller.request(EventsApiRequest(
+                        pageId: "1",
+                        sort: store.sortType.typeName,
+                        time: store.timeFilterType?.typeName,
+                        friends: store.friendFilterType?.typeName));
                   },
                 );
-              })
+              },
+              transitionBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return SlideTransition(
+                  position:
+                      CurvedAnimation(parent: animation, curve: Curves.easeOut)
+                          .drive(Tween<Offset>(
+                    begin: Offset(0, -1.0),
+                    end: Offset.zero,
+                  )),
+                  child: child,
+                );
+              },
+            );
+          })
         ],
       ),
       drawer: EventDrawerHeader(),

@@ -21,11 +21,11 @@ class EventDrawerHeader extends StatelessWidget {
                     height: 60,
                     child: Container(
                       child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                            firebaseAuth.currentUser!.photoURL!,
-                            fit: BoxFit.cover,
-                          ),
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          firebaseAuth.currentUser!.photoURL!,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     )),
                 Container(

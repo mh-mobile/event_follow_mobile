@@ -8,8 +8,8 @@ class FollowingTweetsApiRequest extends ApiRequest {
   });
 
   Map<String, String> toParams() => {
-    "event_id": this.eventId,
-  };
+        "event_id": this.eventId,
+      };
 
   @override
   bool get isAuthenticationReauired => true;

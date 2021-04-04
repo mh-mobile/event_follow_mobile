@@ -110,7 +110,9 @@ class SortFilterDialog extends HookWidget {
                                 buttonIndex++) {
                               sortFilterSelectedSegments[buttonIndex] =
                                   buttonIndex == index;
-                              context.read(sortFilterSelectedSegmentsProvider).state = sortFilterSelectedSegments;
+                              context
+                                  .read(sortFilterSelectedSegmentsProvider)
+                                  .state = sortFilterSelectedSegments;
                             }
                           },
                         ),
@@ -158,7 +160,8 @@ class SortFilterDialog extends HookWidget {
                                         sortFilterSelectedSegments),
                                     index);
 
-                                context.read(eventsConditionProvider).state = convertedStore;
+                                context.read(eventsConditionProvider).state =
+                                    convertedStore;
                                 onChange(convertedStore);
                                 Navigator.of(context).pop();
                               });

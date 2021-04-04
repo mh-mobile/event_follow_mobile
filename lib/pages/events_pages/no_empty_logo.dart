@@ -7,8 +7,8 @@ class NoEmptyLogo extends HookWidget {
   Widget build(BuildContext context) {
     return Container(
         child: Image.asset(
-          "assets/logo_transparent.png",
-          height: 80,
-        ));
+      "assets/logo_transparent.png",
+      height: 80,
+    ));
   }
 }

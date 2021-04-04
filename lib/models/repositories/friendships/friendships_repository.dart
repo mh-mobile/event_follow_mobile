@@ -5,7 +5,8 @@ import '../../api.dart';
 import 'friendships_api_request.dart';
 import 'friendships_api_response.dart';
 
-final friendshipsRepositoryProvider = Provider.autoDispose<FriendshipsRepository>(
+final friendshipsRepositoryProvider =
+    Provider.autoDispose<FriendshipsRepository>(
         (ref) => FriendshipsRepository(read: ref.read));
 
 class FriendshipsRepository {
@@ -15,13 +16,9 @@ class FriendshipsRepository {
 
   Future<FriendshipsApiResponse> requestFriendshipsApi(
       {required FriendshipsApiRequest request}) async {
-
     final apiClient = read(apiClientProvider);
     final response = await apiClient.request(request);
 
     return FriendshipsApiResponse.fromJson(json.decode(response.body));
   }
 }
-
-
-

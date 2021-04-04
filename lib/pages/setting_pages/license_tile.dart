@@ -15,7 +15,9 @@ class LicenseTile extends StatelessWidget {
         );
       },
       child: ListTile(
-        title: Text("ライセンス", ),
+        title: Text(
+          "ライセンス",
+        ),
         dense: true,
       ),
     );

@@ -11,7 +11,9 @@ class PrivacyPolicyTile extends StatelessWidget {
         launch(AppLink.PrivacyPolicy.url);
       },
       child: ListTile(
-        title: Text("プライバシーポリシー", ),
+        title: Text(
+          "プライバシーポリシー",
+        ),
         dense: true,
       ),
     );
