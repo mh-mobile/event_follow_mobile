@@ -64,6 +64,7 @@ abstract class ApiBaseClient {
 class ApiClient extends ApiBaseClient {
   ApiClient() : super();
 
+  @override
   Future<http.Response> request(ApiRequest request) async {
     final url = request.uri;
     final http.Response response;

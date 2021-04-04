@@ -13,6 +13,7 @@ class EventsApiRequest extends ApiRequest {
     this.friends,
   });
 
+  @override
   Map<String, String> toParams() => {
         'page': pageId,
         if (sort != null) 'sort': sort!,

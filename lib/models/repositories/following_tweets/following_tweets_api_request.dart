@@ -7,6 +7,7 @@ class FollowingTweetsApiRequest extends ApiRequest {
     required this.eventId,
   });
 
+  @override
   Map<String, String> toParams() => {
         'event_id': eventId,
       };
