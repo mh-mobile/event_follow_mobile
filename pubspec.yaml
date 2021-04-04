@@ -54,6 +54,7 @@ dev_dependencies:
   freezed: ^0.14.1+1
   build_runner:
   json_serializable:
+  pedantic_mono: any
 
 flutter_icons:
   image_path: "assets/logo.png"
