@@ -105,14 +105,14 @@ class SortFilterDialog extends HookWidget {
                                   .state = sortFilterSelectedSegments;
                             }
                           },
-                          children: [
-                            Container(
+                          children: const [
+                            SizedBox(
                               width: 100,
-                              child: const Center(child: const Text('Sort by')),
+                              child: Center(child: Text('Sort by')),
                             ),
-                            Container(
+                            SizedBox(
                               width: 100,
-                              child: const Center(child: Text('Filter by')),
+                              child: Center(child: Text('Filter by')),
                             ),
                           ],
                         ),

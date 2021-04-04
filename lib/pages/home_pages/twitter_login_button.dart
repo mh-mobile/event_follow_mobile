@@ -15,7 +15,7 @@ class TwitterLoginButton extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useProvider(sessionsProvider);
 
-    return Container(
+    return SizedBox(
       height: 44,
       child: ElevatedButton.icon(
         icon: Image.asset(

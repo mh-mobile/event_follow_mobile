@@ -16,7 +16,7 @@ class EventEmptyView extends HookWidget {
         onRefresh: onRefresh,
         child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height - 200,
               width: MediaQuery.of(context).size.width,
               child: Column(

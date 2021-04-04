@@ -56,7 +56,7 @@ class HomePage extends HookWidget {
         ),
         body: SafeArea(
           child: Center(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 6 / 7,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +66,7 @@ class HomePage extends HookWidget {
                   Expanded(flex: 2, child: Container()),
                   !isLoading
                       ? TwitterLoginButton()
-                      : Container(
+                      : const SizedBox(
                           height: 44,
                           width: 44,
                           child: const CircularProgressIndicator()),
