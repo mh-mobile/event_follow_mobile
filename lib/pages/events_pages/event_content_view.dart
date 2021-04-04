@@ -4,15 +4,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'event_card.dart';
 
 class EventContentView extends HookWidget {
-  final RefreshCallback onRefresh;
-  final ScrollController scrollController;
-  final List<EventCard> cardList;
-
   const EventContentView({
     required this.onRefresh,
     required this.scrollController,
     required this.cardList,
   });
+
+  final RefreshCallback onRefresh;
+  final ScrollController scrollController;
+  final List<EventCard> cardList;
 
   @override
   Widget build(BuildContext context) {

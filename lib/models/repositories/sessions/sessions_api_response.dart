@@ -1,7 +1,4 @@
 class SessionsApiResponse {
-  final String status;
-  final String? message;
-
   SessionsApiResponse({
     required this.status,
     this.message,
@@ -11,4 +8,7 @@ class SessionsApiResponse {
     return SessionsApiResponse(
         status: json['status'], message: json['message']);
   }
+
+  final String status;
+  final String? message;
 }

@@ -11,10 +11,10 @@ import '../../extension/image_ex.dart';
 import '../../extension/string_ex.dart';
 
 class EventCard extends HookWidget {
+  const EventCard(this._event, this._extra);
+
   final Event _event;
   final EventExtra _extra;
-
-  const EventCard(this._event, this._extra);
 
   @override
   Widget build(BuildContext context) {

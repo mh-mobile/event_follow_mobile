@@ -1,17 +1,17 @@
 import 'package:event_follow/models/api.dart';
 
 class EventsApiRequest extends ApiRequest {
-  final String pageId;
-  final String? sort;
-  final String? time;
-  final String? friends;
-
   EventsApiRequest({
     required this.pageId,
     this.sort,
     this.time,
     this.friends,
   });
+
+  final String pageId;
+  final String? sort;
+  final String? time;
+  final String? friends;
 
   @override
   Map<String, String> toParams() => {

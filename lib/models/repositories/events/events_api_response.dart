@@ -7,15 +7,15 @@ class EventsApiResponse {
     required this.data,
   });
 
-  EventMeta meta;
-  List<EventDatum> data;
-
   factory EventsApiResponse.fromJson(Map<String, dynamic> json) =>
       EventsApiResponse(
         meta: EventMeta.fromJson(json['meta']),
         data: List<EventDatum>.from(
             json['data'].map((x) => EventDatum.fromJson(x))),
       );
+
+  EventMeta meta;
+  List<EventDatum> data;
 
   Map<String, dynamic> toJson() => {
         'meta': meta.toJson(),

@@ -10,8 +10,9 @@ final sessionsRepositoryProvider =
     Provider.autoDispose((ref) => SessionsRepository(read: ref.read));
 
 class SessionsRepository {
-  final Reader read;
   SessionsRepository({required this.read});
+
+  final Reader read;
 
   Future<SessionsApiResponse> requestSessionsApi(
       {required SessionsApiRequest request}) async {

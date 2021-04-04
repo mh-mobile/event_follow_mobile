@@ -1,15 +1,15 @@
 import 'package:event_follow/models/api.dart';
 
 class SessionsApiRequest extends ApiRequest {
-  final String token;
-  final String accessToken;
-  final String accessTokenSecret;
-
   SessionsApiRequest({
     required this.token,
     required this.accessToken,
     required this.accessTokenSecret,
   });
+
+  final String token;
+  final String accessToken;
+  final String accessTokenSecret;
 
   @override
   Map<String, dynamic> toJson() => {

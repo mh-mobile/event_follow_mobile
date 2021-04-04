@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../api.dart';
 import 'friendships_api_request.dart';
 import 'friendships_api_response.dart';
@@ -10,9 +11,8 @@ final friendshipsRepositoryProvider =
         (ref) => FriendshipsRepository(read: ref.read));
 
 class FriendshipsRepository {
-  final Reader read;
-
   FriendshipsRepository({required this.read});
+  final Reader read;
 
   Future<FriendshipsApiResponse> requestFriendshipsApi(
       {required FriendshipsApiRequest request}) async {

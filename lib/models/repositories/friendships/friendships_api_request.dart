@@ -1,11 +1,11 @@
 import 'package:event_follow/models/api.dart';
 
 class FriendshipsApiRequest extends ApiRequest {
-  final String userIds;
-
   FriendshipsApiRequest({
     required this.userIds,
   });
+
+  final String userIds;
 
   @override
   Map<String, String> toParams() => {

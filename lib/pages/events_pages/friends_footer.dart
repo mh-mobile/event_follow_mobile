@@ -13,10 +13,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'following_tweets_list_view.dart';
 
 class FriendsFooter extends HookWidget {
+  const FriendsFooter(this._event, this._extra);
+
   final Event _event;
   final EventExtra _extra;
-
-  const FriendsFooter(this._event, this._extra);
 
   @override
   Widget build(BuildContext context) {

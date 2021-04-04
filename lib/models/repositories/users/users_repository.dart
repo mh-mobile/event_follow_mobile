@@ -8,9 +8,9 @@ final usersRepositoryProvider = Provider.autoDispose<UsersRepository>(
     (ref) => UsersRepository(read: ref.read));
 
 class UsersRepository {
-  final Reader read;
-
   UsersRepository({required this.read});
+
+  final Reader read;
 
   Future<AccountDeletionApiResponse> requestAccountDeletion(
       AccountDeletionApiRequest request) async {

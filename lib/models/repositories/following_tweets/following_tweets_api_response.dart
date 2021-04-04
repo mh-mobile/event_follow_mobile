@@ -5,11 +5,11 @@ class FollowingTweetsApiResponse {
     required this.tweets,
   });
 
-  List<FollowingTweet> tweets;
-
   factory FollowingTweetsApiResponse.fromJson(List<dynamic> json) =>
       FollowingTweetsApiResponse(
         tweets: List<FollowingTweet>.from(
             json.map((x) => FollowingTweet.fromJson(x))),
       );
+
+  List<FollowingTweet> tweets;
 }

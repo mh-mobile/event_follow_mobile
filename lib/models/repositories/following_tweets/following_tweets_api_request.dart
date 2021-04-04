@@ -1,11 +1,11 @@
 import 'package:event_follow/models/api.dart';
 
 class FollowingTweetsApiRequest extends ApiRequest {
-  final String eventId;
-
   FollowingTweetsApiRequest({
     required this.eventId,
   });
+
+  final String eventId;
 
   @override
   Map<String, String> toParams() => {
