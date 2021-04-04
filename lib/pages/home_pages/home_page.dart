@@ -31,12 +31,12 @@ class HomePage extends HookWidget {
           case SessionsStatus.NG:
             await showDialog(
               context: context,
-              builder: (BuildContext context) => new AlertDialog(
-                title: new const Text('確認'),
-                content: new const Text('ログインエラーが発生しました。\n再度お試しください。'),
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('確認'),
+                content: const Text('ログインエラーが発生しました。\n再度お試しください。'),
                 actions: <Widget>[
-                  new SimpleDialogOption(
-                    child: new const Text('OK'),
+                  SimpleDialogOption(
+                    child: const Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
