@@ -15,16 +15,16 @@ class EventEmptyView extends HookWidget {
     return RefreshIndicator(
         onRefresh: onRefresh,
         child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   NoEmptyLogo(),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
-                  Text(
+                  const Text(
                     'イベントがまだありません',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),

@@ -22,7 +22,7 @@ class TwitterLoginButton extends HookWidget {
           'assets/twitter_logo.png',
           height: 25,
         ),
-        label: Text('Twitterでログイン'),
+        label: const Text('Twitterでログイン'),
         onPressed: () async {
           final twitterLogin = TwitterLogin(
               apiKey: env['TWITTER_API_KEY'],

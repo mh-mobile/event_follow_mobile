@@ -29,20 +29,20 @@ class EventDrawerHeader extends StatelessWidget {
                       ),
                     )),
                 Container(
-                  margin: EdgeInsets.only(top: 10.0),
+                  margin: const EdgeInsets.only(top: 10.0),
                   child: Text(
                     firebaseAuth.currentUser!.displayName!,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 )
               ],
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.blue,
             ),
           ),
           ListTile(
-            title: Text('設定'),
+            title: const Text('設定'),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -51,14 +51,14 @@ class EventDrawerHeader extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('ログアウト'),
+            title: const Text('ログアウト'),
             onTap: () {
               firebaseAuth.signOut();
               Navigator.pushReplacement(
                 context,
                 PageRouteBuilder(
                   pageBuilder: (context, _, __) => HomePage(),
-                  transitionDuration: Duration(seconds: 0),
+                  transitionDuration: const Duration(seconds: 0),
                 ),
               );
             },

@@ -36,7 +36,7 @@ class SettingPage extends HookWidget {
           itemCount: SettingItemType.values.length,
           shrinkWrap: true,
           separatorBuilder: (context, index) {
-            return Divider(
+            return const Divider(
               color: Colors.black12,
               height: 1,
             );
@@ -61,7 +61,7 @@ class SettingPage extends HookWidget {
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, _, __) => HomePage(),
-                          transitionDuration: Duration(seconds: 0),
+                          transitionDuration: const Duration(seconds: 0),
                         ),
                       );
                     }

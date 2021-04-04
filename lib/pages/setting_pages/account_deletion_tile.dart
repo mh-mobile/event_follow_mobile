@@ -18,17 +18,17 @@ class AccountDeletionTile extends HookWidget {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text('確認'),
-                    content: Text('アカウントを削除してもよろしいですか？'),
+                    title: const Text('確認'),
+                    content: const Text('アカウントを削除してもよろしいですか？'),
                     actions: [
                       TextButton(
                           onPressed: () => Navigator.pop(
                               context, AccountDeletionButtons.Cancel),
-                          child: Text('Cancel')),
+                          child: const Text('Cancel')),
                       TextButton(
                           onPressed: () =>
                               Navigator.pop(context, AccountDeletionButtons.OK),
-                          child: Text('OK')),
+                          child: const Text('OK')),
                     ],
                   );
                 },
@@ -45,7 +45,7 @@ class AccountDeletionTile extends HookWidget {
                   break;
               }
             },
-            child: ListTile(
+            child: const ListTile(
               title: Text(
                 '退会する',
                 style: TextStyle(color: Colors.redAccent),
@@ -53,7 +53,7 @@ class AccountDeletionTile extends HookWidget {
               dense: true,
             ),
           )
-        : ListTile(
+        : const ListTile(
             leading: CircularProgressIndicator(),
           );
   }

@@ -75,7 +75,7 @@ class SortFilterDialog extends HookWidget {
       children: <Widget>[
         SafeArea(
             child: Container(
-          margin: EdgeInsets.only(top: 100),
+          margin: const EdgeInsets.only(top: 100),
           width: MediaQuery.of(context).size.width * 6 / 7,
           child: Column(
             children: [
@@ -84,7 +84,7 @@ class SortFilterDialog extends HookWidget {
                   children: [
                     Container(
                       height: 25,
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
@@ -97,11 +97,11 @@ class SortFilterDialog extends HookWidget {
                           children: [
                             Container(
                               width: 100,
-                              child: Center(child: Text('Sort by')),
+                              child: const Center(child: const Text('Sort by')),
                             ),
                             Container(
                               width: 100,
-                              child: Center(child: Text('Filter by')),
+                              child: const Center(child: Text('Filter by')),
                             ),
                           ],
                           onPressed: (int index) {
@@ -139,7 +139,7 @@ class SortFilterDialog extends HookWidget {
                           return ListTile(
                               title: Text(label),
                               trailing: (index == selectedItemIndex)
-                                  ? Icon(Icons.check_sharp)
+                                  ? const Icon(Icons.check_sharp)
                                   : null,
                               dense: true,
                               onTap: () {

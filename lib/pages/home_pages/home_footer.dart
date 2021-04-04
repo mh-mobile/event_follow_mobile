@@ -15,7 +15,7 @@ class HomeFooter extends HookWidget {
       ),
       TextSpan(
           text: '利用規約',
-          style: TextStyle(color: Colors.lightBlue),
+          style: const TextStyle(color: Colors.lightBlue),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
               launch(AppLink.Terms.url);
@@ -26,7 +26,7 @@ class HomeFooter extends HookWidget {
       ),
       TextSpan(
           text: 'プライバシーポリシー',
-          style: TextStyle(color: Colors.lightBlue),
+          style: const TextStyle(color: Colors.lightBlue),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
               launch(AppLink.PrivacyPolicy.url);

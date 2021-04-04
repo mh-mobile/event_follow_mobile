@@ -64,7 +64,7 @@ class EventListView extends HookWidget {
     }
 
     if (isLoading && data.length == 0) {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(),
       );
     }

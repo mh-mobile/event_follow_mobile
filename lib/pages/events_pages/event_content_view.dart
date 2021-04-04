@@ -17,7 +17,7 @@ class EventContentView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all((8)),
+      padding: const EdgeInsets.all((8)),
       child: RefreshIndicator(
         onRefresh: onRefresh,
         child: ListView.builder(

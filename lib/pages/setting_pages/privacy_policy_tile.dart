@@ -10,7 +10,7 @@ class PrivacyPolicyTile extends StatelessWidget {
       onTap: () {
         launch(AppLink.PrivacyPolicy.url);
       },
-      child: ListTile(
+      child: const ListTile(
         title: Text(
           'プライバシーポリシー',
         ),

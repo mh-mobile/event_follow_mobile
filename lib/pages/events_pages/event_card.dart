@@ -43,7 +43,7 @@ class EventCard extends HookWidget {
                               decoration: BoxDecoration(
                                 color: const Color(0xfff0f1f5),
                                 border: Border.all(
-                                  color: Color(0xffc1c1c1),
+                                  color: const Color(0xffc1c1c1),
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(5),
@@ -54,9 +54,9 @@ class EventCard extends HookWidget {
                                 children: [
                                   Text(
                                     _event.startedAt.convertToEventDateFormat(),
-                                    style: TextStyle(fontSize: 16.0),
+                                    style: const TextStyle(fontSize: 16.0),
                                   ),
-                                  Text(
+                                  const Text(
                                     '開催',
                                     style: TextStyle(fontSize: 12.0),
                                   )
@@ -85,7 +85,7 @@ class EventCard extends HookWidget {
                                     children: [
                                       Image.asset('assets/twitter_logo.png',
                                           height: 15.0),
-                                      Text(
+                                      const Text(
                                         'ツイート',
                                         style: TextStyle(
                                             color: Colors.white,
@@ -125,7 +125,7 @@ class EventCard extends HookWidget {
                                       Expanded(
                                           flex: 3,
                                           child: Container(
-                                            margin: EdgeInsets.only(
+                                            margin: const EdgeInsets.only(
                                                 right: 5, left: 5),
                                             child: Column(
                                               crossAxisAlignment:
@@ -161,7 +161,7 @@ class EventCard extends HookWidget {
                                           _event.description
                                               .removeAllHtmlTags()
                                               .stripEventDescription(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 11,
                                           ),
                                         ),

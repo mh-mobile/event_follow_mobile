@@ -26,7 +26,7 @@ class EventsPage extends HookWidget {
             showGeneralDialog(
               context: context,
               barrierDismissible: true,
-              transitionDuration: Duration(milliseconds: 300),
+              transitionDuration: const Duration(milliseconds: 300),
               barrierLabel: 'sort&filter',
               barrierColor: Colors.black.withOpacity(0.5),
               pageBuilder: (context, _, __) {
@@ -46,7 +46,7 @@ class EventsPage extends HookWidget {
                   position:
                       CurvedAnimation(parent: animation, curve: Curves.easeOut)
                           .drive(Tween<Offset>(
-                    begin: Offset(0, -1.0),
+                    begin: const Offset(0, -1.0),
                     end: Offset.zero,
                   )),
                   child: child,
@@ -57,7 +57,7 @@ class EventsPage extends HookWidget {
         ],
       ),
       drawer: EventDrawerHeader(),
-      body: EventListView(),
+      body: const EventListView(),
     );
   }
 }

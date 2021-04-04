@@ -14,7 +14,7 @@ class LicenseTile extends StatelessWidget {
           applicationLegalese: await AppUtils.getAppLegalese(),
         );
       },
-      child: ListTile(
+      child: const ListTile(
         title: Text(
           'ライセンス',
         ),

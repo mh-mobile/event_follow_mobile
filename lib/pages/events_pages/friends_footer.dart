@@ -36,7 +36,7 @@ class FriendsFooter extends HookWidget {
     });
 
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -50,7 +50,7 @@ class FriendsFooter extends HookWidget {
                   builder: (context) {
                     return Container(
                       constraints:
-                          BoxConstraints(minHeight: 100, maxHeight: 600),
+                          const BoxConstraints(minHeight: 100, maxHeight: 600),
                       color: Colors.white,
                       child: FollowingTweetsListView(
                         eventId: _event.id.toString(),
@@ -65,7 +65,7 @@ class FriendsFooter extends HookWidget {
               decoration: BoxDecoration(
                 color: const Color(0xfff0f1f5),
                 border: Border.all(
-                  color: Color(0xffc1c1c1),
+                  color: const Color(0xffc1c1c1),
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(5),
@@ -84,7 +84,7 @@ class FriendsFooter extends HookWidget {
                       launch('https://twitter.com/${friend.screenName}');
                     },
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      borderRadius: const BorderRadius.all(Radius.circular(50)),
                       child: CachedNetworkImage(
                         imageUrl: friend.profileImage,
                         placeholder: (context, url) => Container(

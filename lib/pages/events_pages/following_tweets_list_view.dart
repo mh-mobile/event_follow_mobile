@@ -23,14 +23,14 @@ class FollowingTweetsListView extends HookWidget {
         followingTweetsProvider.state.select((value) => value.isLoading));
 
     return Container(
-      constraints: BoxConstraints(minHeight: 100, maxHeight: 600),
+      constraints: const BoxConstraints(minHeight: 100, maxHeight: 600),
       color: Colors.white,
       child: !isLoading
           ? ListView.separated(
               itemCount: tweets.length,
               shrinkWrap: true,
               separatorBuilder: (context, index) {
-                return Divider(
+                return const Divider(
                   color: Colors.black12,
                   height: 1,
                 );
@@ -38,7 +38,7 @@ class FollowingTweetsListView extends HookWidget {
               itemBuilder: (context, index) {
                 final tweet = tweets[index];
                 return Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                  margin: const EdgeInsets.only(top: 5, bottom: 5, right: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -54,8 +54,8 @@ class FollowingTweetsListView extends HookWidget {
                                         'https://twitter.com/${tweet.user.screenName}');
                                   },
                                   child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(50)),
                                     child: CachedNetworkImage(
                                       imageUrl: tweet.user.profileImage,
                                       placeholder: (context, url) => Container(
@@ -92,11 +92,11 @@ class FollowingTweetsListView extends HookWidget {
                                           color: Colors.blue[800],
                                           fontSize: 12)),
                                   Text('@${tweet.user.screenName}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.grey, fontSize: 12)),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               Linkify(
@@ -106,16 +106,16 @@ class FollowingTweetsListView extends HookWidget {
                                   }
                                 },
                                 text: tweet.text,
-                                style: TextStyle(fontSize: 12),
+                                style: const TextStyle(fontSize: 12),
                                 linkStyle: TextStyle(
                                     color: Colors.blue[800], fontSize: 12),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               Text(
                                 tweet.tweetedAt.convertToTweetDateFormat(),
-                                style: TextStyle(color: Colors.grey),
+                                style: const TextStyle(color: Colors.grey),
                               ),
                             ],
                           ),
@@ -125,7 +125,7 @@ class FollowingTweetsListView extends HookWidget {
                   ),
                 );
               })
-          : Center(child: CircularProgressIndicator()),
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 }

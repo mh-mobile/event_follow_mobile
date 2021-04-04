@@ -9,7 +9,7 @@ class TermsTile extends StatelessWidget {
       onTap: () {
         launch(AppLink.Terms.url);
       },
-      child: ListTile(
+      child: const ListTile(
         title: Text(
           '利用規約',
         ),

@@ -32,11 +32,11 @@ class HomePage extends HookWidget {
             await showDialog(
               context: context,
               builder: (BuildContext context) => new AlertDialog(
-                title: new Text('確認'),
-                content: new Text('ログインエラーが発生しました。\n再度お試しください。'),
+                title: new const Text('確認'),
+                content: new const Text('ログインエラーが発生しました。\n再度お試しください。'),
                 actions: <Widget>[
                   new SimpleDialogOption(
-                    child: new Text('OK'),
+                    child: new const Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -69,7 +69,7 @@ class HomePage extends HookWidget {
                       : Container(
                           height: 44,
                           width: 44,
-                          child: CircularProgressIndicator()),
+                          child: const CircularProgressIndicator()),
                   Expanded(flex: 3, child: Container()),
                   HomeFooter(),
                 ],
