@@ -10,5 +10,5 @@ class AccountDeletionApiRequest extends ApiRequest {
   String get apiPath => ApiInfo.USERS.apiPath;
 
   @override
-  HttpMethod get httpMethod => HttpMethod.DELETE;
+  HttpMethod get httpMethod => HttpMethod.delete;
 }

@@ -19,5 +19,5 @@ class FollowingTweetsApiRequest extends ApiRequest {
   String get apiPath => ApiInfo.FOLLOWING_TWEETS.apiPath;
 
   @override
-  HttpMethod get httpMethod => HttpMethod.GET;
+  HttpMethod get httpMethod => HttpMethod.get;
 }

@@ -18,7 +18,7 @@ class HomeFooter extends HookWidget {
           style: const TextStyle(color: Colors.lightBlue),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              launch(AppLink.Terms.url);
+              launch(AppLink.terms.url);
             }),
       TextSpan(
         text: '・',
@@ -29,7 +29,7 @@ class HomeFooter extends HookWidget {
           style: const TextStyle(color: Colors.lightBlue),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              launch(AppLink.PrivacyPolicy.url);
+              launch(AppLink.privacyPolicy.url);
             }),
       TextSpan(
         text: 'に同意したものとみなします。',

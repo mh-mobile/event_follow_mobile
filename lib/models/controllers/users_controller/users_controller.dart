@@ -12,7 +12,7 @@ final usersProvider =
 class UsersController extends StateNotifier<UsersState> {
   UsersController(this._read) : super(UsersState()) {
     state = state.copyWith(
-      status: UsersStatus.NG,
+      status: UsersStatus.ng,
       isLoading: false,
     );
 
@@ -26,7 +26,7 @@ class UsersController extends StateNotifier<UsersState> {
     final usersApiResults = await _usersRepository
         .requestAccountDeletion(AccountDeletionApiRequest());
     state = state.copyWith(
-      status: usersApiResults.status == 'OK' ? UsersStatus.OK : UsersStatus.NG,
+      status: usersApiResults.status == 'OK' ? UsersStatus.ok : UsersStatus.ng,
     );
   }
 

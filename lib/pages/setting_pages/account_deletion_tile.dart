@@ -23,11 +23,11 @@ class AccountDeletionTile extends HookWidget {
                     actions: [
                       TextButton(
                           onPressed: () => Navigator.pop(
-                              context, AccountDeletionButtons.Cancel),
+                              context, AccountDeletionButtons.cancel),
                           child: const Text('Cancel')),
                       TextButton(
                           onPressed: () =>
-                              Navigator.pop(context, AccountDeletionButtons.OK),
+                              Navigator.pop(context, AccountDeletionButtons.ok),
                           child: const Text('OK')),
                     ],
                   );
@@ -35,13 +35,13 @@ class AccountDeletionTile extends HookWidget {
               );
 
               switch (result) {
-                case AccountDeletionButtons.OK:
+                case AccountDeletionButtons.ok:
                   controller.setLoading(isLoading: true);
 
                   await controller.requestAccountDeletion();
                   controller.setLoading(isLoading: false);
                   break;
-                case AccountDeletionButtons.Cancel:
+                case AccountDeletionButtons.cancel:
                   break;
               }
             },

@@ -12,18 +12,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../main.dart';
 import 'license_tile.dart';
 
-enum AccountDeletionButtons { OK, Cancel }
+enum AccountDeletionButtons { ok, cancel }
 
 enum SettingItemType {
-  Terms,
-  PrivacyPolicy,
-  License,
-  AccountDeletion,
-  AppVersion,
+  terms,
+  privacyPolicy,
+  license,
+  accountDeletion,
+  appVersion,
 }
 
 final _shouldLogout = Provider.autoDispose(
-    (ref) => ref.watch(usersProvider.state).status == UsersStatus.OK);
+    (ref) => ref.watch(usersProvider.state).status == UsersStatus.ok);
 
 class SettingPage extends HookWidget {
   @override
@@ -44,13 +44,13 @@ class SettingPage extends HookWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             switch (SettingItemType.values[index]) {
-              case SettingItemType.Terms:
+              case SettingItemType.terms:
                 return TermsTile();
-              case SettingItemType.PrivacyPolicy:
+              case SettingItemType.privacyPolicy:
                 return PrivacyPolicyTile();
-              case SettingItemType.License:
+              case SettingItemType.license:
                 return LicenseTile();
-              case SettingItemType.AccountDeletion:
+              case SettingItemType.accountDeletion:
                 return ProviderListener(
                   provider: _shouldLogout,
                   onChange: (BuildContext context, bool shouldLogout) {
@@ -68,7 +68,7 @@ class SettingPage extends HookWidget {
                   },
                   child: AccountDeletionTile(),
                 );
-              case SettingItemType.AppVersion:
+              case SettingItemType.appVersion:
                 return AppVersion();
               default:
                 return Container();

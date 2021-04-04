@@ -83,7 +83,7 @@ class SortFilterButton extends HookWidget {
   }
 
   List<Text> _createFilterList(SortFilterStateStore store) {
-    if (store.sortType == SortType.FriendsNumber) {
+    if (store.sortType == SortType.friendsNumber) {
       return _createTimeFilterList(store);
     }
 

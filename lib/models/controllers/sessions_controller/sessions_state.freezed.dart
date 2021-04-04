@@ -17,7 +17,7 @@ class _$SessionsStateTearOff {
   const _$SessionsStateTearOff();
 
   _SessionsState call(
-      {SessionsStatus status = SessionsStatus.NG, bool isLoading = false}) {
+      {SessionsStatus status = SessionsStatus.ng, bool isLoading = false}) {
     return _SessionsState(
       status: status,
       isLoading: isLoading,
@@ -114,10 +114,10 @@ class __$SessionsStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_SessionsState extends _SessionsState with DiagnosticableTreeMixin {
-  _$_SessionsState({this.status = SessionsStatus.NG, this.isLoading = false})
+  _$_SessionsState({this.status = SessionsStatus.ng, this.isLoading = false})
       : super._();
 
-  @JsonKey(defaultValue: SessionsStatus.NG)
+  @JsonKey(defaultValue: SessionsStatus.ng)
   @override
   final SessionsStatus status;
   @JsonKey(defaultValue: false)

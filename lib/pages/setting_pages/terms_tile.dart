@@ -7,7 +7,7 @@ class TermsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        launch(AppLink.Terms.url);
+        launch(AppLink.terms.url);
       },
       child: const ListTile(
         title: Text(

@@ -10,26 +10,26 @@ import '../main.dart';
 final apiClientProvider = Provider((_) => ApiClient());
 
 enum ApiInfo {
-  SESSIONS,
-  USERS,
-  FRIENDSHIPS,
-  FOLLOWING_TWEETS,
-  EVENTS,
+  sessions,
+  users,
+  friendships,
+  followingTweets,
+  events,
 }
 
 enum HttpMethod {
-  GET,
-  POST,
-  DELETE,
+  get,
+  post,
+  delete,
 }
 
 extension ApiInfoExtension on ApiInfo {
   static final apiPaths = {
-    ApiInfo.SESSIONS: '/api/sessions',
-    ApiInfo.USERS: '/api/users',
-    ApiInfo.FRIENDSHIPS: '/api/friendships',
-    ApiInfo.FOLLOWING_TWEETS: '/api/following_tweets',
-    ApiInfo.EVENTS: '/api/events',
+    ApiInfo.sessions: '/api/sessions',
+    ApiInfo.users: '/api/users',
+    ApiInfo.friendships: '/api/friendships',
+    ApiInfo.followingTweets: '/api/following_tweets',
+    ApiInfo.events: '/api/events',
   };
 
   String get apiPath => apiPaths[this]!;
@@ -70,20 +70,20 @@ class ApiClient extends ApiBaseClient {
     final http.Response response;
 
     switch (request.httpMethod) {
-      case HttpMethod.GET:
+      case HttpMethod.get:
         response = await http.get(
           url,
           headers: await request.toHeaders(),
         );
         break;
-      case HttpMethod.POST:
+      case HttpMethod.post:
         response = await http.post(
           url,
           body: json.encode(request.toJson()),
           headers: await request.toHeaders(),
         );
         break;
-      case HttpMethod.DELETE:
+      case HttpMethod.delete:
         response = await http.delete(
           url,
           headers: await request.toHeaders(),

@@ -35,7 +35,7 @@ class SortFilterDialog extends HookWidget {
   _SortFilterListData _listItemData(
       SortFilterStateStore store, List<bool> isSegmentSelected) {
     if (_selectedSegmentIndex(isSegmentSelected) ==
-        SortFilterSegmentType.Sort.index) {
+        SortFilterSegmentType.sort.index) {
       return _SortFilterListData(
           itemCount: SortTypeExtension.types.length,
           itemLabels:
@@ -43,7 +43,7 @@ class SortFilterDialog extends HookWidget {
           selectedItemIndex: store.sortType.index);
     }
 
-    if (store.sortType == SortType.FriendsNumber) {
+    if (store.sortType == SortType.friendsNumber) {
       return _SortFilterListData(
           itemCount: TimeFilterTypeExtension.types.length,
           itemLabels: TimeFilterTypeExtension.types

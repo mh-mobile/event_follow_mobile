@@ -22,13 +22,13 @@ class HomePage extends HookWidget {
       provider: _sessionStateProvider,
       onChange: (context, SessionsStatus sessionsStatus) async {
         switch (sessionsStatus) {
-          case SessionsStatus.OK:
+          case SessionsStatus.ok:
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) {
               return EventsPage();
             }));
             break;
-          case SessionsStatus.NG:
+          case SessionsStatus.ng:
             await showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialog(
