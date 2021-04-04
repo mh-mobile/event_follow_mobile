@@ -32,7 +32,7 @@ class SortFilterButton extends HookWidget {
       onTapCancel: () {
         context.read(sortFilterButtonPressingProvider).state = false;
       },
-      onTap: this.onTap,
+      onTap: onTap,
       child: sortFilterStateStore == null
           ? SizedBox.shrink()
           : Padding(

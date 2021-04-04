@@ -172,9 +172,9 @@ class SortFilterStateStore {
   final TimeFilterType? timeFilterType;
 
   SortFilterStateStore convert(int selectedSegmentIndex, itemSelectedIndex) {
-    var currentSortType = this.sortType;
-    var currentFriendsFilterType = this.friendFilterType;
-    var currentTimeFilterType = this.timeFilterType;
+    var currentSortType = sortType;
+    var currentFriendsFilterType = friendFilterType;
+    var currentTimeFilterType = timeFilterType;
 
     if (selectedSegmentIndex == SortFilterSegmentType.Sort.index) {
       currentSortType = SortTypeExtension.types.firstWhere((type) {

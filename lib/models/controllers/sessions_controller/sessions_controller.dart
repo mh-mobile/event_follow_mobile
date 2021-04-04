@@ -1,7 +1,8 @@
 import 'package:event_follow/models/controllers/sessions_controller/sessions_state.dart';
 import 'package:event_follow/models/repositories/sessions/sessions_api_request.dart';
-import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../models.dart';
 
 export 'sessions_state.dart';
 
@@ -15,7 +16,7 @@ class SessionsController extends StateNotifier<SessionsState> {
       isLoading: false,
     );
 
-    _sessionsRepository = this._read(sessionsRepositoryProvider);
+    _sessionsRepository = _read(sessionsRepositoryProvider);
   }
 
   final Reader _read;

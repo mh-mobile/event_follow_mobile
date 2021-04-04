@@ -1,8 +1,8 @@
 import 'package:event_follow/models/repositories/friendships/friendships_api_request.dart';
-import 'package:synchronized/synchronized.dart';
-import '../../../main.dart';
-import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:synchronized/synchronized.dart';
+
+import '../../models.dart';
 import 'friendships_state.dart';
 
 final friendshipsProvider =
@@ -10,7 +10,7 @@ final friendshipsProvider =
 
 class FriendshipsController extends StateNotifier<FriendshipsState> {
   FriendshipsController(this._read) : super(FriendshipsState()) {
-    _friendshipsRepository = this._read(friendshipsRepositoryProvider);
+    _friendshipsRepository = _read(friendshipsRepositoryProvider);
   }
 
   final Reader _read;

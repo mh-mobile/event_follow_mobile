@@ -1,7 +1,8 @@
 import 'package:event_follow/models/controllers/users_controller/users_state.dart';
 import 'package:event_follow/models/repositories/users/account_deletion_api_request.dart';
-import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../models.dart';
 
 export 'users_state.dart';
 
@@ -15,7 +16,7 @@ class UsersController extends StateNotifier<UsersState> {
       isLoading: false,
     );
 
-    _usersRepository = this._read(usersRepositoryProvider);
+    _usersRepository = _read(usersRepositoryProvider);
   }
 
   final Reader _read;

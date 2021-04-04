@@ -8,7 +8,7 @@ class FriendshipsApiRequest extends ApiRequest {
   });
 
   Map<String, String> toParams() => {
-        "user_ids": this.userIds,
+        "user_ids": userIds,
       };
 
   @override

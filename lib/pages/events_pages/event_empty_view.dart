@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'no_empty_logo.dart';
 
 class EventEmptyView extends HookWidget {
@@ -12,7 +13,7 @@ class EventEmptyView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        onRefresh: this.onRefresh,
+        onRefresh: onRefresh,
         child: SingleChildScrollView(
             physics: AlwaysScrollableScrollPhysics(),
             child: Container(

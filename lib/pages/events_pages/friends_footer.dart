@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import 'following_tweets_list_view.dart';
 
 class FriendsFooter extends HookWidget {
@@ -22,16 +23,16 @@ class FriendsFooter extends HookWidget {
     final controller = useProvider(friendshipsProvider);
     final followingTweetsController = useProvider(followingTweetsProvider);
     final friends = useProvider(friendshipsProvider.state
-            .select((value) => value.friendsData[this._event.id])) ??
+            .select((value) => value.friendsData[_event.id])) ??
         [];
     final isLoading = useProvider(friendshipsProvider.state
-            .select((value) => value.loadingData[this._event.id])) ??
+            .select((value) => value.loadingData[_event.id])) ??
         false;
 
     useEffect(() {
       if (isLoading || friends.length > 0) return;
       controller.requestFriendships(
-          FriendshipsApiRequest(userIds: this._extra.userIds), this._event.id);
+          FriendshipsApiRequest(userIds: _extra.userIds), _event.id);
     });
 
     return Container(
@@ -41,8 +42,8 @@ class FriendsFooter extends HookWidget {
         children: [
           GestureDetector(
             onTap: () async {
-              followingTweetsController.request(FollowingTweetsApiRequest(
-                  eventId: this._event.id.toString()));
+              followingTweetsController.request(
+                  FollowingTweetsApiRequest(eventId: _event.id.toString()));
 
               showModalBottomSheet(
                   context: context,
@@ -52,7 +53,7 @@ class FriendsFooter extends HookWidget {
                           BoxConstraints(minHeight: 100, maxHeight: 600),
                       color: Colors.white,
                       child: FollowingTweetsListView(
-                        eventId: this._event.id.toString(),
+                        eventId: _event.id.toString(),
                       ),
                     );
                   });

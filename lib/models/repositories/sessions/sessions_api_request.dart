@@ -11,10 +11,11 @@ class SessionsApiRequest extends ApiRequest {
     required this.accessTokenSecret,
   });
 
+  @override
   Map<String, dynamic> toJson() => {
-        "token": this.token,
-        "access_token": this.accessToken,
-        "access_token_secret": this.accessTokenSecret,
+        "token": token,
+        "access_token": accessToken,
+        "access_token_secret": accessTokenSecret,
       };
 
   @override
