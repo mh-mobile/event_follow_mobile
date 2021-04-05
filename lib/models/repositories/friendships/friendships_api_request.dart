@@ -16,7 +16,7 @@ class FriendshipsApiRequest extends ApiRequest {
   bool get isAuthenticationReauired => true;
 
   @override
-  String get apiPath => ApiInfo.FRIENDSHIPS.apiPath;
+  String get apiPath => ApiInfo.friendships.apiPath;
 
   @override
   HttpMethod get httpMethod => HttpMethod.get;
