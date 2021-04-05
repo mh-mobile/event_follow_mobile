@@ -45,7 +45,8 @@ class EventDrawerHeader extends StatelessWidget {
             title: const Text('設定'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.push(context,
+                  MaterialPageRoute<void>(builder: (context) {
                 return SettingPage();
               }));
             },
@@ -56,7 +57,7 @@ class EventDrawerHeader extends StatelessWidget {
               firebaseAuth.signOut();
               Navigator.pushReplacement(
                 context,
-                PageRouteBuilder(
+                PageRouteBuilder<void>(
                   pageBuilder: (context, _, __) => HomePage(),
                   transitionDuration: const Duration(seconds: 0),
                 ),

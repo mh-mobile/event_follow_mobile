@@ -24,7 +24,7 @@ class HomePage extends HookWidget {
         switch (sessionsStatus) {
           case SessionsStatus.ok:
             await Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
+                MaterialPageRoute<void>(builder: (context) {
               return EventsPage();
             }));
             break;

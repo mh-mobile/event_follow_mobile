@@ -59,7 +59,7 @@ class SettingPage extends HookWidget {
                       Navigator.of(context).popUntil((root) => root.isFirst);
                       Navigator.pushReplacement(
                         context,
-                        PageRouteBuilder(
+                        PageRouteBuilder<void>(
                           pageBuilder: (context, _, __) => HomePage(),
                           transitionDuration: const Duration(seconds: 0),
                         ),
