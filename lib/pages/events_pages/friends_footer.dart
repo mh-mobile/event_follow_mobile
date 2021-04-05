@@ -30,7 +30,10 @@ class FriendsFooter extends HookWidget {
         false;
 
     useEffect(() {
-      if (isLoading || friends.isNotEmpty) return;
+      if (isLoading || friends.isNotEmpty) {
+        return;
+      }
+
       controller.requestFriendships(
           FriendshipsApiRequest(userIds: _extra.userIds), _event.id);
     });
