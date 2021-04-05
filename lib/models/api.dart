@@ -57,6 +57,7 @@ abstract class ApiRequest {
   }
 }
 
+// ignore: one_member_abstracts
 abstract class ApiBaseClient {
   Future<http.Response> request(ApiRequest request);
 }
