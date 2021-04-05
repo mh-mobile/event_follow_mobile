@@ -20,6 +20,6 @@ class FollowingTweetsRepository {
     final apiClient = read(apiClientProvider);
     final response = await apiClient.request(request);
     return FollowingTweetsApiResponse.fromJson(
-        json.decode(response.body) as List<Map<String, dynamic>>);
+        json.decode(response.body) as List<dynamic>);
   }
 }

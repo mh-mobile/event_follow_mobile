@@ -20,6 +20,6 @@ class FriendshipsRepository {
     final response = await apiClient.request(request);
 
     return FriendshipsApiResponse.fromJson(
-        json.decode(response.body) as List<Map<String, dynamic>>);
+        json.decode(response.body) as List<dynamic>);
   }
 }
