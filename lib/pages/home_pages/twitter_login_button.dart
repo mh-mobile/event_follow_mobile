@@ -29,7 +29,7 @@ class TwitterLoginButton extends HookWidget {
               apiSecretKey: env['TWITTER_API_SECRET_KEY']!,
               redirectURI: env['TWITTER_REDIRECT_RUI']!);
           final authResult = await twitterLogin.login();
-          switch (authResult.status) {
+          switch (authResult.status!) {
             case TwitterLoginStatus.loggedIn:
               controller.setLoading(isLoading: true);
               final credential = TwitterAuthProvider.credential(
