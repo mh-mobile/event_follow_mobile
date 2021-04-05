@@ -17,6 +17,7 @@ class EventsRepository {
       {required EventsApiRequest request}) async {
     final apiClient = read(apiClientProvider);
     final response = await apiClient.request(request);
-    return EventsApiResponse.fromJson(json.decode(response.body));
+    return EventsApiResponse.fromJson(
+        json.decode(response.body) as Map<String, dynamic>);
   }
 }

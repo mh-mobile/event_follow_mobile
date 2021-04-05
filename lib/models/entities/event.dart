@@ -20,14 +20,14 @@ abstract class Event implements _$Event {
   Event._();
 
   factory Event.fromJson(Map<String, dynamic> json) => Event(
-        id: json['id'],
-        siteId: json['site_id'],
-        siteEventId: json['site_event_id'],
-        title: json['title'],
-        startedAt: DateTime.parse(json['started_at']),
-        endedAt: DateTime.parse(json['ended_at']),
-        banner: json['banner'],
-        url: json['url'],
-        description: json['description'],
+        id: json['id'] as int,
+        siteId: json['site_id'] as int,
+        siteEventId: json['site_event_id'] as int,
+        title: json['title'] as String,
+        startedAt: DateTime.parse(json['started_at'] as String),
+        endedAt: DateTime.parse(json['ended_at'] as String),
+        banner: json['banner'] as String,
+        url: json['url'] as String,
+        description: json['description'] as String,
       );
 }

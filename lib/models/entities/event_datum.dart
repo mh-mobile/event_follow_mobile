@@ -15,7 +15,7 @@ abstract class EventDatum implements _$EventDatum {
   EventDatum._();
 
   factory EventDatum.fromJson(Map<String, dynamic> json) => EventDatum(
-        event: Event.fromJson(json['event']),
-        extra: EventExtra.fromJson(json['extra']),
+        event: Event.fromJson(json['event'] as Map<String, dynamic>),
+        extra: EventExtra.fromJson(json['extra'] as Map<String, dynamic>),
       );
 }

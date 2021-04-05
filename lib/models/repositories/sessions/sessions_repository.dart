@@ -20,7 +20,8 @@ class SessionsRepository {
     final response = await apiClient.request(request);
 
     if (response.statusCode == 200) {
-      return SessionsApiResponse.fromJson(json.decode(response.body));
+      return SessionsApiResponse.fromJson(
+          json.decode(response.body) as Map<String, dynamic>);
     } else {
       throw Exception('Login Failed');
     }

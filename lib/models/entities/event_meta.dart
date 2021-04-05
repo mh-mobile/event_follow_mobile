@@ -18,12 +18,12 @@ abstract class EventMeta implements _$EventMeta {
   EventMeta._();
 
   factory EventMeta.fromJson(Map<String, dynamic> json) => EventMeta(
-        currentPage: json['current_page'],
-        limitValue: json['limit_value'],
-        totalPages: json['total_pages'],
-        totalCount: json['total_count'],
-        eventSortType: json['event_sort_type'],
-        timeFilterType: json['time_filter_type'],
-        friendsFilterType: json['friends_filter_type'],
+        currentPage: json['current_page'] as int,
+        limitValue: json['limit_value'] as int,
+        totalPages: json['total_pages'] as int,
+        totalCount: json['total_count'] as int,
+        eventSortType: json['event_sort_type'] as String,
+        timeFilterType: json['time_filter_type'] as String,
+        friendsFilterType: json['friends_filter_type'] as String,
       );
 }
