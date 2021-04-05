@@ -55,7 +55,7 @@ class FriendsFooter extends HookWidget {
                       constraints:
                           const BoxConstraints(minHeight: 100, maxHeight: 600),
                       color: Colors.white,
-                      child: FollowingTweetsListView(),
+                      child: const FollowingTweetsListView(),
                     );
                   });
             },
