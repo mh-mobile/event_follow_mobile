@@ -48,7 +48,7 @@ class FriendsFooter extends HookWidget {
               await followingTweetsController.request(
                   FollowingTweetsApiRequest(eventId: _event.id.toString()));
 
-              await showModalBottomSheet(
+              await showModalBottomSheet<void>(
                   context: context,
                   builder: (context) {
                     return Container(

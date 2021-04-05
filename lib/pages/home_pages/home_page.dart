@@ -29,7 +29,7 @@ class HomePage extends HookWidget {
             }));
             break;
           case SessionsStatus.ng:
-            await showDialog(
+            await showDialog<void>(
               context: context,
               builder: (BuildContext context) => AlertDialog(
                 title: const Text('確認'),
