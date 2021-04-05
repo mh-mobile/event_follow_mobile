@@ -44,8 +44,8 @@ abstract class ApiRequest {
   bool get isAuthenticationReauired => false;
   Map<String, String> get defaultHeaders =>
       {HttpHeaders.contentTypeHeader: 'application/json'};
-  Map<String, String> toParams() => {};
-  Map<String, dynamic> toJson() => {};
+  Map<String, String> toParams() => <String, String>{};
+  Map<String, dynamic> toJson() => <String, dynamic>{};
   Future<Map<String, String>> toHeaders() async {
     final idToken = (getIdToken != null) ? await getIdToken!() : '';
     return {
