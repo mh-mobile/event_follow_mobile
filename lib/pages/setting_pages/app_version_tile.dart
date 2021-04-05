@@ -9,13 +9,13 @@ class AppVersion extends StatelessWidget {
       future: AppUtils.getAppVersion(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         }
 
         return Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           child: Center(
-            child: Text("ver ${snapshot.data as String}",
+            child: Text('ver ${snapshot.data! as String}',
                 style: TextStyle(color: Colors.grey[600])),
           ),
         );

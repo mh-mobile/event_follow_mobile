@@ -32,18 +32,18 @@ class SortFilterButton extends HookWidget {
       onTapCancel: () {
         context.read(sortFilterButtonPressingProvider).state = false;
       },
-      onTap: this.onTap,
+      onTap: onTap,
       child: sortFilterStateStore == null
-          ? SizedBox.shrink()
+          ? const SizedBox.shrink()
           : Padding(
-              padding: EdgeInsets.all(6),
+              padding: const EdgeInsets.all(6),
               child: AnimatedOpacity(
                 opacity: sortFilterPressing ? 0.4 : 1,
-                duration: Duration(milliseconds: 160),
+                duration: const Duration(milliseconds: 160),
                 child: Container(
                   height: 44,
-                  margin: EdgeInsets.only(right: 5.0),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(right: 5),
+                  decoration: const BoxDecoration(
                     color: Colors.transparent,
                   ),
                   child: Row(
@@ -54,9 +54,9 @@ class SortFilterButton extends HookWidget {
                         children: _createSortList(sortFilterStateStore),
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 5, right: 5),
-                        child: Text(
-                          "x",
+                        margin: const EdgeInsets.only(left: 5, right: 5),
+                        child: const Text(
+                          'x',
                           style: TextStyle(
                               fontSize: 10, fontWeight: FontWeight.bold),
                         ),
@@ -78,12 +78,12 @@ class SortFilterButton extends HookWidget {
         SortTypeExtension.sortFilterButtonSortLabels[store.sortType.index];
     return labels
         .map((label) => Text(label,
-            style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
+            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
         .toList();
   }
 
   List<Text> _createFilterList(SortFilterStateStore store) {
-    if (store.sortType == SortType.FriendsNumber) {
+    if (store.sortType == SortType.friendsNumber) {
       return _createTimeFilterList(store);
     }
 
@@ -95,7 +95,7 @@ class SortFilterButton extends HookWidget {
         .sortFilterButtonFriendsFilterLabels[store.friendFilterType!.index];
     return labels
         .map((label) => Text(label,
-            style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
+            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
         .toList();
   }
 
@@ -104,7 +104,7 @@ class SortFilterButton extends HookWidget {
         .sortFilterButtonTimeFilterLabels[store.timeFilterType!.index];
     return labels
         .map((label) => Text(label,
-            style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
+            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold)))
         .toList();
   }
 }

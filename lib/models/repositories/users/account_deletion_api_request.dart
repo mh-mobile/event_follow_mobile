@@ -7,8 +7,8 @@ class AccountDeletionApiRequest extends ApiRequest {
   bool get isAuthenticationReauired => true;
 
   @override
-  String get apiPath => ApiInfo.USERS.apiPath;
+  String get apiPath => ApiInfo.users.apiPath;
 
   @override
-  HttpMethod get httpMethod => HttpMethod.DELETE;
+  HttpMethod get httpMethod => HttpMethod.delete;
 }

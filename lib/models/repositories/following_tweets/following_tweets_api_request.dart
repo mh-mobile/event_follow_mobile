@@ -1,22 +1,23 @@
 import 'package:event_follow/models/api.dart';
 
 class FollowingTweetsApiRequest extends ApiRequest {
-  final String eventId;
-
   FollowingTweetsApiRequest({
     required this.eventId,
   });
 
+  final String eventId;
+
+  @override
   Map<String, String> toParams() => {
-        "event_id": this.eventId,
+        'event_id': eventId,
       };
 
   @override
   bool get isAuthenticationReauired => true;
 
   @override
-  String get apiPath => ApiInfo.FOLLOWING_TWEETS.apiPath;
+  String get apiPath => ApiInfo.followingTweets.apiPath;
 
   @override
-  HttpMethod get httpMethod => HttpMethod.GET;
+  HttpMethod get httpMethod => HttpMethod.get;
 }

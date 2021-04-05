@@ -1,25 +1,26 @@
 import 'package:event_follow/models/api.dart';
 
 class SessionsApiRequest extends ApiRequest {
-  final String token;
-  final String accessToken;
-  final String accessTokenSecret;
-
   SessionsApiRequest({
     required this.token,
     required this.accessToken,
     required this.accessTokenSecret,
   });
 
-  Map<String, dynamic> toJson() => {
-        "token": this.token,
-        "access_token": this.accessToken,
-        "access_token_secret": this.accessTokenSecret,
+  final String token;
+  final String accessToken;
+  final String accessTokenSecret;
+
+  @override
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'token': token,
+        'access_token': accessToken,
+        'access_token_secret': accessTokenSecret,
       };
 
   @override
-  String get apiPath => ApiInfo.SESSIONS.apiPath;
+  String get apiPath => ApiInfo.sessions.apiPath;
 
   @override
-  HttpMethod get httpMethod => HttpMethod.POST;
+  HttpMethod get httpMethod => HttpMethod.post;
 }

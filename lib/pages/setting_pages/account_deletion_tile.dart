@@ -18,42 +18,42 @@ class AccountDeletionTile extends HookWidget {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text("確認"),
-                    content: Text("アカウントを削除してもよろしいですか？"),
+                    title: const Text('確認'),
+                    content: const Text('アカウントを削除してもよろしいですか？'),
                     actions: [
                       TextButton(
                           onPressed: () => Navigator.pop(
-                              context, AccountDeletionButtons.Cancel),
-                          child: Text("Cancel")),
+                              context, AccountDeletionButtons.cancel),
+                          child: const Text('Cancel')),
                       TextButton(
                           onPressed: () =>
-                              Navigator.pop(context, AccountDeletionButtons.OK),
-                          child: Text("OK")),
+                              Navigator.pop(context, AccountDeletionButtons.ok),
+                          child: const Text('OK')),
                     ],
                   );
                 },
               );
 
-              switch (result) {
-                case AccountDeletionButtons.OK:
-                  controller.setLoading(true);
+              switch (result!) {
+                case AccountDeletionButtons.ok:
+                  controller.setLoading(isLoading: true);
 
                   await controller.requestAccountDeletion();
-                  controller.setLoading(false);
+                  controller.setLoading(isLoading: false);
                   break;
-                case AccountDeletionButtons.Cancel:
+                case AccountDeletionButtons.cancel:
                   break;
               }
             },
-            child: ListTile(
+            child: const ListTile(
               title: Text(
-                "退会する",
+                '退会する',
                 style: TextStyle(color: Colors.redAccent),
               ),
               dense: true,
             ),
           )
-        : ListTile(
+        : const ListTile(
             leading: CircularProgressIndicator(),
           );
   }

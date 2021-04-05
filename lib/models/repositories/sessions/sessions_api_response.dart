@@ -1,7 +1,4 @@
 class SessionsApiResponse {
-  final String status;
-  final String? message;
-
   SessionsApiResponse({
     required this.status,
     this.message,
@@ -9,6 +6,9 @@ class SessionsApiResponse {
 
   factory SessionsApiResponse.fromJson(Map<String, dynamic> json) {
     return SessionsApiResponse(
-        status: json["status"], message: json["message"]);
+        status: json['status'] as String, message: json['message'] as String?);
   }
+
+  final String status;
+  final String? message;
 }

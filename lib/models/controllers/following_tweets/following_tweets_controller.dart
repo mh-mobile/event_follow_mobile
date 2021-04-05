@@ -1,6 +1,7 @@
 import 'package:event_follow/models/repositories/following_tweets/following_tweets_api_request.dart';
-import '../../models.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../models.dart';
 import 'following_tweets_state.dart';
 
 export 'following_tweets_state.dart';
@@ -13,7 +14,7 @@ class FollowingTweetsController extends StateNotifier<FollowingTweetsState> {
     state = state.copyWith(
       isLoading: false,
     );
-    _followingTweetsRepository = this._read(followingTweetsRepositoryProvider);
+    _followingTweetsRepository = _read(followingTweetsRepositoryProvider);
   }
 
   final Reader _read;
@@ -30,9 +31,5 @@ class FollowingTweetsController extends StateNotifier<FollowingTweetsState> {
       tweets: followingTweetsApiResults.tweets,
       isLoading: false,
     );
-  }
-
-  void setLoading(bool isLoading) {
-    state = state.copyWith(isLoading: isLoading);
   }
 }

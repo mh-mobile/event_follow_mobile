@@ -5,6 +5,7 @@ import 'package:event_follow/pages/events_pages/event_empty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../config/sort_filter_globals.dart';
 import 'event_card.dart';
 
@@ -29,14 +30,14 @@ class EventListView extends HookWidget {
 
     Future<void> _onRefresh() async {
       await controller.request(EventsApiRequest(
-          pageId: "1",
+          pageId: '1',
           sort: sortFilterStateStore?.sortType.typeName,
           time: sortFilterStateStore?.timeFilterType?.typeName,
           friends: sortFilterStateStore?.friendFilterType?.typeName));
     }
 
-    late ScrollController _scrollController = () {
-      var _scrollController = ScrollController();
+    late final _scrollController = () {
+      final _scrollController = ScrollController();
       _scrollController.addListener(() {
         final maxScrollExtent = _scrollController.position.maxScrollExtent;
         final currentPosition = _scrollController.position.pixels;
@@ -58,12 +59,12 @@ class EventListView extends HookWidget {
       return _scrollController;
     }();
 
-    if (!isLoading && data.length == 0) {
+    if (!isLoading && data.isEmpty) {
       return EventEmptyView(onRefresh: _onRefresh);
     }
 
-    if (isLoading && data.length == 0) {
-      return Center(
+    if (isLoading && data.isEmpty) {
+      return const Center(
         child: CircularProgressIndicator(),
       );
     }

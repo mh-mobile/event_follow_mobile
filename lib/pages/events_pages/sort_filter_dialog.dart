@@ -21,7 +21,7 @@ final sortFilterSelectedSegmentsProvider =
     StateProvider.autoDispose<List<bool>>((ref) => [true, false]);
 
 class SortFilterDialog extends HookWidget {
-  SortFilterDialog({
+  const SortFilterDialog({
     Key? key,
     required this.onChange,
   }) : super(key: key);
@@ -35,7 +35,7 @@ class SortFilterDialog extends HookWidget {
   _SortFilterListData _listItemData(
       SortFilterStateStore store, List<bool> isSegmentSelected) {
     if (_selectedSegmentIndex(isSegmentSelected) ==
-        SortFilterSegmentType.Sort.index) {
+        SortFilterSegmentType.sort.index) {
       return _SortFilterListData(
           itemCount: SortTypeExtension.types.length,
           itemLabels:
@@ -43,7 +43,7 @@ class SortFilterDialog extends HookWidget {
           selectedItemIndex: store.sortType.index);
     }
 
-    if (store.sortType == SortType.FriendsNumber) {
+    if (store.sortType == SortType.friendsNumber) {
       return _SortFilterListData(
           itemCount: TimeFilterTypeExtension.types.length,
           itemLabels: TimeFilterTypeExtension.types
@@ -75,7 +75,7 @@ class SortFilterDialog extends HookWidget {
       children: <Widget>[
         SafeArea(
             child: Container(
-          margin: EdgeInsets.only(top: 100),
+          margin: const EdgeInsets.only(top: 100),
           width: MediaQuery.of(context).size.width * 6 / 7,
           child: Column(
             children: [
@@ -84,28 +84,18 @@ class SortFilterDialog extends HookWidget {
                   children: [
                     Container(
                       height: 25,
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: ToggleButtons(
                           isSelected: sortFilterSelectedSegments,
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(5),
                           selectedColor: Colors.white,
                           fillColor: Colors.blueGrey[400],
                           selectedBorderColor: Colors.blueGrey[400],
-                          children: [
-                            Container(
-                              width: 100,
-                              child: Center(child: Text("Sort by")),
-                            ),
-                            Container(
-                              width: 100,
-                              child: Center(child: Text("Filter by")),
-                            ),
-                          ],
                           onPressed: (int index) {
-                            for (int buttonIndex = 0;
+                            for (var buttonIndex = 0;
                                 buttonIndex < sortFilterSelectedSegments.length;
                                 buttonIndex++) {
                               sortFilterSelectedSegments[buttonIndex] =
@@ -115,6 +105,16 @@ class SortFilterDialog extends HookWidget {
                                   .state = sortFilterSelectedSegments;
                             }
                           },
+                          children: const [
+                            SizedBox(
+                              width: 100,
+                              child: Center(child: Text('Sort by')),
+                            ),
+                            SizedBox(
+                              width: 100,
+                              child: Center(child: Text('Filter by')),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -124,7 +124,7 @@ class SortFilterDialog extends HookWidget {
                                 sortFilterSelectedSegments)
                             .itemCount,
                         separatorBuilder: (context, index) {
-                          return Divider(
+                          return const Divider(
                             height: 1,
                           );
                         },
@@ -139,15 +139,15 @@ class SortFilterDialog extends HookWidget {
                           return ListTile(
                               title: Text(label),
                               trailing: (index == selectedItemIndex)
-                                  ? Icon(Icons.check_sharp)
+                                  ? const Icon(Icons.check_sharp)
                                   : null,
                               dense: true,
                               onTap: () {
-                                var currentSortType =
+                                final currentSortType =
                                     sortFilterStateStore.sortType;
-                                var currentTimeFilterType =
+                                final currentTimeFilterType =
                                     sortFilterStateStore.timeFilterType;
-                                var currentFriendsFilterType =
+                                final currentFriendsFilterType =
                                     sortFilterStateStore.friendFilterType;
 
                                 final store = SortFilterStateStore(

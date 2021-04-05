@@ -8,11 +8,11 @@ class PrivacyPolicyTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        launch(AppLink.PrivacyPolicy.url);
+        launch(AppLink.privacyPolicy.url);
       },
-      child: ListTile(
+      child: const ListTile(
         title: Text(
-          "プライバシーポリシー",
+          'プライバシーポリシー',
         ),
         dense: true,
       ),

@@ -7,14 +7,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../extension/datetime_ex.dart';
-import '../../extension/string_ex.dart';
 import '../../extension/image_ex.dart';
+import '../../extension/string_ex.dart';
 
 class EventCard extends HookWidget {
+  const EventCard(this._event, this._extra);
+
   final Event _event;
   final EventExtra _extra;
-
-  EventCard(this._event, this._extra);
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +37,13 @@ class EventCard extends HookWidget {
                         child: Column(
                           children: [
                             Container(
-                              margin: const EdgeInsets.only(bottom: 5.0),
+                              margin: const EdgeInsets.only(bottom: 5),
                               width: 60,
                               height: 60,
                               decoration: BoxDecoration(
                                 color: const Color(0xfff0f1f5),
                                 border: Border.all(
-                                  color: Color(0xffc1c1c1),
+                                  color: const Color(0xffc1c1c1),
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(5),
@@ -54,11 +54,11 @@ class EventCard extends HookWidget {
                                 children: [
                                   Text(
                                     _event.startedAt.convertToEventDateFormat(),
-                                    style: TextStyle(fontSize: 16.0),
+                                    style: const TextStyle(fontSize: 16),
                                   ),
-                                  Text(
-                                    "開催",
-                                    style: TextStyle(fontSize: 12.0),
+                                  const Text(
+                                    '開催',
+                                    style: TextStyle(fontSize: 12),
                                   )
                                 ],
                               ),
@@ -70,9 +70,9 @@ class EventCard extends HookWidget {
                             GestureDetector(
                               onTap: () {
                                 final text =
-                                    "\"${_event.title}\"\n${_event.url}";
+                                    '\"${_event.title}\"\n${_event.url}';
                                 launch(
-                                    "twitter://post?message=${Uri.encodeFull(text)}");
+                                    'twitter://post?message=${Uri.encodeFull(text)}');
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
@@ -83,13 +83,12 @@ class EventCard extends HookWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Image.asset("assets/twitter_logo.png",
-                                          height: 15.0),
-                                      Text(
-                                        "ツイート",
+                                      Image.asset('assets/twitter_logo.png',
+                                          height: 15),
+                                      const Text(
+                                        'ツイート',
                                         style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 10.0),
+                                            color: Colors.white, fontSize: 10),
                                       )
                                     ],
                                   ),
@@ -125,7 +124,7 @@ class EventCard extends HookWidget {
                                       Expanded(
                                           flex: 3,
                                           child: Container(
-                                            margin: EdgeInsets.only(
+                                            margin: const EdgeInsets.only(
                                                 right: 5, left: 5),
                                             child: Column(
                                               crossAxisAlignment:
@@ -134,7 +133,8 @@ class EventCard extends HookWidget {
                                                 Container(
                                                   child: CachedNetworkImage(
                                                     imageUrl: _event.banner,
-                                                    errorWidget: (_, __, ___) {
+                                                    errorWidget:
+                                                        (_, __, dynamic ___) {
                                                       return Container(
                                                         color: const Color(
                                                             0xffd7d7d8),
@@ -161,7 +161,7 @@ class EventCard extends HookWidget {
                                           _event.description
                                               .removeAllHtmlTags()
                                               .stripEventDescription(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 11,
                                           ),
                                         ),

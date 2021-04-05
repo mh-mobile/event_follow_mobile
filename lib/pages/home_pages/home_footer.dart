@@ -10,29 +10,29 @@ class HomeFooter extends HookWidget {
     return RichText(
         text: TextSpan(children: [
       TextSpan(
-        text: "アカウントを作成することで",
+        text: 'アカウントを作成することで',
         style: TextStyle(color: Colors.grey[800]),
       ),
       TextSpan(
-          text: "利用規約",
-          style: TextStyle(color: Colors.lightBlue),
+          text: '利用規約',
+          style: const TextStyle(color: Colors.lightBlue),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              launch(AppLink.Terms.url);
+              launch(AppLink.terms.url);
             }),
       TextSpan(
-        text: "・",
+        text: '・',
         style: TextStyle(color: Colors.grey[800]),
       ),
       TextSpan(
-          text: "プライバシーポリシー",
-          style: TextStyle(color: Colors.lightBlue),
+          text: 'プライバシーポリシー',
+          style: const TextStyle(color: Colors.lightBlue),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              launch(AppLink.PrivacyPolicy.url);
+              launch(AppLink.privacyPolicy.url);
             }),
       TextSpan(
-        text: "に同意したものとみなします。",
+        text: 'に同意したものとみなします。',
         style: TextStyle(color: Colors.grey[800]),
       ),
     ]));

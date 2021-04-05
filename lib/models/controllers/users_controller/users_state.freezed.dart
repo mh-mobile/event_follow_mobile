@@ -17,7 +17,7 @@ class _$UsersStateTearOff {
   const _$UsersStateTearOff();
 
   _UsersState call(
-      {UsersStatus status = UsersStatus.NG, bool isLoading = false}) {
+      {UsersStatus status = UsersStatus.ng, bool isLoading = false}) {
     return _UsersState(
       status: status,
       isLoading: isLoading,
@@ -111,10 +111,10 @@ class __$UsersStateCopyWithImpl<$Res> extends _$UsersStateCopyWithImpl<$Res>
 
 /// @nodoc
 class _$_UsersState extends _UsersState {
-  _$_UsersState({this.status = UsersStatus.NG, this.isLoading = false})
+  _$_UsersState({this.status = UsersStatus.ng, this.isLoading = false})
       : super._();
 
-  @JsonKey(defaultValue: UsersStatus.NG)
+  @JsonKey(defaultValue: UsersStatus.ng)
   @override
   final UsersStatus status;
   @JsonKey(defaultValue: false)

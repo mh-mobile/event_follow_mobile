@@ -1,8 +1,7 @@
+import 'package:event_follow/models/controllers/controllers.dart';
 import 'package:event_follow/pages/events_pages/events_page.dart';
 import 'package:event_follow/pages/home_pages/home_footer.dart';
 import 'package:event_follow/pages/home_pages/twitter_login_button.dart';
-import 'package:event_follow/models/controllers/controllers.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -23,41 +22,41 @@ class HomePage extends HookWidget {
       provider: _sessionStateProvider,
       onChange: (context, SessionsStatus sessionsStatus) async {
         switch (sessionsStatus) {
-          case SessionsStatus.OK:
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) {
+          case SessionsStatus.ok:
+            await Navigator.pushReplacement(context,
+                MaterialPageRoute<void>(builder: (context) {
               return EventsPage();
             }));
             break;
-          case SessionsStatus.NG:
-            await showDialog(
+          case SessionsStatus.ng:
+            await showDialog<void>(
               context: context,
-              builder: (BuildContext context) => new AlertDialog(
-                title: new Text("確認"),
-                content: new Text("ログインエラーが発生しました。\n再度お試しください。"),
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('確認'),
+                content: const Text('ログインエラーが発生しました。\n再度お試しください。'),
                 actions: <Widget>[
-                  new SimpleDialogOption(
-                    child: new Text("OK"),
+                  SimpleDialogOption(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
+                    child: const Text('OK'),
                   ),
                 ],
               ),
             );
             break;
-          default:
+          case SessionsStatus.none:
             break;
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white.withOpacity(0.0),
-          elevation: 0.0,
+          backgroundColor: Colors.white.withOpacity(0),
+          elevation: 0,
         ),
         body: SafeArea(
           child: Center(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 6 / 7,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,7 +66,7 @@ class HomePage extends HookWidget {
                   Expanded(flex: 2, child: Container()),
                   !isLoading
                       ? TwitterLoginButton()
-                      : Container(
+                      : const SizedBox(
                           height: 44,
                           width: 44,
                           child: CircularProgressIndicator()),

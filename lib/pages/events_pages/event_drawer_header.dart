@@ -1,8 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:event_follow/pages/home_pages/home_page.dart';
 import 'package:event_follow/pages/setting_pages/setting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../main.dart';
 
 class EventDrawerHeader extends StatelessWidget {
@@ -13,6 +13,9 @@ class EventDrawerHeader extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Colors.blue,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -29,36 +32,34 @@ class EventDrawerHeader extends StatelessWidget {
                       ),
                     )),
                 Container(
-                  margin: EdgeInsets.only(top: 10.0),
+                  margin: const EdgeInsets.only(top: 10),
                   child: Text(
                     firebaseAuth.currentUser!.displayName!,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 )
               ],
             ),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
           ),
           ListTile(
-            title: Text("設定"),
+            title: const Text('設定'),
             onTap: () {
               Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.push(context,
+                  MaterialPageRoute<void>(builder: (context) {
                 return SettingPage();
               }));
             },
           ),
           ListTile(
-            title: Text("ログアウト"),
+            title: const Text('ログアウト'),
             onTap: () {
               firebaseAuth.signOut();
               Navigator.pushReplacement(
                 context,
-                PageRouteBuilder(
+                PageRouteBuilder<void>(
                   pageBuilder: (context, _, __) => HomePage(),
-                  transitionDuration: Duration(seconds: 0),
+                  transitionDuration: const Duration(seconds: 0),
                 ),
               );
             },

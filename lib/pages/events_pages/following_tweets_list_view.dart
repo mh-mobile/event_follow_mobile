@@ -1,17 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:event_follow/extension/datetime_ex.dart';
 import 'package:event_follow/models/controllers/following_tweets/following_tweets_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:event_follow/extension/datetime_ex.dart';
 
 class FollowingTweetsListView extends HookWidget {
-  final eventId;
-
-  FollowingTweetsListView({
-    required this.eventId,
+  const FollowingTweetsListView({
     Key? key,
   }) : super(key: key);
 
@@ -23,14 +20,14 @@ class FollowingTweetsListView extends HookWidget {
         followingTweetsProvider.state.select((value) => value.isLoading));
 
     return Container(
-      constraints: BoxConstraints(minHeight: 100, maxHeight: 600),
+      constraints: const BoxConstraints(minHeight: 100, maxHeight: 600),
       color: Colors.white,
       child: !isLoading
           ? ListView.separated(
               itemCount: tweets.length,
               shrinkWrap: true,
               separatorBuilder: (context, index) {
-                return Divider(
+                return const Divider(
                   color: Colors.black12,
                   height: 1,
                 );
@@ -38,7 +35,7 @@ class FollowingTweetsListView extends HookWidget {
               itemBuilder: (context, index) {
                 final tweet = tweets[index];
                 return Container(
-                  margin: EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                  margin: const EdgeInsets.only(top: 5, bottom: 5, right: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -51,11 +48,11 @@ class FollowingTweetsListView extends HookWidget {
                                 child: GestureDetector(
                                   onTap: () {
                                     launch(
-                                        "https://twitter.com/${tweet.user.screenName}");
+                                        'https://twitter.com/${tweet.user.screenName}');
                                   },
                                   child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(50)),
                                     child: CachedNetworkImage(
                                       imageUrl: tweet.user.profileImage,
                                       placeholder: (context, url) => Container(
@@ -63,7 +60,7 @@ class FollowingTweetsListView extends HookWidget {
                                         width: 30,
                                         height: 30,
                                       ),
-                                      errorWidget: (_, __, ___) {
+                                      errorWidget: (_, __, dynamic ___) {
                                         return Container(
                                           color: const Color(0xffd7d7d8),
                                           width: 30,
@@ -91,12 +88,12 @@ class FollowingTweetsListView extends HookWidget {
                                       style: TextStyle(
                                           color: Colors.blue[800],
                                           fontSize: 12)),
-                                  Text("@${tweet.user.screenName}",
-                                      style: TextStyle(
+                                  Text('@${tweet.user.screenName}',
+                                      style: const TextStyle(
                                           color: Colors.grey, fontSize: 12)),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               Linkify(
@@ -106,16 +103,16 @@ class FollowingTweetsListView extends HookWidget {
                                   }
                                 },
                                 text: tweet.text,
-                                style: TextStyle(fontSize: 12),
+                                style: const TextStyle(fontSize: 12),
                                 linkStyle: TextStyle(
                                     color: Colors.blue[800], fontSize: 12),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               Text(
                                 tweet.tweetedAt.convertToTweetDateFormat(),
-                                style: TextStyle(color: Colors.grey),
+                                style: const TextStyle(color: Colors.grey),
                               ),
                             ],
                           ),
@@ -125,7 +122,7 @@ class FollowingTweetsListView extends HookWidget {
                   ),
                 );
               })
-          : Center(child: CircularProgressIndicator()),
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 }

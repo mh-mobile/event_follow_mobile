@@ -1,36 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'no_empty_logo.dart';
 
 class EventEmptyView extends HookWidget {
-  final onRefresh;
-
-  EventEmptyView({
+  const EventEmptyView({
     required this.onRefresh,
   });
+
+  final RefreshCallback onRefresh;
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        onRefresh: this.onRefresh,
+        onRefresh: onRefresh,
         child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            child: Container(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height - 200,
+              width: MediaQuery.of(context).size.width,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   NoEmptyLogo(),
-                  SizedBox(
-                    height: 20.0,
+                  const SizedBox(
+                    height: 20,
                   ),
-                  Text(
-                    "イベントがまだありません",
+                  const Text(
+                    'イベントがまだありません',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              height: MediaQuery.of(context).size.height - 200,
-              width: MediaQuery.of(context).size.width,
             )));
   }
 }
