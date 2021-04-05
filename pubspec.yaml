@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^6.0.2
-  twitter_login: ^3.0.1
+  twitter_login: ^3.0.4
   firebase_core: ^1.0.1
   firebase_auth: ^1.0.1
   http: ^0.13.1
