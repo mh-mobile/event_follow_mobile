@@ -45,10 +45,10 @@ class FriendsFooter extends HookWidget {
         children: [
           GestureDetector(
             onTap: () async {
-              followingTweetsController.request(
+              await followingTweetsController.request(
                   FollowingTweetsApiRequest(eventId: _event.id.toString()));
 
-              showModalBottomSheet(
+              await showModalBottomSheet(
                   context: context,
                   builder: (context) {
                     return Container(
