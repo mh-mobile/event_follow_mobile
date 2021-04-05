@@ -5,7 +5,7 @@ extension StringExtension on String {
     return replaceAll(exp, '');
   }
 
-  String stripEventDescription({maxLength: 200}) {
+  String stripEventDescription({int maxLength: 200}) {
     if (length > maxLength) {
       return substring(0, maxLength) + '...';
     }

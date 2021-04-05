@@ -171,7 +171,8 @@ class SortFilterStateStore {
   final FriendsFilterType? friendFilterType;
   final TimeFilterType? timeFilterType;
 
-  SortFilterStateStore convert(int selectedSegmentIndex, itemSelectedIndex) {
+  SortFilterStateStore convert(
+      int selectedSegmentIndex, int itemSelectedIndex) {
     var currentSortType = sortType;
     var currentFriendsFilterType = friendFilterType;
     var currentTimeFilterType = timeFilterType;
