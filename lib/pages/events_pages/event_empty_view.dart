@@ -8,7 +8,7 @@ class EventEmptyView extends HookWidget {
     required this.onRefresh,
   });
 
-  final ScrollController onRefresh;
+  final RefreshCallback onRefresh;
 
   @override
   Widget build(BuildContext context) {
