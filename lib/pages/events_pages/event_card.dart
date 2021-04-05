@@ -133,7 +133,8 @@ class EventCard extends HookWidget {
                                                 Container(
                                                   child: CachedNetworkImage(
                                                     imageUrl: _event.banner,
-                                                    errorWidget: (_, __, ___) {
+                                                    errorWidget:
+                                                        (_, __, dynamic ___) {
                                                       return Container(
                                                         color: const Color(
                                                             0xffd7d7d8),

@@ -9,9 +9,9 @@ class EventsApiResponse {
 
   factory EventsApiResponse.fromJson(Map<String, dynamic> json) =>
       EventsApiResponse(
-        meta: EventMeta.fromJson(json['meta']),
-        data: List<EventDatum>.from(
-            json['data'].map((x) => EventDatum.fromJson(x))),
+        meta: EventMeta.fromJson(json['meta'] as Map<String, dynamic>),
+        data: List<EventDatum>.from((json['data'] as List<Map<String, dynamic>>)
+            .map<EventDatum>((x) => EventDatum.fromJson(x))),
       );
 
   EventMeta meta;

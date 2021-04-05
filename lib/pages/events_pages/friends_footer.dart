@@ -93,7 +93,7 @@ class FriendsFooter extends HookWidget {
                           width: 30,
                           height: 30,
                         ),
-                        errorWidget: (_, __, ___) {
+                        errorWidget: (_, __, dynamic ___) {
                           return Container(
                             color: const Color(0xffd7d7d8),
                             width: 30,

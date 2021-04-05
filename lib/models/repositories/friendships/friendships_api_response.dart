@@ -5,9 +5,9 @@ class FriendshipsApiResponse {
     required this.friends,
   });
 
-  factory FriendshipsApiResponse.fromJson(List<dynamic> json) =>
+  factory FriendshipsApiResponse.fromJson(List<Map<String, dynamic>> json) =>
       FriendshipsApiResponse(
-        friends: List<User>.from(json.map((x) => User.fromJson(x))),
+        friends: List<User>.from(json.map<User>((x) => User.fromJson(x))),
       );
 
   List<User> friends;
