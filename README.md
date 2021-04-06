@@ -53,8 +53,8 @@
 
 # 使用技術
 
-## Dart
-## Flutter 2.0.1
+### Dart
+### Flutter 2.0.1
 
 - 状態管理アーキテクチャ
   - [Riverpod](https://pub.dev/packages/riverpod)
