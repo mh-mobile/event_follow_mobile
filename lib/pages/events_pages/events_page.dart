@@ -26,6 +26,9 @@ class EventsPage extends HookWidget {
       _scrollController.addListener(() {
         final maxScrollExtent = _scrollController.position.maxScrollExtent;
         final currentPosition = _scrollController.position.pixels;
+
+        context.read(eventsScrollPositionProvider).state = currentPosition;
+
         if (maxScrollExtent > 0 &&
             (maxScrollExtent - 100.0) <= currentPosition) {
           final currentPage = meta?.currentPage ?? 1;
@@ -46,7 +49,7 @@ class EventsPage extends HookWidget {
 
     Future<void> _onRefresh() async {
       await controller.request(EventsApiRequest(
-          pageId: '1',
+          pageId: initialPageId,
           sort: sortFilterStateStore?.sortType.typeName,
           time: sortFilterStateStore?.timeFilterType?.typeName,
           friends: sortFilterStateStore?.friendFilterType?.typeName));
@@ -70,7 +73,7 @@ class EventsPage extends HookWidget {
                 return SortFilterDialog(
                   onChange: (store) {
                     controller.request(EventsApiRequest(
-                        pageId: '1',
+                        pageId: initialPageId,
                         sort: store.sortType.typeName,
                         time: store.timeFilterType?.typeName,
                         friends: store.friendFilterType?.typeName));
