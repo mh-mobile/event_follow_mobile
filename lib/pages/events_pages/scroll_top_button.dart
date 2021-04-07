@@ -21,7 +21,10 @@ class ScrollTopButton extends HookWidget {
               duration: const Duration(milliseconds: 300),
               curve: Curves.linear);
         },
-        child: const Icon(Icons.arrow_upward),
+        child: const Icon(
+          Icons.keyboard_arrow_up,
+          size: 40,
+        ),
       ),
     );
   }
