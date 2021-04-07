@@ -7,8 +7,19 @@ import 'events_state.dart';
 
 export 'events_state.dart';
 
+const eventsTopScrollButtonVisiblePosition = 800.0;
+const initialPageId = '1';
+
 final eventsConditionProvider =
     StateProvider.autoDispose<SortFilterStateStore?>((ref) => null);
+
+final eventsScrollPositionProvider =
+    StateProvider.autoDispose<double>((ref) => 0.0);
+
+final eventsTopScrollButtonVisibilityProvider = Provider.autoDispose<bool>(
+    (ref) =>
+        ref.watch(eventsScrollPositionProvider).state >
+        eventsTopScrollButtonVisiblePosition);
 
 final eventsProvider =
     StateNotifierProvider.autoDispose((ref) => EventsController(ref.read));
@@ -20,7 +31,7 @@ class EventsController extends StateNotifier<EventsState> {
     );
     _eventsRepository = _read(eventsRepositoryProvider);
 
-    request(EventsApiRequest(pageId: '1'));
+    request(EventsApiRequest(pageId: initialPageId));
   }
 
   final Reader _read;
@@ -31,7 +42,7 @@ class EventsController extends StateNotifier<EventsState> {
       isLoading: true,
     );
 
-    if (request.pageId == '1') {
+    if (request.pageId == initialPageId) {
       clearData();
     }
 
@@ -57,5 +68,6 @@ class EventsController extends StateNotifier<EventsState> {
     state = state.copyWith(
       data: [],
     );
+    _read(eventsScrollPositionProvider).state = 0.0;
   }
 }
