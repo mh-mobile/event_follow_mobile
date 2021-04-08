@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'event_card.dart';
+import 'event_error_view.dart';
 
 class EventListView extends HookWidget {
   const EventListView({
@@ -39,7 +40,7 @@ class EventListView extends HookWidget {
     }
 
     if (eventsStatus is EventsFailure) {
-      return EventEmptyView(onRefresh: onRefresh);
+      return EventErrorView(onRefresh: onRefresh);
     }
 
     return EventContentView(
