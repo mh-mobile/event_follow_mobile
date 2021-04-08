@@ -19,11 +19,11 @@ class _$EventsStateTearOff {
   _EventsState call(
       {List<EventDatum> data = const <EventDatum>[],
       EventMeta? meta = null,
-      bool isLoading = false}) {
+      EventsStatus status = const EventsEmpty()}) {
     return _EventsState(
       data: data,
       meta: meta,
-      isLoading: isLoading,
+      status: status,
     );
   }
 }
@@ -35,7 +35,7 @@ const $EventsState = _$EventsStateTearOff();
 mixin _$EventsState {
   List<EventDatum> get data => throw _privateConstructorUsedError;
   EventMeta? get meta => throw _privateConstructorUsedError;
-  bool get isLoading => throw _privateConstructorUsedError;
+  EventsStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EventsStateCopyWith<EventsState> get copyWith =>
@@ -47,7 +47,7 @@ abstract class $EventsStateCopyWith<$Res> {
   factory $EventsStateCopyWith(
           EventsState value, $Res Function(EventsState) then) =
       _$EventsStateCopyWithImpl<$Res>;
-  $Res call({List<EventDatum> data, EventMeta? meta, bool isLoading});
+  $Res call({List<EventDatum> data, EventMeta? meta, EventsStatus status});
 
   $EventMetaCopyWith<$Res>? get meta;
 }
@@ -64,7 +64,7 @@ class _$EventsStateCopyWithImpl<$Res> implements $EventsStateCopyWith<$Res> {
   $Res call({
     Object? data = freezed,
     Object? meta = freezed,
-    Object? isLoading = freezed,
+    Object? status = freezed,
   }) {
     return _then(_value.copyWith(
       data: data == freezed
@@ -75,10 +75,10 @@ class _$EventsStateCopyWithImpl<$Res> implements $EventsStateCopyWith<$Res> {
           ? _value.meta
           : meta // ignore: cast_nullable_to_non_nullable
               as EventMeta?,
-      isLoading: isLoading == freezed
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as EventsStatus,
     ));
   }
 
@@ -101,7 +101,7 @@ abstract class _$EventsStateCopyWith<$Res>
           _EventsState value, $Res Function(_EventsState) then) =
       __$EventsStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<EventDatum> data, EventMeta? meta, bool isLoading});
+  $Res call({List<EventDatum> data, EventMeta? meta, EventsStatus status});
 
   @override
   $EventMetaCopyWith<$Res>? get meta;
@@ -121,7 +121,7 @@ class __$EventsStateCopyWithImpl<$Res> extends _$EventsStateCopyWithImpl<$Res>
   $Res call({
     Object? data = freezed,
     Object? meta = freezed,
-    Object? isLoading = freezed,
+    Object? status = freezed,
   }) {
     return _then(_EventsState(
       data: data == freezed
@@ -132,10 +132,10 @@ class __$EventsStateCopyWithImpl<$Res> extends _$EventsStateCopyWithImpl<$Res>
           ? _value.meta
           : meta // ignore: cast_nullable_to_non_nullable
               as EventMeta?,
-      isLoading: isLoading == freezed
-          ? _value.isLoading
-          : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as EventsStatus,
     ));
   }
 }
@@ -145,7 +145,7 @@ class _$_EventsState extends _EventsState {
   _$_EventsState(
       {this.data = const <EventDatum>[],
       this.meta = null,
-      this.isLoading = false})
+      this.status = const EventsEmpty()})
       : super._();
 
   @JsonKey(defaultValue: const <EventDatum>[])
@@ -154,13 +154,13 @@ class _$_EventsState extends _EventsState {
   @JsonKey(defaultValue: null)
   @override
   final EventMeta? meta;
-  @JsonKey(defaultValue: false)
+  @JsonKey(defaultValue: const EventsEmpty())
   @override
-  final bool isLoading;
+  final EventsStatus status;
 
   @override
   String toString() {
-    return 'EventsState(data: $data, meta: $meta, isLoading: $isLoading)';
+    return 'EventsState(data: $data, meta: $meta, status: $status)';
   }
 
   @override
@@ -171,9 +171,8 @@ class _$_EventsState extends _EventsState {
                 const DeepCollectionEquality().equals(other.data, data)) &&
             (identical(other.meta, meta) ||
                 const DeepCollectionEquality().equals(other.meta, meta)) &&
-            (identical(other.isLoading, isLoading) ||
-                const DeepCollectionEquality()
-                    .equals(other.isLoading, isLoading)));
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)));
   }
 
   @override
@@ -181,7 +180,7 @@ class _$_EventsState extends _EventsState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(data) ^
       const DeepCollectionEquality().hash(meta) ^
-      const DeepCollectionEquality().hash(isLoading);
+      const DeepCollectionEquality().hash(status);
 
   @JsonKey(ignore: true)
   @override
@@ -193,7 +192,7 @@ abstract class _EventsState extends EventsState {
   factory _EventsState(
       {List<EventDatum> data,
       EventMeta? meta,
-      bool isLoading}) = _$_EventsState;
+      EventsStatus status}) = _$_EventsState;
   _EventsState._() : super._();
 
   @override
@@ -201,7 +200,7 @@ abstract class _EventsState extends EventsState {
   @override
   EventMeta? get meta => throw _privateConstructorUsedError;
   @override
-  bool get isLoading => throw _privateConstructorUsedError;
+  EventsStatus get status => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$EventsStateCopyWith<_EventsState> get copyWith =>
