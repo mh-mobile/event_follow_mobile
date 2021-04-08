@@ -1,5 +1,6 @@
 import 'package:event_follow/config/sort_filter_globals.dart';
 import 'package:event_follow/models/controllers/events_controller/events_controller.dart';
+import 'package:event_follow/models/controllers/events_controller/events_status.dart';
 import 'package:event_follow/models/repositories/events/events_api_request.dart';
 import 'package:event_follow/pages/events_pages/event_drawer_header.dart';
 import 'package:event_follow/pages/events_pages/scroll_top_button.dart';
@@ -17,8 +18,8 @@ class EventsPage extends HookWidget {
     final controller = useProvider(eventsProvider);
     final meta =
         useProvider(eventsProvider.state.select((value) => value.meta));
-    final isLoading =
-        useProvider(eventsProvider.state.select((value) => value.isLoading));
+    final eventsStatus =
+        useProvider(eventsProvider.state.select((value) => value.status));
     final sortFilterStateStore = useProvider(eventsConditionProvider).state;
 
     late final _scrollController = () {
@@ -33,7 +34,8 @@ class EventsPage extends HookWidget {
             (maxScrollExtent - 100.0) <= currentPosition) {
           final currentPage = meta?.currentPage ?? 1;
           final totalPages = meta?.totalPages ?? 1;
-          if (!isLoading && _hasNextPaging(currentPage, totalPages)) {
+          if (eventsStatus is EventsSuccess &&
+              _hasNextPaging(currentPage, totalPages)) {
             final nextPageId = (meta?.currentPage ?? 1) + 1;
 
             controller.request(EventsApiRequest(

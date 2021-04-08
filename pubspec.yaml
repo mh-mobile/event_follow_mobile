@@ -23,6 +23,7 @@ environment:
 dependencies:
   cached_network_image: ^3.0.0
   cupertino_icons: ^1.0.2
+  equatable: ^2.0.0
   firebase_auth: ^1.0.1
   firebase_core: ^1.0.1
   flutter:
