@@ -1,0 +1,75 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+
+  lane :beta_firebase do
+    increment_build_number
+    build_adhoc
+    firebase_app_distribution(
+      app: "1:1015768123742:ios:d19dd49eb26cb7d37b27cf",
+      ipa_path: "build/ios/staging.ipa",
+      groups: "me",
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      debug: true
+    )
+  end
+
+  lane :beta_testflight do
+    increment_build_number
+    build_adhoc
+    upload_to_testflight
+  end
+
+  lane :certs do
+    match(type: "development", readonly: true)
+    match(type: "adhoc", readonly: true)
+    match(type: "appstore", readonly: true)
+  end
+
+  lane :release do
+    sync_code_signing(type: "appstore")
+    build_ios_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Production",
+      configuration: "Release-Production",
+      clean: true,
+    )
+    upload_to_app_store(
+      username: "mh.mobiler@gmail.com",
+      skip_screenshots: true,
+      skip_metadata: true,
+      force: true,
+    )
+  end
+
+  private_lane :build_adhoc do
+    build_ios_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Staging",
+      configuration: "Release-Staging",
+      export_options: {
+        method: "ad-hoc"
+      },
+      clean: true,
+      output_name: "staging.ipa",
+      output_directory: "build/ios/"
+    )
+  end
+
+end
+

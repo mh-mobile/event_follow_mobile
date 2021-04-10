@@ -1,0 +1,5 @@
+git_url("git@github.com:mh-mobile/EventFollow-Certificates.git")
+
+storage_mode("git")
+
+type("development")
