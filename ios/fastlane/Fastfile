@@ -41,6 +41,22 @@ platform :ios do
     match(type: "appstore", readonly: true)
   end
 
+  lane :release do
+    sync_code_signing(type: "appstore")
+    build_ios_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Production",
+      configuration: "Release-Production",
+      clean: true,
+    )
+    upload_to_app_store(
+      username: "mh.mobiler@gmail.com",
+      skip_screenshots: true,
+      skip_metadata: true,
+      force: true,
+    )
+  end
+
   private_lane :build_adhoc do
     build_ios_app(
       workspace: "Runner.xcworkspace",
