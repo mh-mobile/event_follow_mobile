@@ -16,8 +16,31 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Push a new beta build to TestFlight"
-  lane :beta do
+
+  lane :beta_firebase do
+
+    build_ios_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Staging",
+      configuration: "Release-Staging",
+      export_options: {
+        method: "ad-hoc"
+      },
+      clean: true,
+      output_name: "staging.ipa",
+      output_directory: "build/ios/"
+    )
+
+    firebase_app_distribution(
+      app: "1:1015768123742:ios:d19dd49eb26cb7d37b27cf",
+      ipa_path: "build/ios/staging.ipa",
+      groups: "me",
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      debug: true
+    )
+  end
+
+  lane :beta_testflight do
     build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
     upload_to_testflight
   end
