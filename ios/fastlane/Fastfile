@@ -18,7 +18,30 @@ default_platform(:ios)
 platform :ios do
 
   lane :beta_firebase do
+    increment_build_number
+    build_adhoc
+    firebase_app_distribution(
+      app: "1:1015768123742:ios:d19dd49eb26cb7d37b27cf",
+      ipa_path: "build/ios/staging.ipa",
+      groups: "me",
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      debug: true
+    )
+  end
 
+  lane :beta_testflight do
+    increment_build_number
+    build_adhoc
+    upload_to_testflight
+  end
+
+  lane :certs do
+    match(type: "development", readonly: true)
+    match(type: "adhoc", readonly: true)
+    match(type: "appstore", readonly: true)
+  end
+
+  private_lane :build_adhoc do
     build_ios_app(
       workspace: "Runner.xcworkspace",
       scheme: "Staging",
@@ -30,25 +53,7 @@ platform :ios do
       output_name: "staging.ipa",
       output_directory: "build/ios/"
     )
-
-    firebase_app_distribution(
-      app: "1:1015768123742:ios:d19dd49eb26cb7d37b27cf",
-      ipa_path: "build/ios/staging.ipa",
-      groups: "me",
-      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
-      debug: true
-    )
-  end
-
-  lane :beta_testflight do
-    build_app(workspace: "Runner.xcworkspace", scheme: "Runner")
-    upload_to_testflight
-  end
-
-  lane :certs do
-    match(type: "development", readonly: true)
-    match(type: "adhoc", readonly: true)
-    match(type: "appstore", readonly: true)
   end
 
 end
+
