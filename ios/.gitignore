@@ -32,3 +32,6 @@ Runner/GeneratedPluginRegistrant.*
 !default.perspectivev3
 fastlane/README.md
 fastlane/report.xml
+Runner.app.dSYM.zip
+Runner.ipa
+fastlane/Preview.html
