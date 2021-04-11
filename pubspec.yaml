@@ -53,6 +53,7 @@ dev_dependencies:
   freezed: ^0.14.1+1
   json_serializable:
   pedantic_mono: any
+  test: ^1.16.5
 
 flutter_icons:
   image_path: "assets/logo.jpg"
