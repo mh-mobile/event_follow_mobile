@@ -66,6 +66,36 @@
 
 
 
+# 開発環境のセットアップ
+
+### リポジトリのclone
+
+```
+$ git clone https://github.com/mh-mobile/event_follow_mobile
+```
+
+### 環境変数の設定
+
+プロジェクトルートに.envファイルを配置します。
+
+| 環境変数名             | 値                                 | 説明                                      |
+| ---------------------- | ---------------------------------- | ----------------------------------------- |
+| TWITTER_API_KEY        | ※ アクセストークンの値             | Twitterのアクセストークンの値             |
+| TWITTER_API_SECRET_KEY | ※ アクセストークンシークレットの値 | Twitterのアクセストークンシークレットの値 |
+| TWITTER_REDIRECT_URI   | eventfollow://                     | Twitterログイン時のリダイレクトURI        |
+| API_DOMAIN             | 例) api.example.com                | Webアプリ版のAPIのドメイン                |
+| APP_DOMAIN             | 例) example.com                    | Webアプリ版のフロントのドメイン           |
+
+### アプリの起動
+
+```
+$ flutter run --debug
+```
+
+※ Null Safetyに対応しているため、`--no-sound-null-safety` のオプションは不要
+
+
+
 # スクリーンショット
 
 ![events_sc](docs/events_sc.png)
