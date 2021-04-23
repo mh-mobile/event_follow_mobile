@@ -40,8 +40,10 @@ class FriendsFooter extends HookWidget {
 
     return Container(
       padding: const EdgeInsets.all(10),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
+      width: double.infinity,
+      child: Wrap(
+        alignment: WrapAlignment.start,
+        runSpacing: 5,
         children: [
           GestureDetector(
             onTap: () {
@@ -76,36 +78,34 @@ class FriendsFooter extends HookWidget {
               ),
             ),
           ),
-          Row(
-            children: friends.map((friend) {
-              return Container(
-                  margin: const EdgeInsets.only(right: 5),
-                  child: GestureDetector(
-                    onTap: () {
-                      launch('https://twitter.com/${friend.screenName}');
-                    },
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(50)),
-                      child: CachedNetworkImage(
-                        imageUrl: friend.profileImage,
-                        placeholder: (context, url) => Container(
+          ...friends.map((friend) {
+            return Container(
+                margin: const EdgeInsets.only(right: 5),
+                child: GestureDetector(
+                  onTap: () {
+                    launch('https://twitter.com/${friend.screenName}');
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                    child: CachedNetworkImage(
+                      imageUrl: friend.profileImage,
+                      placeholder: (context, url) => Container(
+                        color: const Color(0xffd7d7d8),
+                        width: 30,
+                        height: 30,
+                      ),
+                      errorWidget: (_, __, dynamic ___) {
+                        return Container(
                           color: const Color(0xffd7d7d8),
                           width: 30,
                           height: 30,
-                        ),
-                        errorWidget: (_, __, dynamic ___) {
-                          return Container(
-                            color: const Color(0xffd7d7d8),
-                            width: 30,
-                            height: 30,
-                          );
-                        },
-                        height: 30,
-                      ),
+                        );
+                      },
+                      height: 30,
                     ),
-                  ));
-            }).toList(),
-          )
+                  ),
+                ));
+          }).toList()
         ],
       ),
     );
