@@ -82,7 +82,9 @@ class FollowingTweetsListView extends HookWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
+                              Wrap(
+                                alignment: WrapAlignment.start,
+                                crossAxisAlignment: WrapCrossAlignment.center,
                                 children: [
                                   Text(tweet.user.name,
                                       style: TextStyle(
