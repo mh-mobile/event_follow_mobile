@@ -23,7 +23,7 @@ class EventHeldView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    EventHeldStatus status = convertEventStatus(event);
+    final status = convertEventStatus(event);
 
     return Container(
       width: 60,
