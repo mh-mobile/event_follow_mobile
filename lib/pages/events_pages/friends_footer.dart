@@ -66,7 +66,7 @@ class FriendsFooter extends HookWidget {
               width: 30,
               height: 30,
               decoration: BoxDecoration(
-                color: const Color(0xfff0f1f5),
+                color: const Color(0xffebe4df),
                 border: Border.all(
                   color: const Color(0xffc1c1c1),
                   width: 1,
