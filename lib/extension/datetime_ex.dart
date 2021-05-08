@@ -6,6 +6,6 @@ extension DateTimeExtension on DateTime {
   }
 
   String convertToEventDateFormat() {
-    return DateFormat('M/dd').format(this);
+    return DateFormat('M/d').format(this);
   }
 }

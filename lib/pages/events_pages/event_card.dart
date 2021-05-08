@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:event_follow/models/entities/event.dart';
 import 'package:event_follow/models/entities/event_extra.dart';
+import 'package:event_follow/pages/events_pages/event_held_view.dart';
 import 'package:event_follow/pages/events_pages/friends_footer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../extension/datetime_ex.dart';
 import '../../extension/image_ex.dart';
 import '../../extension/string_ex.dart';
 
@@ -36,33 +36,7 @@ class EventCard extends HookWidget {
                         padding: const EdgeInsets.all(5),
                         child: Column(
                           children: [
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 5),
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: const Color(0xfff0f1f5),
-                                border: Border.all(
-                                  color: const Color(0xffc1c1c1),
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    _event.startedAt.convertToEventDateFormat(),
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                  const Text(
-                                    '開催',
-                                    style: TextStyle(fontSize: 12),
-                                  )
-                                ],
-                              ),
-                            ),
+                            EventHeldView(event: _event),
                             Container(
                               child: ImageExtension.getEventLogoPath(
                                   _event.siteId),
