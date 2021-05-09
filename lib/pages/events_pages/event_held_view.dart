@@ -45,7 +45,7 @@ class EventHeldView extends HookWidget {
                   child: Center(
                     child: Text(
                       event.startedAt.convertToEventDateFormat(),
-                      style: const TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16, letterSpacing: 2),
                     ),
                   ),
                 )),
