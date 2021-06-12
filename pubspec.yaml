@@ -38,7 +38,7 @@ dependencies:
   intl: ^0.17.0
   package_info: ^2.0.0
   synchronized: ^3.0.0
-  twitter_login: ^3.0.4
+  twitter_login: ^4.0.0
   url_launcher: ^6.0.2
 
 flutter_native_splash:
