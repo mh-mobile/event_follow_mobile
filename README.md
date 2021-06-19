@@ -1,5 +1,6 @@
 [mh-mobile/event_follow](https://github.com/mh-mobile/event_follow)のモバイルアプリ版です。
 
+ [![App Store](./docs/app_store_badge.svg)](https://apps.apple.com/jp/app/event-follow/id1561648565)
 
 # イベントフォロー
 
