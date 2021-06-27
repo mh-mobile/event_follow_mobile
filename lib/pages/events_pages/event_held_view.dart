@@ -70,7 +70,7 @@ class EventHeldView extends HookWidget {
     final startAt = event.startedAt;
     final endAt = event.endedAt;
 
-    final now = DateTime.now();
+    final now = DateTime.now().toUtc();
     final nextDate = now.add(const Duration(days: 1));
     if (now.compareTo(startAt) >= 0 && now.compareTo(endAt) <= 0) {
       return const EventHeldStatus(label: '開催中', color: Color(0xfffd5c63));
