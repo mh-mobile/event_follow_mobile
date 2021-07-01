@@ -108,11 +108,11 @@ class SortFilterDialog extends HookWidget {
                           children: const [
                             SizedBox(
                               width: 100,
-                              child: Center(child: Text('Sort by')),
+                              child: Center(child: Text('並び替え')),
                             ),
                             SizedBox(
                               width: 100,
-                              child: Center(child: Text('Filter by')),
+                              child: Center(child: Text('絞り込み')),
                             ),
                           ],
                         ),
